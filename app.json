@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "Narsingdi Transit",
+    "slug": "narsingdi-transit",
+    "version": "1.0.1",
+    "platforms": [
+      "android"
+    ],
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#4caf50"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "cc.rafat.narsingditransit",
+      "versionCode": 3,
+      "permissions": [],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#4caf50"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "description": "Narsingdi Transit is an open-source railway schedule app for commuters in Narsingdi. View train timings, off days, and important route info offline.",
+    "githubUrl": "https://github.com/ffrafat/narsingdi-transit-app",
+    "owner": "ffrafat",
+    "extra": {
+      "eas": {
+        "projectId": "cff96b20-e99f-4bd9-a8ce-27ec9df86299"
+      }
+    }
+  }
+}
