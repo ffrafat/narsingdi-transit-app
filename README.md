@@ -1,4 +1,4 @@
-# 🚆 Narsingdi Transit – Bangla Train Timetable App
+# 🚆 Narsingdi Transit – Train Timetable App for Narsingdi District Commuters
 
 Narsingdi Transit is a clean, minimal, and fully Bangla-language Android app designed for daily train commuters of **Narsingdi district**, Bangladesh.
 
@@ -8,7 +8,10 @@ Whether you're heading to Dhaka, Airport, or coming home, this app helps you che
 
 ## 📥 Download on Google Play
 
-[![Get it on Google Play](https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=cc.rafat.narsingditransit)
+<a href="https://play.google.com/store/apps/details?id=cc.rafat.narsingditransit">
+  <img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" width="120"/>
+</a>
+
 
 ---
 
