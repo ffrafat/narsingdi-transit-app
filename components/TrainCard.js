@@ -39,7 +39,7 @@ const getBengaliTime = (date) => {
   const minuteBn = engToBengaliDigit(minutes.toString().padStart(2, '0'));
   const ampmBn = amPmMap[ampm];
 
-  return `${hourBn} : ${minuteBn}`;
+  return `${hourBn}:${minuteBn}`;
 };
 
 // Convert "HH:mm" string to Bengali time format

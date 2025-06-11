@@ -20,7 +20,10 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import LiveDot from '../components/LiveDot';
 import DropdownSelector from '../components/DropdownSelector';
 
-const LOCATIONS = ['কমলাপুর', 'এয়ারপোর্ট', 'নরসিংদী'];
+
+import { fetchAndCacheRoute, loadFromCache } from '../utils/dataFetcher';
+
+const LOCATIONS = ['কমলাপুর', 'এয়ারপোর্ট', 'নরসিংদী', 'মেথিকান্দা'];
 
 const bengaliDays = {
   Sunday: 'রবিবার',
@@ -62,7 +65,7 @@ const getBengaliTime = (date) => {
   const minutes = date.getMinutes();
   const ampm = hours >= 12 ? 'PM' : 'AM';
   hours = hours % 12 || 12;
-  return `${engToBengaliDigit(hours)}:${engToBengaliDigit(minutes.toString().padStart(2, '0'))}`;
+  return `${engToBengaliDigit(hours.toString().padStart(2, '0'))}:${engToBengaliDigit(minutes.toString().padStart(2, '0'))}`;
 };
 
 const getBengaliDate = (date) => {
@@ -83,12 +86,26 @@ const TimetableScreen = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
 useEffect(() => {
+  const timer = setInterval(() => {
+    setCurrentTime(new Date());
+  }, 60000); // update every second
+
+  return () => clearInterval(timer); // cleanup on unmount
+}, []);
+
+
+// Data Fetching Logics
+useEffect(() => {
   const init = async () => {
     const allRoutes = [
       { from: 'নরসিংদী', to: 'কমলাপুর' },
       { from: 'নরসিংদী', to: 'এয়ারপোর্ট' },
       { from: 'কমলাপুর', to: 'নরসিংদী' },
       { from: 'এয়ারপোর্ট', to: 'নরসিংদী' },
+      { from: 'মেথিকান্দা', to: 'কমলাপুর' },
+      { from: 'মেথিকান্দা', to: 'এয়ারপোর্ট' },
+      { from: 'কমলাপুর', to: 'মেথিকান্দা' },
+      { from: 'এয়ারপোর্ট', to: 'মেথিকান্দা' },
     ];
 
     const netInfo = await NetInfo.fetch();
@@ -115,29 +132,7 @@ useEffect(() => {
   init();
 }, []);
 
-
-  const fetchAndCacheRoute = async (from, to) => {
-    let url = null;
-    if (from === 'নরসিংদী' && (to === 'কমলাপুর' || to === 'এয়ারপোর্ট')) {
-      url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/NarsingdiToKamalapurAirport';
-    }
-    if (from === 'কমলাপুর' && to === 'নরসিংদী') {
-      url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/KamalapurToNarsingdi';
-    }
-    if (from === 'এয়ারপোর্ট' && to === 'নরসিংদী') {
-      url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/AirportToNarsingdi';
-    }
-    if (!url) return;
-
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      await AsyncStorage.setItem(`route_${from}_${to}`, JSON.stringify(data));
-    } catch (e) {
-      console.error(`❌ Failed to cache ${from} → ${to}`, e);
-    }
-  };
-
+// Data Fetching Logic
   const fetchData = useCallback(async () => {
     setTrains([]);
 
@@ -187,7 +182,6 @@ useEffect(() => {
             setTempDate(date);
             setShowDatePicker(true);
           }} />
-          <IconButton icon="refresh" size={24} iconColor="#4CAF50" onPress={fetchData} />
         </View>
       ),
     });
@@ -210,8 +204,8 @@ useEffect(() => {
     <View style={{ flex: 1, paddingHorizontal: 12, paddingTop: 4 }}>
       <View style={styles.topRow}>
         <View style={styles.leftTopRow}>
+          <Icon name="clock" size={28} color="#555" style={{ marginRight: 4, marginTop: 4, marginRight: 4 }} />
           <RNText style={styles.bigTime}>{getBengaliTime(currentTime)}</RNText>
-          <LiveDot />
         </View>
         <View style={styles.rightTopRow}>
           <RNText style={styles.mediumWeekday}>
@@ -249,6 +243,7 @@ useEffect(() => {
             <Text style={styles.nextDepartureTitle}>
               পরবর্তী ট্রেন {getNextDepartureIn()} পর
             </Text>
+          <LiveDot />
           </View>
           <TrainCard train={trains[0]} highlight showHeading />
           {trains.length > 1 && (
@@ -306,7 +301,7 @@ const styles = StyleSheet.create({
   journeyLine: { flexDirection: 'row', alignItems: 'center', marginHorizontal: 8 },
   journeyDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: '#4caf50' },
   journeyLineBar: { width: 80, height: 2, backgroundColor: '#4caf50' },
-  sectionTitleContainer: { marginVertical: 8 },
+  sectionTitleContainer: { flexDirection: 'row', marginVertical: 8 },
   nextDepartureTitle: { fontSize: 18, fontWeight: '700', color: '#2e7d32' },
   upcomingTitle: { fontSize: 16, fontWeight: '600', color: '#555' },
   errorBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#ffcdd2', padding: 8, borderRadius: 6, marginVertical: 12 },

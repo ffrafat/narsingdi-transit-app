@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
     height: 18,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 6,
+    marginLeft: 12,
+    marginVertical: 6,
   },
   dot: {
     position: 'absolute',

@@ -28,24 +28,35 @@ const AboutScreen = () => {
 
       <View style={styles.itemRow}>
         <Icon name="account" size={22} color="#4caf50" />
-        <Text style={styles.itemText}>ডেভেলপার: <Text style={styles.bold}>ফয়সাল ফারুকী রাফাত</Text></Text>
+        <Text style={styles.bold}>  ফয়সাল ফারুকী রাফাত</Text>
+      </View>
+
+                  <View style={styles.itemRow}>
+        <Icon name="facebook" size={22} color="#4caf50" />
+                <Text style={styles.linkText} onPress={() => openLink('https://facebook.com/fslfrqrft')}>
+          fb.com/fslfrqrft
+        </Text>
+      </View>
+
+      <View style={styles.itemRow}>
+        <Icon name="web" size={22} color="#4caf50" />
+                <Text style={styles.linkText} onPress={() => openLink('https://rafat.cc')}>
+          rafat.cc
+        </Text>
+      </View>
+
+            <View style={styles.itemRow}>
+        <Icon name="email" size={22} color="#4caf50" />
+                <Text style={styles.linkText} onPress={() => openLink('mailto:ff@rafat.cc')}>
+          ff@rafat.cc
+        </Text>
       </View>
 
       <View style={styles.itemRow}>
         <Icon name="github" size={22} color="#4caf50" />
         <Text style={styles.linkText} onPress={() => openLink('https://github.com/ffrafat/narsingdi-transit-app')}>
-          সোর্স কোড (GitHub)
+        github.com/ffrafat
         </Text>
-      </View>
-
-      <View style={styles.itemRow}>
-        <Icon name="license" size={22} color="#4caf50" />
-        <Text style={styles.itemText}>লাইসেন্স: MIT</Text>
-      </View>
-
-      <View style={styles.itemRow}>
-        <Icon name="application" size={22} color="#4caf50" />
-        <Text style={styles.itemText}>ভার্সন: ১.০.১</Text>
       </View>
 
       <Divider style={styles.divider} />
