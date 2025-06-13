@@ -15,10 +15,19 @@ export const fetchAndCacheRoute = async (from, to) => {
     url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/MethikandaToKamalapurAirport';
   }
   if (from === 'কমলাপুর' && to === 'মেথিকান্দা') {
-    url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/KamalapurToNMethikanda';
+    url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/KamalapurToMethikanda';
   }
   if (from === 'এয়ারপোর্ট' && to === 'মেথিকান্দা') {
-    url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/AirportToNMethikanda';
+    url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/AirportToMethikanda';
+  }
+    if (from === 'ভৈরব' && (to === 'কমলাপুর' || to === 'এয়ারপোর্ট')) {
+    url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/BhairabToKamalapurAirport';
+  }
+    if (from === 'কমলাপুর' && to === 'ভৈরব') {
+    url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/KamalapurToBhairab';
+  }
+  if (from === 'এয়ারপোর্ট' && to === 'ভৈরব') {
+    url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/AirportToBhairab';
   }
 
 

@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import TimetableScreen from '../screens/TimetableScreen';
 import AboutScreen from '../screens/AboutScreen';
-
+import CreditsScreen from '../screens/CreditsScreen';
 
 import NetInfo from '@react-native-community/netinfo';
 import { fetchAndCacheRoute } from '../utils/dataFetcher';
@@ -31,6 +31,10 @@ const handleManualUpdate = async () => {
     await fetchAndCacheRoute('মেথিকান্দা', 'এয়ারপোর্ট');
     await fetchAndCacheRoute('কমলাপুর', 'মেথিকান্দা');
     await fetchAndCacheRoute('এয়ারপোর্ট', 'মেথিকান্দা');
+    await fetchAndCacheRoute('ভৈরব', 'কমলাপুর');
+    await fetchAndCacheRoute('ভৈরব', 'এয়ারপোর্ট');
+    await fetchAndCacheRoute('কমলাপুর', 'ভৈরব');
+    await fetchAndCacheRoute('এয়ারপোর্ট', 'ভৈরব');
     Alert.alert(
       'আপডেটেড',
       'ডেটা আপডেট সম্পন্ন হয়েছে!',
@@ -64,7 +68,7 @@ function CustomDrawerContent(props) {
           নরসিংদী ট্রানজিট
         </Text>
         <Text style={{ fontSize: 16, color: '#888', marginTop: 4 }}>
-          অ্যাপ ভার্সন: ১.০.১
+          অ্যাপ ভার্সন: ১.১
         </Text>
 
       </View>
@@ -94,7 +98,7 @@ function CustomDrawerContent(props) {
 
       {/* Extras Section */}
 <DrawerItem
-  label="ই-টিকেট"
+  label="বাংলাদেশ রেলওয়ে ই-টিকেট"
   icon={({ color, size }) => <Icon name="ticket-confirmation" color={color} size={size} />}
   onPress={() => Linking.openURL('https://eticket.railway.gov.bd/')}
 />
@@ -103,6 +107,12 @@ function CustomDrawerContent(props) {
   label="নরসিংদী রেলওয়ে প্যাসেঞ্জার কম্যুনিটি"
   icon={({ color, size }) => <Icon name="facebook" color={color} size={size} />}
   onPress={() => Linking.openURL('https://www.facebook.com/groups/nrc.nrpc/')}
+/>
+
+<DrawerItem
+  label="নরসিংদী ট্রানজিট অ্যাপ কম্যুনিটি"
+  icon={({ color, size }) => <Icon name="facebook-messenger" color={color} size={size} />}
+  onPress={() => Linking.openURL('https://m.me/cm/AbaHX6_AYZx5Fvhy/')}
 />
 
       <View
@@ -115,10 +125,17 @@ function CustomDrawerContent(props) {
       />
 
       <DrawerItem
-        label="আমাদের সম্পর্কে"
+        label="অ্যাপ সম্পর্কে"
         icon={({ color, size }) => <Icon name="information-outline" color={color} size={size} />}
-        onPress={() => props.navigation.navigate('আমাদের সম্পর্কে')}
+        onPress={() => props.navigation.navigate('অ্যাপ সম্পর্কে')}
       />
+
+      <DrawerItem
+  label="তথ্যসূত্র ও কৃতজ্ঞতা"
+  icon={({ color, size }) => <Icon name="account-group-outline" color={color} size={size} />}
+  onPress={() => props.navigation.navigate('তথ্যসূত্র ও কৃতজ্ঞতা')}
+/>
+
 
 <DrawerItem
   label="রেটিং দিন"
@@ -126,7 +143,7 @@ function CustomDrawerContent(props) {
   onPress={() => Linking.openURL(playStoreLink)}
 />
 <DrawerItem
-  label="আমাদের আরও অ্যাপ"
+  label="আরও কিছু অ্যাপ"
   icon={({ color, size }) => <Icon name="apps" color={color} size={size} />}
   onPress={() => Linking.openURL(devProfileLink)}
 />
@@ -134,9 +151,13 @@ function CustomDrawerContent(props) {
       <View style={{ flex: 1 }} />
 
       <View style={{ padding: 16 }}>
-<Text style={{ fontSize: 12, color: '#aaa', textAlign: 'center' }}>
+<Text style={{ fontSize: 14, color: '#aaa', textAlign: 'center' }}>
   ভালোবাসা দিয়ে তৈরি ❤️ নরসিংদীর মানুষের জন্য
 </Text>
+<Text style={{ fontSize: 12, color: '#aaa', textAlign: 'center' }}>
+  © ২০২৫ - ফয়সাল ফারুকী রাফাত - সর্বস্বত্ত্ব সংরক্ষিত
+</Text>
+
 
       </View>
     </DrawerContentScrollView>
@@ -155,7 +176,9 @@ export default function MainNavigator() {
         }}
       >
         <Drawer.Screen name="সময়সূচী" component={TimetableScreen} />
-        <Drawer.Screen name="আমাদের সম্পর্কে" component={AboutScreen} />
+        <Drawer.Screen name="অ্যাপ সম্পর্কে" component={AboutScreen} />
+        <Drawer.Screen name="তথ্যসূত্র ও কৃতজ্ঞতা" component={CreditsScreen} />
+        
       </Drawer.Navigator>
     </NavigationContainer>
   );

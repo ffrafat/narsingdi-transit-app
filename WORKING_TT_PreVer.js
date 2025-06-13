@@ -23,7 +23,7 @@ import DropdownSelector from '../components/DropdownSelector';
 
 import { fetchAndCacheRoute, loadFromCache } from '../utils/dataFetcher';
 
-const LOCATIONS = ['কমলাপুর', 'এয়ারপোর্ট', 'নরসিংদী', 'মেথিকান্দা', 'ভৈরব'];
+const LOCATIONS = ['কমলাপুর', 'এয়ারপোর্ট', 'নরসিংদী', 'মেথিকান্দা'];
 
 const bengaliDays = {
   Sunday: 'রবিবার',
@@ -89,7 +89,7 @@ const TimetableScreen = () => {
 useEffect(() => {
   const timer = setInterval(() => {
     setCurrentTime(new Date());
-  }, 60000); // update every minute
+  }, 60000); // update every second
 
   return () => clearInterval(timer); // cleanup on unmount
 }, []);
@@ -127,37 +127,34 @@ useEffect(() => {
       return;
     }
 
-  if (isConnected) {
+    if (isConnected) {
       for (const route of allRoutes) {
         await fetchAndCacheRoute(route.from, route.to);
       }
     }
   };
 
-
   init();
 }, []);
 
 // Data Fetching Logic
-const fetchData = useCallback(async () => {
-  setTrains([]);
+  const fetchData = useCallback(async () => {
+    setTrains([]);
 
-  const cacheKey = `route_${from}_${to}`;
-  try {
-    const cached = await AsyncStorage.getItem(cacheKey);
-    if (cached) {
-      const data = JSON.parse(cached);
-      setRawData(data);          // ✅ Save the raw timetable data
-      filterAndSetTrains(data);  // ✅ Filter based on current time
-    } else {
+    const cacheKey = `route_${from}_${to}`;
+    try {
+      const cached = await AsyncStorage.getItem(cacheKey);
+      if (cached) {
+        const data = JSON.parse(cached);
+        filterAndSetTrains(data);
+      } else {
+        setTrains(null);
+      }
+    } catch (e) {
+      console.error('Failed to load from cache', e);
       setTrains(null);
     }
-  } catch (e) {
-    console.error('❌ Failed to load from cache', e);
-    setTrains(null);
-  }
-}, [from, to, date]);
-
+  }, [from, to, date]);
 
   const filterAndSetTrains = (data) => {
     const engToday = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
@@ -181,16 +178,6 @@ const fetchData = useCallback(async () => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
-  useEffect(() => {
-  const interval = setInterval(() => {
-    if (rawData.length > 0) {
-      filterAndSetTrains(rawData);
-    }
-  }, 60000);
-
-  return () => clearInterval(interval);
-}, [rawData, date]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -222,7 +209,7 @@ const fetchData = useCallback(async () => {
     <View style={{ flex: 1, paddingHorizontal: 12, paddingTop: 4 }}>
       <View style={styles.topRow}>
         <View style={styles.leftTopRow}>
-          <Icon name="clock-outline" size={34} color="#555" style={{ marginRight: 4, marginTop: 4, marginRight: 4 }} />
+          <Icon name="clock" size={28} color="#555" style={{ marginRight: 4, marginTop: 4, marginRight: 4 }} />
           <RNText style={styles.bigTime}>{getBengaliTime(currentTime)}</RNText>
         </View>
         <View style={styles.rightTopRow}>
@@ -248,6 +235,9 @@ const fetchData = useCallback(async () => {
       <Icon name="alert-circle" size={20} color="#d32f2f" style={{ marginRight: 4 }} />
       <RNText style={styles.errorText}>দুঃখিত! এই রুটের জন্য সময়সূচী খুঁজে পাওয়া যায়নি।</RNText>
     </View>
+    <TouchableOpacity style={styles.updateButton} onPress={fetchData}>
+      <Text style={styles.updateButtonText}>ডেটাবেজ আপডেট করুন</Text>
+    </TouchableOpacity>
   </View>
 )}
 
