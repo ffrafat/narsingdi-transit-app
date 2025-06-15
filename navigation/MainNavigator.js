@@ -138,7 +138,7 @@ function CustomDrawerContent(props) {
 
 
 <DrawerItem
-  label="রেটিং দিন"
+  label="রিভিউ দিন"
   icon={({ color, size }) => <Icon name="star-outline" color={color} size={size} />}
   onPress={() => Linking.openURL(playStoreLink)}
 />

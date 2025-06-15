@@ -38,6 +38,9 @@
       "eas": {
         "projectId": "cff96b20-e99f-4bd9-a8ce-27ec9df86299"
       }
-    }
+    },
+    "plugins": [
+      "react-native-rate-app"
+    ]
   }
 }
