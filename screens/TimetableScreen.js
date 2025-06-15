@@ -87,6 +87,17 @@ const TimetableScreen = () => {
   const [rawData, setRawData] = useState([]);
 
 useEffect(() => {
+  const loadDefaultStations = async () => {
+    const savedFrom = await AsyncStorage.getItem('default_from');
+    const savedTo = await AsyncStorage.getItem('default_to');
+    if (savedFrom) setFrom(savedFrom);
+    if (savedTo) setTo(savedTo);
+  };
+  loadDefaultStations();
+}, []);
+
+
+useEffect(() => {
   const timer = setInterval(() => {
     setCurrentTime(new Date());
   }, 60000); // update every minute
