@@ -6,6 +6,8 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@rea
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import ETicketScreen from '../screens/ETicketScreen';
+import VerifyScreen from '../screens/VerifyScreen';
 import TimetableScreen from '../screens/TimetableScreen';
 import AboutScreen from '../screens/AboutScreen';
 import CreditsScreen from '../screens/CreditsScreen';
@@ -100,9 +102,13 @@ function CustomDrawerContent(props) {
 <DrawerItem
   label="বাংলাদেশ রেলওয়ে ই-টিকেট"
   icon={({ color, size }) => <Icon name="ticket-confirmation" color={color} size={size} />}
-  onPress={() => Linking.openURL('https://eticket.railway.gov.bd/')}
+ onPress={() => props.navigation.navigate('ই-টিকিট')}
 />
-
+<DrawerItem
+  label="টিকিট ভেরিফিকেশন"
+  icon={({ color, size }) => <Icon name="ticket-account" color={color} size={size} />}
+ onPress={() => props.navigation.navigate('টিকিট ভেরিফিকেশন')}
+ />
 <DrawerItem
   label="নরসিংদী রেলওয়ে প্যাসেঞ্জার কম্যুনিটি"
   icon={({ color, size }) => <Icon name="facebook" color={color} size={size} />}
@@ -176,6 +182,8 @@ export default function MainNavigator() {
         }}
       >
         <Drawer.Screen name="সময়সূচী" component={TimetableScreen} />
+        <Drawer.Screen name="ই-টিকিট" component={ETicketScreen} />
+        <Drawer.Screen name="টিকিট ভেরিফিকেশন" component={VerifyScreen} />
         <Drawer.Screen name="অ্যাপ সম্পর্কে" component={AboutScreen} />
         <Drawer.Screen name="তথ্যসূত্র ও কৃতজ্ঞতা" component={CreditsScreen} />
         
