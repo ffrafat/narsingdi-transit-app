@@ -239,6 +239,19 @@ const fetchData = useCallback(async () => {
           <View style={styles.journeyDot} />
           <View style={styles.journeyLineBar} />
           <View style={styles.journeyDot} />
+
+
+            <TouchableOpacity
+      onPress={() => {
+        const temp = from;
+        setFrom(to);
+        setTo(temp);
+      }}
+      style={styles.reverseButton}
+    >
+      <Icon name="swap-horizontal" size={24} color="#fff" />
+    </TouchableOpacity>
+
         </View>
         <DropdownSelector options={LOCATIONS} selected={to} onChange={setTo} circular icon="map-marker" />
       </View>
@@ -312,10 +325,6 @@ const styles = StyleSheet.create({
   rightTopRow: { flexDirection: 'column', alignItems: 'flex-end' },
   mediumWeekday: { fontSize: 16, fontWeight: '700', color: '#555' },
   fullDate: { fontSize: 12, fontWeight: '700', color: '#666', marginBottom: 12 },
-  dropdownRow: { flexDirection: 'row', justifyContent: 'center', marginBottom: 8, alignItems: 'center' },
-  journeyLine: { flexDirection: 'row', alignItems: 'center', marginHorizontal: 8 },
-  journeyDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: '#4caf50' },
-  journeyLineBar: { width: 80, height: 2, backgroundColor: '#4caf50' },
   sectionTitleContainer: { flexDirection: 'row', marginVertical: 8 },
   nextDepartureTitle: { fontSize: 18, fontWeight: '700', color: '#2e7d32' },
   upcomingTitle: { fontSize: 16, fontWeight: '600', color: '#555' },
@@ -337,6 +346,24 @@ updateButtonText: {
   fontSize: 16,
   fontWeight: '600',
 },
+
+dropdownRow: { flexDirection: 'row', justifyContent: 'center', marginBottom: 8, alignItems: 'center' },
+journeyLine: { flexDirection: 'row', alignItems: 'center', marginHorizontal: 8 },
+journeyDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: '#4caf50' },
+journeyLineBar: { width: 80, height: 2, backgroundColor: '#4caf50' },
+
+reverseButton: {
+  position: 'absolute',
+  top: '5%',
+  left: '50%',
+  transform: [{ translateX: -12 }, { translateY: -12 }],
+  backgroundColor: '#4caf50',
+  borderRadius: 24,
+  padding: 4,
+  elevation: 3,
+  zIndex: 10,
+}
+
 
 });
 
