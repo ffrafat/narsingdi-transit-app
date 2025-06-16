@@ -6,7 +6,7 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@rea
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
+import MapScreen from '../screens/MapScreen';
 import ETicketScreen from '../screens/ETicketScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import VerifyScreen from '../screens/VerifyScreen';
@@ -77,6 +77,14 @@ function CustomDrawerContent(props) {
         icon={({ color, size }) => <Icon name="train" color={color} size={size} />}
         onPress={() => props.navigation.navigate('সময়সূচী')}
       />
+
+            <DrawerItem
+        label="রুট ম্যাপ"
+        icon={({ color, size }) => <Icon name="map" color={color} size={size} />}
+        onPress={() => props.navigation.navigate('রুট ম্যাপ')}
+      />
+
+
 
       <DrawerItem
   label="ডেটাবেজ আপডেট"
@@ -181,6 +189,7 @@ export default function MainNavigator() {
         }}
       >
         <Drawer.Screen name="সময়সূচী" component={TimetableScreen} />
+        <Drawer.Screen name="রুট ম্যাপ" component={MapScreen} />
         <Drawer.Screen name="সেটিংস" component={SettingsScreen} />
         <Drawer.Screen name="ই-টিকিট" component={ETicketScreen} />
         <Drawer.Screen name="টিকিট ভেরিফিকেশন" component={VerifyScreen} />
