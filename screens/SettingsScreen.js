@@ -3,9 +3,9 @@ import { View, StyleSheet, Alert } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Picker } from '@react-native-picker/picker';
+import DropdownSelector from '../components/DropdownSelector';
 
-const stationList = ['নরসিংদী', 'কমলাপুর', 'এয়ারপোর্ট', 'ভৈরব বাজার', 'মেথিকান্দা'];
+const stationList = ['নরসিংদী', 'কমলাপুর', 'এয়ারপোর্ট', 'ভৈরব', 'মেথিকান্দা'];
 
 const SettingsScreen = () => {
   const [from, setFrom] = useState('নরসিংদী');
@@ -13,18 +13,27 @@ const SettingsScreen = () => {
 
   useEffect(() => {
     const loadDefaults = async () => {
-      const storedFrom = await AsyncStorage.getItem('default_from');
-      const storedTo = await AsyncStorage.getItem('default_to');
-      if (storedFrom) setFrom(storedFrom);
-      if (storedTo) setTo(storedTo);
+      try {
+        const savedFrom = await AsyncStorage.getItem('default_from');
+        const savedTo = await AsyncStorage.getItem('default_to');
+        if (savedFrom) setFrom(savedFrom);
+        if (savedTo) setTo(savedTo);
+      } catch (e) {
+        console.warn('Error loading settings:', e);
+      }
     };
     loadDefaults();
   }, []);
 
   const handleSave = async () => {
-    await AsyncStorage.setItem('default_from', from);
-    await AsyncStorage.setItem('default_to', to);
-    Alert.alert('সেইভ হয়েছে', 'আপনার পরিবর্তনগুলো সফলভাবে সেইভ করা হয়েছে।');
+    try {
+      await AsyncStorage.setItem('default_from', from);
+      await AsyncStorage.setItem('default_to', to);
+      Alert.alert('সেইভ হয়েছে', 'আপনার পরিবর্তনগুলো সফলভাবে সেইভ করা হয়েছে।');
+    } catch (e) {
+      Alert.alert('সেইভ হয়নি', 'সেইভ করার সময় সমস্যা হয়েছে।');
+      console.error('Error saving settings:', e);
+    }
   };
 
   return (
@@ -36,21 +45,23 @@ const SettingsScreen = () => {
 
       <View style={styles.row}>
         <View style={styles.half}>
-          <Text>উঠার স্টেশন</Text>
-          <Picker selectedValue={from} onValueChange={setFrom}>
-            {stationList.map((station) => (
-              <Picker.Item key={station} label={station} value={station} />
-            ))}
-          </Picker>
+          <Text style={styles.label}>উঠার স্টেশন</Text>
+          <DropdownSelector
+            label="উঠার স্টেশন"
+            options={stationList}
+            selected={from}
+            onChange={setFrom}
+          />
         </View>
 
         <View style={styles.half}>
-          <Text>নামার স্টেশন</Text>
-          <Picker selectedValue={to} onValueChange={setTo}>
-            {stationList.map((station) => (
-              <Picker.Item key={station} label={station} value={station} />
-            ))}
-          </Picker>
+          <Text style={styles.label}>নামার স্টেশন</Text>
+          <DropdownSelector
+            label="নামার স্টেশন"
+            options={stationList}
+            selected={to}
+            onChange={setTo}
+          />
         </View>
       </View>
 
@@ -68,6 +79,13 @@ const styles = StyleSheet.create({
   headerRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 12 },
   headerText: { fontSize: 18, fontWeight: 'bold', color: '#4caf50' },
   saveBtn: { marginTop: 20, backgroundColor: '#4caf50' },
+  label: {
+  fontWeight: 'bold',
+  marginBottom: 4,
+  textAlign: 'center',
+  color: '#555'
+},
+
 });
 
 export default SettingsScreen;

@@ -13,7 +13,7 @@ import {
 import NetInfo from '@react-native-community/netinfo';
 import { TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import TrainCard from '../components/TrainCard';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -75,6 +75,7 @@ const getBengaliDate = (date) => {
   return `${day} ${month}, ${year}`;
 };
 
+
 const TimetableScreen = () => {
   const navigation = useNavigation();
   const [from, setFrom] = useState('নরসিংদী');
@@ -86,15 +87,22 @@ const TimetableScreen = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [rawData, setRawData] = useState([]);
 
-useEffect(() => {
-  const loadDefaultStations = async () => {
-    const savedFrom = await AsyncStorage.getItem('default_from');
-    const savedTo = await AsyncStorage.getItem('default_to');
-    if (savedFrom) setFrom(savedFrom);
-    if (savedTo) setTo(savedTo);
-  };
-  loadDefaultStations();
-}, []);
+  // This will run every time the screen is focused
+  useFocusEffect(
+    useCallback(() => {
+      const loadDefaultStations = async () => {
+        try {
+          const savedFrom = await AsyncStorage.getItem('default_from');
+          const savedTo = await AsyncStorage.getItem('default_to');
+          if (savedFrom) setFrom(savedFrom);
+          if (savedTo) setTo(savedTo);
+        } catch (e) {
+          console.warn('Error loading default stations:', e);
+        }
+      };
+      loadDefaultStations();
+    }, [])
+  );
 
 
 useEffect(() => {
@@ -338,7 +346,7 @@ const styles = StyleSheet.create({
   fullDate: { fontSize: 12, fontWeight: '700', color: '#666', marginBottom: 12 },
   sectionTitleContainer: { flexDirection: 'row', marginVertical: 8 },
   nextDepartureTitle: { fontSize: 18, fontWeight: '700', color: '#2e7d32' },
-  upcomingTitle: { fontSize: 16, fontWeight: '600', color: '#555' },
+  upcomingTitle: { fontSize: 16, fontWeight: '700', color: '#555' },
   errorBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#ffcdd2', padding: 8, borderRadius: 6, marginVertical: 12 },
   errorText: { color: '#d32f2f', fontSize: 16, margin: 4 },
   noTrainsBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#C8E6C9', padding: 8, borderRadius: 6, marginVertical: 12 },

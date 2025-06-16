@@ -72,7 +72,7 @@ function CustomDrawerContent(props) {
           নরসিংদী ট্রানজিট
         </Text>
         <Text style={{ fontSize: 16, color: '#888', marginTop: 4 }}>
-          অ্যাপ ভার্সন: ১.১
+          অ্যাপ ভার্সন: ১.২
         </Text>
 
       </View>
