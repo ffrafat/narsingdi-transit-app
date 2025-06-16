@@ -42,7 +42,7 @@ const CreditsScreen = () => {
       <View style={styles.itemRow}>
         <Icon name="train-car" size={22} color="#4caf50" />
         <Text style={styles.itemText}>
-          মূল ট্রেন সময়সূচি: বাংলাদেশ রেলওয়ে (প্রকাশিত সময়সূচির ভিত্তিতে)
+          মূল ট্রেন সময়সূচি: বাংলাদেশ রেলওয়ে
         </Text>
       </View>
 
@@ -55,8 +55,8 @@ const CreditsScreen = () => {
 
       <View style={styles.itemRow}>
         <Icon name="facebook" size={22} color="#4caf50" />
-        <Text style={styles.linkText} onPress={() => openLink('https://www.facebook.com/groups/narsingdirail')}>
-          Narsingdi Railway Passengers' Community
+        <Text style={styles.linkText} onPress={() => openLink('https://www.facebook.com/groups/nrc.nrpc/')}>
+          নরসিংদী রেলওয়ে প্যাসেঞ্জার কম্যুনিটি
         </Text>
       </View>
 
