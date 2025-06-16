@@ -18,15 +18,14 @@ import NetInfo from '@react-native-community/netinfo';
 import { fetchAndCacheRoute } from '../utils/dataFetcher';
 
 const handleManualUpdate = async () => {
-  const netState = await NetInfo.fetch();
-
-  if (!netState.isConnected) {
-    Alert.alert('ইন্টারনেট সংযোগ নেই',
-       'অনুগ্রহ করে ইন্টারনেটে সংযুক্ত হয়ে আবার চেষ্টা করুন।');
-    return;
-  }
-
   try {
+    const netState = await NetInfo.fetch();
+
+    if (!netState.isConnected || netState.isInternetReachable === false) {
+      Alert.alert('ইন্টারনেট সংযোগ নেই', 'অনুগ্রহ করে ইন্টারনেটে সংযুক্ত হয়ে আবার চেষ্টা করুন।');
+      return;
+    }
+
     await fetchAndCacheRoute('নরসিংদী', 'কমলাপুর');
     await fetchAndCacheRoute('নরসিংদী', 'এয়ারপোর্ট');
     await fetchAndCacheRoute('কমলাপুর', 'নরসিংদী');
@@ -39,20 +38,14 @@ const handleManualUpdate = async () => {
     await fetchAndCacheRoute('ভৈরব', 'এয়ারপোর্ট');
     await fetchAndCacheRoute('কমলাপুর', 'ভৈরব');
     await fetchAndCacheRoute('এয়ারপোর্ট', 'ভৈরব');
-    Alert.alert(
-      'আপডেটেড',
-      'ডেটা আপডেট সম্পন্ন হয়েছে!',
-      [{ text: 'ঠিক আছে' }]
-    );
+
+    Alert.alert('আপডেটেড', 'ডেটা আপডেট সম্পন্ন হয়েছে!', [{ text: 'ঠিক আছে' }]);
   } catch (e) {
-    Alert.alert(
-      'ঝামেলা হয়েছে',
-      'ডেটা আপডেট করা যায় নি। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।',
-    [{ text: 'ঠিক আছে' }]
-  );
+    Alert.alert('ঝামেলা হয়েছে', 'ডেটা আপডেট করা যায় নি। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।', [{ text: 'ঠিক আছে' }]);
     console.error(e);
   }
 };
+
 
 
 

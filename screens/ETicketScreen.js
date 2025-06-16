@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { View, ActivityIndicator, StyleSheet, Alert, Text } from 'react-native';
 import { WebView } from 'react-native-webview';
 import NetInfo from '@react-native-community/netinfo';
+import { useFocusEffect } from '@react-navigation/native';
 
 const ETicketScreen = () => {
   const [isConnected, setIsConnected] = useState(true);
+  const [webViewKey, setWebViewKey] = useState(0);
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
@@ -22,6 +24,13 @@ const ETicketScreen = () => {
     return () => unsubscribe();
   }, []);
 
+  // Force reload WebView when screen is focused
+  useFocusEffect(
+    useCallback(() => {
+      setWebViewKey((prevKey) => prevKey + 1);
+    }, [])
+  );
+
   if (!isConnected) {
     return (
       <View style={styles.centered}>
@@ -33,11 +42,20 @@ const ETicketScreen = () => {
   return (
     <View style={styles.container}>
       <WebView
+        key={webViewKey}
         source={{ uri: 'https://eticket.railway.gov.bd/' }}
         startInLoadingState
+        cacheEnabled={false}
+        cacheMode="LOAD_NO_CACHE"
         renderLoading={() => (
           <ActivityIndicator size="large" color="#4caf50" style={styles.loader} />
         )}
+        onError={() => {
+          Alert.alert(
+            'লোডিং সমস্যা',
+            'ওয়েব পেজ লোড করা যায়নি। ইন্টারনেট সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।'
+          );
+        }}
       />
     </View>
   );
