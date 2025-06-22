@@ -1,15 +1,15 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
-import { Text, Card } from 'react-native-paper';
+import { View, StyleSheet, Pressable, Dimensions } from 'react-native';
+import { Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
 const options = [
-  { title: 'টিকিট কিনুন', icon: 'ticket-confirmation', screen: 'BuyTicket' },
+  { title: 'টিকিট ক্রয়', icon: 'ticket-confirmation', screen: 'BuyTicket' },
   { title: 'টিকিট যাচাই', icon: 'ticket-account', screen: 'VerifyTicket' },
-  { title: 'ট্রেন তথ্য', icon: 'train', screen: 'TrainInfo' },
+  { title: 'ট্রেনের তথ্য', icon: 'train', screen: 'TrainInfo' },
   { title: 'প্রোফাইল', icon: 'account', screen: 'Profile' },
-  { title: 'ক্রয় ইতিহাস', icon: 'history', screen: 'PurchaseHistory' },
+  { title: 'ক্রয়কৃত টিকেট', icon: 'history', screen: 'PurchaseHistory' },
   { title: 'পাসওয়ার্ড পরিবর্তন', icon: 'lock-reset', screen: 'ChangePassword' },
   { title: 'হেল্পলাইন', icon: 'headset', screen: 'Helpline' },
   { title: 'শর্তাবলী', icon: 'file-document-outline', screen: 'Terms' },
@@ -18,24 +18,24 @@ const options = [
 const numColumns = 2;
 const cardSize = Dimensions.get('window').width / numColumns - 24;
 
-const ETicketHome = () => {
+const ETicketHomeScreen = () => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
       {options.map((item, index) => (
-        <TouchableOpacity
+        <Pressable
           key={index}
-          style={styles.cardWrapper}
           onPress={() => navigation.navigate(item.screen)}
+          style={styles.cardWrapper}
         >
-          <Card style={styles.card}>
-            <Card.Content style={styles.cardContent}>
+          <View style={styles.card}>
+            <View style={styles.cardContent}>
               <Icon name={item.icon} size={32} color="#4caf50" />
               <Text style={styles.title}>{item.title}</Text>
-            </Card.Content>
-          </Card>
-        </TouchableOpacity>
+            </View>
+          </View>
+        </Pressable>
       ))}
     </View>
   );
@@ -53,9 +53,15 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   card: {
-    borderRadius: 12,
-    backgroundColor: '#f5f5f5',
-    elevation: 2,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    marginHorizontal: 2,
+    marginVertical: 6,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   cardContent: {
     alignItems: 'center',
@@ -64,8 +70,9 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 8,
     fontSize: 14,
+    fontWeight:'bold',
     textAlign: 'center',
-    color: '#333',
+    color: '#222',
   },
 });
 

@@ -20,7 +20,7 @@ const BuyTicketScreen = () => {
     <View style={styles.container}>
       {isConnected ? (
         <WebView
-          source={{ uri: 'https://eticket.railway.gov.bd/' }}
+          source={{ uri: 'https://railapp.railway.gov.bd/auth/login' }}
           startInLoadingState
           renderLoading={() => (
             <ActivityIndicator size="large" color="#4caf50" style={styles.loader} />

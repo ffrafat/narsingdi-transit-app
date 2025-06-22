@@ -38,54 +38,90 @@ const SettingsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerRow}>
-        <Icon name="map-marker-radius" size={24} color="#4caf50" />
-        <Text style={styles.headerText}>  ডিফল্ট স্টেশন</Text>
-      </View>
-
-      <View style={styles.row}>
-        <View style={styles.half}>
-          <Text style={styles.label}>উঠার স্টেশন</Text>
-          <DropdownSelector
-            label="উঠার স্টেশন"
-            options={stationList}
-            selected={from}
-            onChange={setFrom}
-          />
+      <View style={styles.card}>
+        <View style={styles.headerRow}>
+          <Icon name="home-map-marker" size={24} color="#4caf50" />
+          <Text style={styles.headerText}>  ডিফল্ট স্টেশন</Text>
         </View>
 
-        <View style={styles.half}>
-          <Text style={styles.label}>নামার স্টেশন</Text>
-          <DropdownSelector
-            label="নামার স্টেশন"
-            options={stationList}
-            selected={to}
-            onChange={setTo}
-          />
-        </View>
-      </View>
+        <View style={styles.row}>
+          <View style={styles.half}>
+            <Text style={styles.label}>উঠার স্টেশন</Text>
+            <DropdownSelector
+              label="উঠার স্টেশন"
+              options={stationList}
+              selected={from}
+              onChange={setFrom}
+            />
+          </View>
 
-      <Button mode="contained" onPress={handleSave} style={styles.saveBtn}>
-        সেইভ করুন
-      </Button>
+          <View style={styles.half}>
+            <Text style={styles.label}>নামার স্টেশন</Text>
+            <DropdownSelector
+              label="নামার স্টেশন"
+              options={stationList}
+              selected={to}
+              onChange={setTo}
+            />
+          </View>
+        </View>
+<Button
+  icon="content-save"
+  mode="contained"
+
+  style={styles.saveBtn}
+  contentStyle={{ flexDirection: 'row' }}
+  labelStyle={{ color: '#fff', fontWeight: 'bold' }}
+>
+     সেইভ করুন
+</Button>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { padding: 16 },
-  row: { flexDirection: 'row', justifyContent: 'space-between' },
-  half: { width: '48%' },
-  headerRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 12 },
-  headerText: { fontSize: 18, fontWeight: 'bold', color: '#4caf50' },
-  saveBtn: { marginTop: 20, backgroundColor: '#4caf50' },
+  container: {
+    padding: 12,
+  },
+  card: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 16,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+  },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#2e7d32',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  half: {
+    width: '48%',
+  },
   label: {
-  fontWeight: 'bold',
-  marginBottom: 4,
-  textAlign: 'center',
-  color: '#555'
-},
-
+    fontWeight: 'bold',
+    marginBottom: 6,
+    textAlign: 'center',
+    color: '#555',
+  },
+  saveBtn: {
+  marginTop: 10,
+  backgroundColor: '#4caf50',
+  borderRadius: 6,
+  },
 });
 
 export default SettingsScreen;

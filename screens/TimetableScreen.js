@@ -10,6 +10,7 @@ import {
   Text,
   IconButton,
 } from 'react-native-paper';
+import { Pressable } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import { TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -215,7 +216,7 @@ const fetchData = useCallback(async () => {
     navigation.setOptions({
       headerRight: () => (
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <IconButton icon="calendar" size={24} iconColor="#4CAF50" onPress={() => {
+          <IconButton icon="calendar" size={24} iconColor="#fff" onPress={() => {
             setTempDate(date);
             setShowDatePicker(true);
           }} />
@@ -241,7 +242,7 @@ const fetchData = useCallback(async () => {
     <View style={{ flex: 1, paddingHorizontal: 12, paddingTop: 4 }}>
       <View style={styles.topRow}>
         <View style={styles.leftTopRow}>
-          <Icon name="clock-outline" size={34} color="#555" style={{ marginRight: 4, marginTop: 4, marginRight: 4 }} />
+          <Icon name="clock-outline" size={34} color="#000" style={{ marginRight: 4, marginTop: 4, marginLeft: 16}} />
           <RNText style={styles.bigTime}>{getBengaliTime(currentTime)}</RNText>
         </View>
         <View style={styles.rightTopRow}>
@@ -260,16 +261,16 @@ const fetchData = useCallback(async () => {
           <View style={styles.journeyDot} />
 
 
-            <TouchableOpacity
-      onPress={() => {
-        const temp = from;
-        setFrom(to);
-        setTo(temp);
-      }}
-      style={styles.reverseButton}
-    >
-      <Icon name="swap-horizontal" size={24} color="#fff" />
-    </TouchableOpacity>
+<Pressable
+  onPress={() => {
+    const temp = from;
+    setFrom(to);
+    setTo(temp);
+  }}
+  style={styles.reverseButton}
+>
+  <Icon name="swap-horizontal" size={24} color="#fff" />
+</Pressable>
 
         </View>
         <DropdownSelector options={LOCATIONS} selected={to} onChange={setTo} circular icon="map-marker" />
@@ -340,10 +341,10 @@ const fetchData = useCallback(async () => {
 const styles = StyleSheet.create({
   topRow: { flexDirection: 'row', justifyContent: 'space-between', marginVertical: 2 },
   leftTopRow: { flexDirection: 'row', alignItems: 'center' },
-  bigTime: { fontSize: 32, fontWeight: '700', color: '#555', marginRight: 12 },
+  bigTime: { fontSize: 32, fontWeight: '700', color: '#000', marginRight: 12 },
   rightTopRow: { flexDirection: 'column', alignItems: 'flex-end' },
-  mediumWeekday: { fontSize: 16, fontWeight: '700', color: '#555' },
-  fullDate: { fontSize: 12, fontWeight: '700', color: '#666', marginBottom: 12 },
+  mediumWeekday: { fontSize: 16, fontWeight: '700', color: '#000', marginRight: 16  },
+  fullDate: { fontSize: 12, fontWeight: '700', color: '#000', marginBottom: 12, marginRight: 16 },
   sectionTitleContainer: { flexDirection: 'row', marginVertical: 8 },
   nextDepartureTitle: { fontSize: 18, fontWeight: '700', color: '#2e7d32' },
   upcomingTitle: { fontSize: 16, fontWeight: '700', color: '#555' },
