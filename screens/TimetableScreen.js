@@ -369,7 +369,7 @@ updateButtonText: {
 dropdownRow: { flexDirection: 'row', justifyContent: 'center', marginBottom: 8, alignItems: 'center' },
 journeyLine: { flexDirection: 'row', alignItems: 'center', marginHorizontal: 8 },
 journeyDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: '#4caf50' },
-journeyLineBar: { width: 80, height: 2, backgroundColor: '#4caf50' },
+journeyLineBar: { width: 60, height: 2, backgroundColor: '#4caf50' },
 
 reverseButton: {
   position: 'absolute',

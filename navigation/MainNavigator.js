@@ -5,7 +5,7 @@ import { View, Text } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+// Main Screen Imports
 import MapScreen from '../screens/MapScreen';
 import ETicketScreen from '../screens/ETicketScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -13,6 +13,15 @@ import VerifyScreen from '../screens/VerifyScreen';
 import TimetableScreen from '../screens/TimetableScreen';
 import AboutScreen from '../screens/AboutScreen';
 import CreditsScreen from '../screens/CreditsScreen';
+import ETicketHomeScreen from '../screens/ETicketHomeScreen';
+
+// Ticket Screen Imports
+import TicketNavigator from '../ticketscreens/TicketNavigator';
+import BuyTicketScreen from '../ticketscreens/BuyTicketScreen';
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 import NetInfo from '@react-native-community/netinfo';
 import { fetchAndCacheRoute } from '../utils/dataFetcher';
@@ -112,6 +121,11 @@ function CustomDrawerContent(props) {
  onPress={() => props.navigation.navigate('ই-টিকিট')}
 />
 <DrawerItem
+  label="ই-টিকেট"
+  icon={({ color, size }) => <Icon name="ticket-confirmation" color={color} size={size} />}
+ onPress={() => props.navigation.navigate('রেলওয়ে ই-টিকিট')}
+/>
+<DrawerItem
   label="টিকিট ভেরিফিকেশন"
   icon={({ color, size }) => <Icon name="ticket-account" color={color} size={size} />}
  onPress={() => props.navigation.navigate('টিকিট ভেরিফিকেশন')}
@@ -192,9 +206,12 @@ export default function MainNavigator() {
         <Drawer.Screen name="রুট ম্যাপ" component={MapScreen} />
         <Drawer.Screen name="সেটিংস" component={SettingsScreen} />
         <Drawer.Screen name="ই-টিকিট" component={ETicketScreen} />
+        <Drawer.Screen name="রেলওয়ে ই-টিকিট" component={ETicketHomeScreen} />
+        <Stack.Screen name="BuyTicket" component={BuyTicketScreen} />
         <Drawer.Screen name="টিকিট ভেরিফিকেশন" component={VerifyScreen} />
         <Drawer.Screen name="অ্যাপ সম্পর্কে" component={AboutScreen} />
         <Drawer.Screen name="তথ্যসূত্র ও কৃতজ্ঞতা" component={CreditsScreen} />
+        <Drawer.Screen name="টিকিট" component={TicketNavigator} />
         
       </Drawer.Navigator>
     </NavigationContainer>
