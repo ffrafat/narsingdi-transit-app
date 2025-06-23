@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const stations = [
   { name: 'ভৈরব', mapUrl: 'https://maps.app.goo.gl/VtrF4pZNouEjXxNq5' },
   { name: 'দৌলতকান্দি', mapUrl: 'https://maps.app.goo.gl/bZhhDN3uCNr9Vjc96' },
-  { name: 'স্রিনিধি', mapUrl: 'https://maps.app.goo.gl/8SpgP6FeVBXwdQhE9' },
+  { name: 'শ্রীনিধি', mapUrl: 'https://maps.app.goo.gl/8SpgP6FeVBXwdQhE9' },
   { name: 'মেথিকান্দা', mapUrl: 'https://maps.app.goo.gl/rkwX8jNLXM4X1sxS6' },
   { name: 'হাঁটুভাঙ্গা', mapUrl: 'https://maps.app.goo.gl/psDsbn8kq4A1wD9K9' },
   { name: 'খানাবাড়ি', mapUrl: 'https://maps.app.goo.gl/uUqtANxtPHGPJVFz8' },
