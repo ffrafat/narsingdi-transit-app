@@ -33,7 +33,7 @@ Whether you're heading to Dhaka, Airport, or coming home, this app helps you che
 <p float="left">
   <img src="https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/main/BRANDING/screenshot-1.png" width="250" />
 </p>
-<p float="left">
+<p float="right">
   <img src="https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/main/BRANDING/screenshot-2.png" width="250" />
 </p>
 
