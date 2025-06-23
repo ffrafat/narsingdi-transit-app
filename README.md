@@ -17,10 +17,10 @@ Whether you're heading to Dhaka, Airport, or coming home, this app helps you che
 
 ## ✨ Features
 
-- ✅ **Live daily train timetable** (updates in background)
-- ✅ **Narsingdi ⇄ Airport ⇄ Kamalapur** route coverage
+- ✅ **Daily train timetable** (updates in background)
+- ✅ **Bhairab ⇄ Methikanda ⇄ Narsingdi ⇄ Airport ⇄ Kamalapur** route coverage
 - ✅ **Offline support** – database is cached locally
-- ✅ **Fully in Bangla** for easy understanding
+- ✅ **E-ticket purchase** for intercity train journey
 - ✅ **Next train countdown** in real-time
 - ✅ Supports **Intercity, Express, Mail & Commuter** trains
 - ✅ **Custom date selection** for planning ahead
@@ -32,6 +32,9 @@ Whether you're heading to Dhaka, Airport, or coming home, this app helps you che
 
 <p float="left">
   <img src="https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/main/BRANDING/screenshot-1.png" width="250" />
+</p>
+<p float="left">
+  <img src="https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/main/BRANDING/screenshot-2.png" width="250" />
 </p>
 
 ---
