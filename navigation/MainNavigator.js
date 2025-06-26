@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { StatusBar } from 'react-native';
 import { Linking } from 'react-native';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -48,45 +48,39 @@ function CustomDrawerContent(props) {
     style={{ flex: 1 }}
   >
     <DrawerContentScrollView {...props} contentContainerStyle={{ paddingTop: 20, flex: 1 }}>
-<View style={{ alignItems: 'center', marginBottom: 10 }}>
-  <LottieView
-    source={require('../assets/train-animation.json')}
-    autoPlay
-    loop
-    style={{ width: 100, height: 100 }}
+<View style={{ alignItems: 'center', marginBottom: 10, marginTop: 20 }}>
+  <Image
+    source={require('../assets/drawer-icon.png')}
+    style={{ width: 100, height: 100, resizeMode: 'contain' }}
   />
-  <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#4CAF50', marginTop: -12 }}>
-    নরসিংদী ট্রানজিট
-  </Text>
 </View>
-
 
       {/* Main Section */}
       <DrawerItem
         label="সময়সূচী"
-          labelStyle={{ color: '#000', fontWeight: 'bold'}}
-        icon={({ color, size }) => <Icon name="train" color="#000" size={size} />}
+          labelStyle={{ color: '#333', fontWeight: 'bold'}}
+        icon={({ color, size }) => <Icon name="train" color="#333" size={size} />}
         onPress={() => props.navigation.navigate('সময়সূচী')}
       />
 
             <DrawerItem
         label="স্টেশন ম্যাপ"
-          labelStyle={{ color: '#000', fontWeight: 'bold'}}
-        icon={({ color, size }) => <Icon name="map" color="#000" size={size} />}
+          labelStyle={{ color: '#333', fontWeight: 'bold'}}
+        icon={({ color, size }) => <Icon name="map" color="#333" size={size} />}
         onPress={() => props.navigation.navigate('স্টেশন ম্যাপ')}
       />
 
       <DrawerItem
         label="ডেটাবেজ আপডেট"
-          labelStyle={{ color: '#000', fontWeight: 'bold'}}
-        icon={({ color, size }) => <Icon name="database-refresh" color="#000" size={size} />}
+          labelStyle={{ color: '#333', fontWeight: 'bold'}}
+        icon={({ color, size }) => <Icon name="database-refresh" color="#333" size={size} />}
         onPress={() => props.navigation.navigate('ডেটাবেজ আপডেট')}
       />
 
       <DrawerItem
         label="সেটিংস"
-          labelStyle={{ color: '#000', fontWeight: 'bold'}}
-        icon={({ color, size }) => <Icon name="cog" color="#000" size={size} />}
+          labelStyle={{ color: '#333', fontWeight: 'bold'}}
+        icon={({ color, size }) => <Icon name="cog" color="#333" size={size} />}
         onPress={() => props.navigation.navigate('সেটিংস')}
       />
       <View
@@ -102,15 +96,15 @@ function CustomDrawerContent(props) {
 
 <DrawerItem
   label="রেলওয়ে ই-টিকেট"
-    labelStyle={{ color: '#000', fontWeight: 'bold'}}
-  icon={({ color, size }) => <Icon name="ticket-confirmation" color="#000" size={size} />}
+    labelStyle={{ color: '#333', fontWeight: 'bold'}}
+  icon={({ color, size }) => <Icon name="ticket-confirmation" color="#333" size={size} />}
  onPress={() => props.navigation.navigate('রেলওয়ে ই-টিকিট')}
 />
 
 <DrawerItem
   label="প্রয়োজনীয় লিংকসমূহ"
-  labelStyle={{ color: '#000', fontWeight: 'bold'}}
-  icon={({ color, size }) => <Icon name="bookmark-multiple" color="#000" size={size} />}
+  labelStyle={{ color: '#333', fontWeight: 'bold'}}
+  icon={({ color, size }) => <Icon name="bookmark-multiple" color="#333" size={size} />}
  onPress={() => props.navigation.navigate('প্রয়োজনীয় লিংকসমূহ')}
 />
 
@@ -125,41 +119,43 @@ function CustomDrawerContent(props) {
 
       <DrawerItem
         label="অ্যাপ সম্পর্কে"
-          labelStyle={{ color: '#000', fontWeight: 'bold'}}
-        icon={({ color, size }) => <Icon name="information-outline" color="#000" size={size} />}
+          labelStyle={{ color: '#333', fontWeight: 'bold'}}
+        icon={({ color, size }) => <Icon name="information-outline" color="#333" size={size} />}
         onPress={() => props.navigation.navigate('অ্যাপ সম্পর্কে')}
       />
 
       <DrawerItem
   label="ডেভেলপার"
-    labelStyle={{ color: '#000', fontWeight: 'bold'}}
-  icon={({ color, size }) => <Icon name="account" color="#000" size={size} />}
+    labelStyle={{ color: '#333', fontWeight: 'bold'}}
+  icon={({ color, size }) => <Icon name="account" color="#333" size={size} />}
   onPress={() => props.navigation.navigate('ডেভেলপার')}
 />
 
 
 <DrawerItem
-  label="রিভিউ দিন"
-    labelStyle={{ color: '#000', fontWeight: 'bold'}}
-  icon={({ color, size }) => <Icon name="star-outline" color="#000" size={size} />}
+  label="৫ স্টার রিভিউ দিন"
+    labelStyle={{ color: '#333', fontWeight: 'bold'}}
+  icon={({ color, size }) => <Icon name="star-outline" color="#333" size={size} />}
   onPress={() => Linking.openURL(playStoreLink)}
 />
 
 
-<DrawerItem
-  label="আরও কিছু অ্যাপ"
-    labelStyle={{ color: '#000', fontWeight: 'bold'}}
-  icon={({ color, size }) => <Icon name="apps" color="#000" size={size} />}
-  onPress={() => Linking.openURL(devProfileLink)}
-/>
+<View style={{ alignItems: 'center'}}>
+  <LottieView
+    source={require('../assets/train-animation.json')}
+    autoPlay
+    loop
+    style={{ width: 120, height: 120 }}
+  />
+</View>
 
       <View style={{ flex: 1 }} />
 
-      <View style={{ padding: 16 }}>
-<Text style={{ fontSize: 14, color: '#000', textAlign: 'center' }}>
+      <View style={{ padding: 0 }}>
+<Text style={{ fontSize: 14, color: '#333', textAlign: 'center' }}>
   ভালোবাসা দিয়ে তৈরি ❤️ নরসিংদীর মানুষের জন্য
 </Text>
-<Text style={{ fontSize: 12, color: '#000', textAlign: 'center' }}>
+<Text style={{ fontSize: 12, color: '#333', textAlign: 'center' }}>
   © ২০২৫ - ফয়সাল ফারুকী রাফাত - সর্বস্বত্ত্ব সংরক্ষিত
 </Text>
 
