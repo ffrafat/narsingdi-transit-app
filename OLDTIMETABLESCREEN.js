@@ -5,14 +5,14 @@ import {
   StyleSheet,
   Text as RNText,
   Alert,
-  Pressable,
-  TouchableOpacity,
 } from 'react-native';
 import {
   Text,
   IconButton,
 } from 'react-native-paper';
+import { Pressable } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
+import { TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import TrainCard from '../components/TrainCard';
@@ -20,6 +20,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import LiveDot from '../components/LiveDot';
 import DropdownSelector from '../components/DropdownSelector';
+
 
 import { fetchAndCacheRoute, loadFromCache } from '../utils/dataFetcher';
 
@@ -58,9 +59,12 @@ const bengaliMonths = {
   December: 'ডিসেম্বর',
 };
 
+const amPmMap = { AM: 'পূর্বাহ্ণ', PM: 'অপরাহ্ণ' };
+
 const getBengaliTime = (date) => {
   let hours = date.getHours();
   const minutes = date.getMinutes();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
   hours = hours % 12 || 12;
   return `${engToBengaliDigit(hours.toString().padStart(2, '0'))}:${engToBengaliDigit(minutes.toString().padStart(2, '0'))}`;
 };
@@ -72,6 +76,7 @@ const getBengaliDate = (date) => {
   return `${day} ${month}, ${year}`;
 };
 
+
 const TimetableScreen = () => {
   const navigation = useNavigation();
   const [from, setFrom] = useState('নরসিংদী');
@@ -82,10 +87,8 @@ const TimetableScreen = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [rawData, setRawData] = useState([]);
-  const [passedTrains, setPassedTrains] = useState([]);
-  const [expanded, setExpanded] = useState(false);
 
-  // Load default stations when screen focuses
+  // This will run every time the screen is focused
   useFocusEffect(
     useCallback(() => {
       const loadDefaultStations = async () => {
@@ -102,119 +105,113 @@ const TimetableScreen = () => {
     }, [])
   );
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 60000); // update every minute
 
-    return () => clearInterval(timer);
-  }, []);
+useEffect(() => {
+  const timer = setInterval(() => {
+    setCurrentTime(new Date());
+  }, 60000); // update every minute
 
-  // Initial data fetch and caching
-  useEffect(() => {
-    const init = async () => {
-      const allRoutes = [
-        { from: 'নরসিংদী', to: 'কমলাপুর' },
-        { from: 'নরসিংদী', to: 'এয়ারপোর্ট' },
-        { from: 'কমলাপুর', to: 'নরসিংদী' },
-        { from: 'এয়ারপোর্ট', to: 'নরসিংদী' },
-        { from: 'মেথিকান্দা', to: 'কমলাপুর' },
-        { from: 'মেথিকান্দা', to: 'এয়ারপোর্ট' },
-        { from: 'কমলাপুর', to: 'মেথিকান্দা' },
-        { from: 'এয়ারপোর্ট', to: 'মেথিকান্দা' },
-        { from: 'ভৈরব', to: 'কমলাপুর' },
-        { from: 'ভৈরব', to: 'এয়ারপোর্ট' },
-        { from: 'কমলাপুর', to: 'ভৈরব' },
-        { from: 'এয়ারপোর্ট', to: 'ভৈরব' },
-      ];
+  return () => clearInterval(timer); // cleanup on unmount
+}, []);
 
-      const netInfo = await NetInfo.fetch();
-      const isConnected = netInfo.isConnected;
-      const cachedKeys = await AsyncStorage.getAllKeys();
-      const hasAnyCache = cachedKeys.some(k => k.startsWith('route_'));
 
-      if (!hasAnyCache && !isConnected) {
-        Alert.alert(
-          'ইন্টারনেট সংযোগ নেই',
-          'প্রথমবার ডেটাবেজ আপডেট করতে ইন্টারনেট চালু করুন। তবে পরবর্তীতে আর ইন্টারনেট প্রয়োজন নেই। অ্যাপটি সম্পূর্ণ অফলাইনে কাজ করবে।',
-          [{ text: 'ঠিক আছে' }]
-        );
-        return;
+// Data Fetching Logics
+useEffect(() => {
+  const init = async () => {
+    const allRoutes = [
+      { from: 'নরসিংদী', to: 'কমলাপুর' },
+      { from: 'নরসিংদী', to: 'এয়ারপোর্ট' },
+      { from: 'কমলাপুর', to: 'নরসিংদী' },
+      { from: 'এয়ারপোর্ট', to: 'নরসিংদী' },
+      { from: 'মেথিকান্দা', to: 'কমলাপুর' },
+      { from: 'মেথিকান্দা', to: 'এয়ারপোর্ট' },
+      { from: 'কমলাপুর', to: 'মেথিকান্দা' },
+      { from: 'এয়ারপোর্ট', to: 'মেথিকান্দা' },
+      { from: 'ভৈরব', to: 'কমলাপুর' },
+      { from: 'ভৈরব', to: 'এয়ারপোর্ট' },
+      { from: 'কমলাপুর', to: 'ভৈরব' },
+      { from: 'এয়ারপোর্ট', to: 'ভৈরব' },
+    ];
+
+    const netInfo = await NetInfo.fetch();
+    const isConnected = netInfo.isConnected;
+    const cachedKeys = await AsyncStorage.getAllKeys();
+    const hasAnyCache = cachedKeys.some(k => k.startsWith('route_'));
+
+    if (!hasAnyCache && !isConnected) {
+      Alert.alert(
+        'ইন্টারনেট সংযোগ নেই',
+        'প্রথমবার ডেটাবেজ আপডেট করতে ইন্টারনেট চালু করুন। তবে পরবর্তীতে আর ইন্টারনেট প্রয়োজন নেই। অ্যাপটি সম্পূর্ণ অফলাইনে কাজ করবে।',
+        [{ text: 'ঠিক আছে' }]
+      );
+      return;
+    }
+
+  if (isConnected) {
+      for (const route of allRoutes) {
+        await fetchAndCacheRoute(route.from, route.to);
       }
+    }
+  };
 
-      if (isConnected) {
-        for (const route of allRoutes) {
-          await fetchAndCacheRoute(route.from, route.to);
-        }
-      }
-    };
 
-    init();
-  }, []);
+  init();
+}, []);
 
-  // Filter and separate upcoming and passed trains
+// Data Fetching Logic
+const fetchData = useCallback(async () => {
+  setTrains([]);
+
+  const cacheKey = `route_${from}_${to}`;
+  try {
+    const cached = await AsyncStorage.getItem(cacheKey);
+    if (cached) {
+      const data = JSON.parse(cached);
+      setRawData(data);          // ✅ Save the raw timetable data
+      filterAndSetTrains(data);  // ✅ Filter based on current time
+    } else {
+      setTrains(null);
+    }
+  } catch (e) {
+    console.error('❌ Failed to load from cache', e);
+    setTrains(null);
+  }
+}, [from, to, date]);
+
+
   const filterAndSetTrains = (data) => {
     const engToday = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
     const today = bengaliDays[engToday];
     const now = new Date();
 
-    const withTimes = data
+    const filtered = data
       .filter(item => item['Off Day'] !== today && item['From Station Time'])
       .map(item => {
         const [h, m] = item['From Station Time'].split(':').map(Number);
         const trainTime = new Date(date);
         trainTime.setHours(h, m, 0, 0);
         return { ...item, __trainTime: trainTime };
-      });
-
-    const upcoming = withTimes
+      })
       .filter(item => item.__trainTime >= now)
       .sort((a, b) => a.__trainTime - b.__trainTime);
 
-    const passed = withTimes
-      .filter(item => item.__trainTime < now)
-      .sort((a, b) => b.__trainTime - a.__trainTime); // reverse order
-
-    setTrains(upcoming);
-    setPassedTrains(passed);
+    setTrains(filtered);
   };
-
-  // Fetch data from cache
-  const fetchData = useCallback(async () => {
-    setTrains([]);
-
-    const cacheKey = `route_${from}_${to}`;
-    try {
-      const cached = await AsyncStorage.getItem(cacheKey);
-      if (cached) {
-        const data = JSON.parse(cached);
-        setRawData(data);
-        filterAndSetTrains(data);
-      } else {
-        setTrains(null);
-      }
-    } catch (e) {
-      console.error('❌ Failed to load from cache', e);
-      setTrains(null);
-    }
-  }, [from, to, date]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  // Update filtering every minute if rawData changes
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (rawData.length > 0) {
-        filterAndSetTrains(rawData);
-      }
-    }, 60000);
+  const interval = setInterval(() => {
+    if (rawData.length > 0) {
+      filterAndSetTrains(rawData);
+    }
+  }, 60000);
 
-    return () => clearInterval(interval);
-  }, [rawData, date]);
+  return () => clearInterval(interval);
+}, [rawData, date]);
 
-  // Set header calendar icon button
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -228,7 +225,6 @@ const TimetableScreen = () => {
     });
   }, [navigation, fetchData, date]);
 
-  // Calculate time until next departure
   const getNextDepartureIn = () => {
     if (!trains?.length) return '';
     const now = new Date();
@@ -246,7 +242,7 @@ const TimetableScreen = () => {
     <View style={{ flex: 1, paddingHorizontal: 12, paddingTop: 4 }}>
       <View style={styles.topRow}>
         <View style={styles.leftTopRow}>
-          <Icon name="clock-outline" size={34} color="#000" style={{ marginRight: 4, marginTop: 4, marginLeft: 16 }} />
+          <Icon name="clock-outline" size={34} color="#000" style={{ marginRight: 4, marginTop: 4, marginLeft: 16}} />
           <RNText style={styles.bigTime}>{getBengaliTime(currentTime)}</RNText>
         </View>
         <View style={styles.rightTopRow}>
@@ -264,65 +260,42 @@ const TimetableScreen = () => {
           <View style={styles.journeyLineBar} />
           <View style={styles.journeyDot} />
 
-          <Pressable
-            onPress={() => {
-              const temp = from;
-              setFrom(to);
-              setTo(temp);
-            }}
-            style={styles.reverseButton}
-          >
-            <Icon name="swap-horizontal" size={24} color="#fff" />
-          </Pressable>
+
+<Pressable
+  onPress={() => {
+    const temp = from;
+    setFrom(to);
+    setTo(temp);
+  }}
+  style={styles.reverseButton}
+>
+  <Icon name="swap-horizontal" size={24} color="#fff" />
+</Pressable>
 
         </View>
         <DropdownSelector options={LOCATIONS} selected={to} onChange={setTo} circular icon="map-marker" />
       </View>
-
-      {trains === null && (
-        <View>
-          <View style={styles.errorBox}>
-            <Icon name="alert-circle" size={20} color="#d32f2f" style={{ marginRight: 4 }} />
-            <RNText style={styles.errorText}>দুঃখিত! এই রুটের জন্য সময়সূচী খুঁজে পাওয়া যায়নি।</RNText>
-          </View>
-        </View>
-      )}
-
-
-
-{Array.isArray(trains) && trains.length === 0 && passedTrains.length > 0 && (
-  <>
-    <View style={styles.noTrainsBox}>
-      <Icon name="information" size={20} color="#2E7D32" style={{ marginRight: 4 }} />
-      <RNText style={styles.noTrainsText}>আজকের জন্য এই রুটে আর কোনো ট্রেন নেই।</RNText>
+{trains === null && (
+  <View>
+    <View style={styles.errorBox}>
+      <Icon name="alert-circle" size={20} color="#d32f2f" style={{ marginRight: 4 }} />
+      <RNText style={styles.errorText}>দুঃখিত! এই রুটের জন্য সময়সূচী খুঁজে পাওয়া যায়নি।</RNText>
     </View>
-
-<TouchableOpacity
-  style={styles.nextDayButton}
-  onPress={() => {
-    const tomorrow = new Date(date);
-    tomorrow.setDate(date.getDate() + 1);
-    setTempDate(tomorrow);
-    setShowDatePicker(true);
-  }}
->
-  <RNText style={styles.nextDayButtonText}>পরবর্তী দিনের ট্রেনসমূহ দেখুন</RNText>
-</TouchableOpacity>
-  </>
+  </View>
 )}
 
 
-      {/* Show next train and upcoming trains if any */}
       {Array.isArray(trains) && trains.length > 0 && (
         <>
           <View style={styles.sectionTitleContainer}>
             <Text style={styles.nextDepartureTitle}>
               পরবর্তী ট্রেন {getNextDepartureIn()} পর
             </Text>
-            <LiveDot />
+          <LiveDot />
           </View>
           <TrainCard train={trains[0]} highlight showHeading />
 
+          
           {trains.length > 1 && (
             <>
               <View style={styles.sectionTitleContainer}>
@@ -341,36 +314,7 @@ const TimetableScreen = () => {
         </>
       )}
 
-      {/* Show passed trains if any, independent of upcoming trains */}
-      {passedTrains.length > 0 && (
-        <>
-          <TouchableOpacity
-            onPress={() => setExpanded(!expanded)}
-            style={styles.expandableHeader}
-          >
-            <Text style={styles.noTrainsText}>ইতিমধ্যে ছেড়ে যাওয়া ট্রেনসমূহ</Text>
-            <Icon
-              name={expanded ? 'chevron-up' : 'chevron-down'}
-              size={24}
-              color="#2E7D32"
-            />
-          </TouchableOpacity>
-
-          {expanded && (
-            <FlatList
-              data={passedTrains}
-              keyExtractor={(_, i) => 'passed_' + i.toString()}
-              renderItem={({ item }) => (
-                <TrainCard train={item} highlight={false} showHeading={false} />
-              )}
-              contentContainerStyle={{ paddingBottom: 24 }}
-            />
-          )}
-        </>
-      )}
-
-      {/* Show message when no trains for today (no upcoming and no passed) */}
-      {Array.isArray(trains) && trains.length === 0 && passedTrains.length === 0 && (
+      {Array.isArray(trains) && trains.length === 0 && (
         <View style={styles.noTrainsBox}>
           <Icon name="information" size={20} color="#2E7D32" style={{ marginRight: 4 }} />
           <RNText style={styles.noTrainsText}>আজকের জন্য এই রুটে আর কোনো ট্রেন নেই।</RNText>
@@ -401,50 +345,47 @@ const styles = StyleSheet.create({
   leftTopRow: { flexDirection: 'row', alignItems: 'center' },
   bigTime: { fontSize: 32, fontWeight: '700', color: '#000', marginRight: 12 },
   rightTopRow: { flexDirection: 'column', alignItems: 'flex-end' },
-  mediumWeekday: { fontSize: 16, fontWeight: '700', color: '#000', marginRight: 16 },
+  mediumWeekday: { fontSize: 16, fontWeight: '700', color: '#000', marginRight: 16  },
   fullDate: { fontSize: 12, fontWeight: '700', color: '#000', marginBottom: 12, marginRight: 16 },
-  sectionTitleContainer: { flexDirection: 'row', marginVertical: 8, alignItems: 'center' },
+  sectionTitleContainer: { flexDirection: 'row', marginVertical: 8 },
   nextDepartureTitle: { fontSize: 18, fontWeight: '700', color: '#2e7d32' },
   upcomingTitle: { fontSize: 16, fontWeight: '700', color: '#555' },
   errorBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#ffcdd2', padding: 8, borderRadius: 6, marginVertical: 12 },
   errorText: { color: '#d32f2f', fontSize: 16, margin: 4 },
   noTrainsBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#C8E6C9', padding: 8, borderRadius: 6, marginVertical: 12 },
   noTrainsText: { color: '#2E7D32', fontSize: 16, margin: 4 },
-  dropdownRow: { flexDirection: 'row', justifyContent: 'center', marginBottom: 8, alignItems: 'center' },
-  journeyLine: { flexDirection: 'row', alignItems: 'center', marginHorizontal: 8 },
-  journeyDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: '#4caf50' },
-  journeyLineBar: { width: 60, height: 2, backgroundColor: '#4caf50' },
-  reverseButton: {
-    position: 'absolute',
-    top: '5%',
-    left: '50%',
-    transform: [{ translateX: -12 }, { translateY: -12 }],
-    backgroundColor: '#4caf50',
-    borderRadius: 24,
-    padding: 4,
-    elevation: 3,
-    zIndex: 10,
-  },
-  expandableHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#C8E6C9', padding: 8, borderRadius: 6, marginVertical: 12
-  },
-nextDayButton: {
+  updateButton: {
   backgroundColor: '#4caf50',
   paddingVertical: 10,
   paddingHorizontal: 16,
-  borderRadius: 6,
+  borderRadius: 8,
   alignItems: 'center',
-  marginTop: 8,
+  marginTop: 10,
   alignSelf: 'center',
 },
-nextDayButtonText: {
+updateButtonText: {
   color: '#fff',
   fontSize: 16,
   fontWeight: '600',
+},
+
+dropdownRow: { flexDirection: 'row', justifyContent: 'center', marginBottom: 8, alignItems: 'center' },
+journeyLine: { flexDirection: 'row', alignItems: 'center', marginHorizontal: 8 },
+journeyDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: '#4caf50' },
+journeyLineBar: { width: 60, height: 2, backgroundColor: '#4caf50' },
+
+reverseButton: {
+  position: 'absolute',
+  top: '5%',
+  left: '50%',
+  transform: [{ translateX: -12 }, { translateY: -12 }],
+  backgroundColor: '#4caf50',
+  borderRadius: 24,
+  padding: 4,
+  elevation: 3,
+  zIndex: 10,
 }
+
 
 });
 
