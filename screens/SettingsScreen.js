@@ -72,6 +72,7 @@ const SettingsScreen = () => {
   style={styles.saveBtn}
   contentStyle={{ flexDirection: 'row' }}
   labelStyle={{ color: '#fff', fontWeight: 'bold' }}
+  onPress={handleSave}
 >
      সেইভ করুন
 </Button>
