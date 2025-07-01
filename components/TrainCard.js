@@ -3,7 +3,6 @@ import { View, StyleSheet } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
 // Bengali digit conversion
 const engToBengaliDigit = (input) => {
   const digitMap = {
@@ -51,49 +50,79 @@ const getBengaliTimeFromString = (time24h) => {
   return getBengaliTime(date);
 };
 
-const TrainCard = ({ train, highlight }) => {
+const TrainCard = ({ train, highlight, passed }) => {
+  const cardStyle = highlight
+    ? styles.highlightCard
+    : passed
+    ? styles.passedCard
+    : styles.normalCard;
+
   return (
-    <Card style={[styles.card, highlight ? styles.highlightCard : styles.normalCard]}>
+    <Card style={[styles.card, cardStyle]}>
       <Card.Content style={styles.cardContent}>
         <View style={styles.leftSide}>
           <View style={styles.trainHeader}>
             <Icon
               name="train"
               size={highlight ? 26 : 22}
-              color={highlight ? 'white' : '#4caf50'}
+              color={highlight ? 'white' : passed ? '#666' : '#4caf50'}
             />
-            <Text style={[styles.trainNo, highlight && { color: 'white' }]}>
+            <Text style={[
+              styles.trainNo,
+              highlight && { color: 'white' },
+              passed && { color: '#666' }
+            ]}>
               {train['Train No.']}
             </Text>
           </View>
-          <Text style={[styles.trainName, highlight && { color: 'white' }]}>
+          <Text style={[
+            styles.trainName,
+            highlight && { color: 'white' },
+            passed && { color: '#444' }
+          ]}>
             {train['Train Name']}
           </Text>
-          <Text style={[styles.trainRoute, highlight && { color: 'rgba(255,255,255,0.7)' }]}>
+          <Text style={[
+            styles.trainRoute,
+            highlight && { color: 'rgba(255,255,255,0.7)' },
+            passed && { color: '#777' }
+          ]}>
             {train['Start Station']} - {train['End Station']}
           </Text>
         </View>
 
         <View style={styles.rightSide}>
-            <Text style={[styles.dayNightText, highlight && { color: 'white' }]}>
+          <Text style={[
+            styles.dayNightText,
+            highlight && { color: 'white' },
+            passed && { color: '#666' }
+          ]}>
             {train['Day Night Time']}
-            </Text>
-        <Text style={[styles.trainTime, highlight && { color: 'white' }]}>
-        {getBengaliTimeFromString(train['From Station Time'])}
-        </Text>
+          </Text>
+          <Text style={[
+            styles.trainTime,
+            highlight && { color: 'white' },
+            passed && { color: '#444' }
+          ]}>
+            {getBengaliTimeFromString(train['From Station Time'])}
+          </Text>
 
           {train['Off Day']?.trim() !== '' && (
-          <View style={styles.offDayRow}>
-            <Icon
-              name="calendar-remove"
-              size={18}
-              color={highlight ? 'white' : 'gray'}
-              style={{ marginRight: 6 }}
-            />
-            <Text style={[styles.offDayText, highlight && { color: 'white' }]}>
-              {train['Off Day'] || 'None'}
-            </Text>
-          </View>
+            <View style={styles.offDayRow}>
+              <Icon
+                name="calendar-remove"
+                size={18}
+                color={highlight ? 'white' : passed ? '#666' : 'gray'}
+                style={{ marginRight: 6 }}
+              />
+              <Text style={[
+                styles.offDayText,
+                highlight && { color: 'white' },
+                passed && { color: '#666' }
+              ]}>
+                {train['Off Day'] || 'None'}
+              </Text>
+            </View>
           )}
         </View>
       </Card.Content>
@@ -113,6 +142,9 @@ const styles = StyleSheet.create({
   },
   normalCard: {
     backgroundColor: 'white',
+  },
+  passedCard: {
+    backgroundColor: '#d6d6d6', // dark gray
   },
   cardContent: {
     flexDirection: 'row',
@@ -162,7 +194,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'gray',
   },
-    dayNightText: {
+  dayNightText: {
     fontSize: 14,
     fontWeight: 'bold',
     color: '#4caf50',

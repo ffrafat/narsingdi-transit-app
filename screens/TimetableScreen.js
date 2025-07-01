@@ -23,6 +23,10 @@ import DropdownSelector from '../components/DropdownSelector';
 
 import { fetchAndCacheRoute, loadFromCache } from '../utils/dataFetcher';
 
+import useUpdatePrompt from '../hooks/useUpdatePrompt';
+
+import trainDetailsData from '../assets/trainDetails.json';
+
 const LOCATIONS = ['কমলাপুর', 'এয়ারপোর্ট', 'নরসিংদী', 'মেথিকান্দা', 'ভৈরব'];
 
 const bengaliDays = {
@@ -73,6 +77,7 @@ const getBengaliDate = (date) => {
 };
 
 const TimetableScreen = () => {
+  useUpdatePrompt();
   const navigation = useNavigation();
   const [from, setFrom] = useState('নরসিংদী');
   const [to, setTo] = useState('কমলাপুর');
@@ -85,7 +90,7 @@ const TimetableScreen = () => {
   const [passedTrains, setPassedTrains] = useState([]);
   const [expanded, setExpanded] = useState(false);
 
-  // Load default stations when screen focuses
+  // Load default stations on focus
   useFocusEffect(
     useCallback(() => {
       const loadDefaultStations = async () => {
@@ -110,7 +115,7 @@ const TimetableScreen = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Initial data fetch and caching
+  // Initial data fetch & caching
   useEffect(() => {
     const init = async () => {
       const allRoutes = [
@@ -152,7 +157,7 @@ const TimetableScreen = () => {
     init();
   }, []);
 
-  // Filter and separate upcoming and passed trains
+  // Filter trains by time and off day
   const filterAndSetTrains = (data) => {
     const engToday = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
     const today = bengaliDays[engToday];
@@ -179,7 +184,7 @@ const TimetableScreen = () => {
     setPassedTrains(passed);
   };
 
-  // Fetch data from cache
+  // Fetch data from AsyncStorage cache
   const fetchData = useCallback(async () => {
     setTrains([]);
 
@@ -203,7 +208,7 @@ const TimetableScreen = () => {
     fetchData();
   }, [fetchData]);
 
-  // Update filtering every minute if rawData changes
+  // Re-filter every minute for accurate next train display
   useEffect(() => {
     const interval = setInterval(() => {
       if (rawData.length > 0) {
@@ -214,7 +219,7 @@ const TimetableScreen = () => {
     return () => clearInterval(interval);
   }, [rawData, date]);
 
-  // Set header calendar icon button
+  // Header calendar button
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -226,9 +231,9 @@ const TimetableScreen = () => {
         </View>
       ),
     });
-  }, [navigation, fetchData, date]);
+  }, [navigation, date]);
 
-  // Calculate time until next departure
+  // Next departure countdown text
   const getNextDepartureIn = () => {
     if (!trains?.length) return '';
     const now = new Date();
@@ -236,10 +241,20 @@ const TimetableScreen = () => {
     const departure = new Date(date);
     departure.setHours(h, m, 0, 0);
     let diff = departure - now;
-    if (diff < 0) diff += 86400000;
+    if (diff < 0) diff += 86400000; // add 24h if negative
     const hrs = Math.floor(diff / 3600000);
     const mins = Math.floor((diff % 3600000) / 60000);
     return `${engToBengaliDigit(hrs)} ঘন্টা ${engToBengaliDigit(mins)} মিনিট`;
+  };
+
+  // Helper to navigate to train details
+  const goToTrainDetails = (trainNo) => {
+    const details = trainDetailsData[trainNo];
+    if (details) {
+      navigation.navigate('TrainDetails', { trainDetails: details, trainNo: trainNo });
+    } else {
+      Alert.alert('তথ্য নেই', 'এই ট্রেনের বিস্তারিত তথ্য পাওয়া যায়নি।');
+    }
   };
 
   return (
@@ -283,36 +298,32 @@ const TimetableScreen = () => {
         <View>
           <View style={styles.errorBox}>
             <Icon name="alert-circle" size={20} color="#d32f2f" style={{ marginRight: 4 }} />
-            <RNText style={styles.errorText}>দুঃখিত! এই রুটের জন্য সময়সূচী খুঁজে পাওয়া যায়নি।</RNText>
+            <RNText style={styles.errorText}>দুঃখিত! এই রুটের জন্য সময়সূচী খুঁজে পাওয়া যায়নি।</RNText>
           </View>
         </View>
       )}
 
+      {Array.isArray(trains) && trains.length === 0 && passedTrains.length > 0 && (
+        <>
+          <View style={styles.noTrainsBox}>
+            <Icon name="information" size={20} color="#2E7D32" style={{ marginRight: 4 }} />
+            <RNText style={styles.noTrainsText}>আজকের জন্য এই রুটে আর কোনো ট্রেন নেই।</RNText>
+          </View>
 
+          <TouchableOpacity
+            style={styles.nextDayButton}
+            onPress={() => {
+              const tomorrow = new Date(date);
+              tomorrow.setDate(date.getDate() + 1);
+              setTempDate(tomorrow);
+              setShowDatePicker(true);
+            }}
+          >
+            <RNText style={styles.nextDayButtonText}>পরবর্তী দিনের ট্রেনসমূহ দেখুন</RNText>
+          </TouchableOpacity>
+        </>
+      )}
 
-{Array.isArray(trains) && trains.length === 0 && passedTrains.length > 0 && (
-  <>
-    <View style={styles.noTrainsBox}>
-      <Icon name="information" size={20} color="#2E7D32" style={{ marginRight: 4 }} />
-      <RNText style={styles.noTrainsText}>আজকের জন্য এই রুটে আর কোনো ট্রেন নেই।</RNText>
-    </View>
-
-<TouchableOpacity
-  style={styles.nextDayButton}
-  onPress={() => {
-    const tomorrow = new Date(date);
-    tomorrow.setDate(date.getDate() + 1);
-    setTempDate(tomorrow);
-    setShowDatePicker(true);
-  }}
->
-  <RNText style={styles.nextDayButtonText}>পরবর্তী দিনের ট্রেনসমূহ দেখুন</RNText>
-</TouchableOpacity>
-  </>
-)}
-
-
-      {/* Show next train and upcoming trains if any */}
       {Array.isArray(trains) && trains.length > 0 && (
         <>
           <View style={styles.sectionTitleContainer}>
@@ -321,55 +332,68 @@ const TimetableScreen = () => {
             </Text>
             <LiveDot />
           </View>
-          <TrainCard train={trains[0]} highlight showHeading />
 
-          {trains.length > 1 && (
-            <>
-              <View style={styles.sectionTitleContainer}>
-                <Text style={styles.upcomingTitle}>আজকের দিনের অন্যান্য ট্রেনসমূহ</Text>
-              </View>
-              <FlatList
-                data={trains.slice(1)}
-                keyExtractor={(_, i) => (i + 1).toString()}
-                renderItem={({ item }) => (
-                  <TrainCard train={item} highlight={false} showHeading={false} />
-                )}
-                contentContainerStyle={{ paddingBottom: 24 }}
-              />
-            </>
-          )}
-        </>
-      )}
-
-      {/* Show passed trains if any, independent of upcoming trains */}
-      {passedTrains.length > 0 && (
-        <>
-          <TouchableOpacity
-            onPress={() => setExpanded(!expanded)}
-            style={styles.expandableHeader}
-          >
-            <Text style={styles.noTrainsText}>ইতিমধ্যে ছেড়ে যাওয়া ট্রেনসমূহ</Text>
-            <Icon
-              name={expanded ? 'chevron-up' : 'chevron-down'}
-              size={24}
-              color="#2E7D32"
-            />
+          <TouchableOpacity onPress={() => goToTrainDetails(trains[0]['Train No.'])}>
+            <TrainCard train={trains[0]} highlight showHeading />
           </TouchableOpacity>
 
-          {expanded && (
+          {(trains.length > 1 || passedTrains.length > 0) && (
             <FlatList
-              data={passedTrains}
-              keyExtractor={(_, i) => 'passed_' + i.toString()}
-              renderItem={({ item }) => (
-                <TrainCard train={item} highlight={false} showHeading={false} />
-              )}
+              data={[
+                ...(trains.length > 1 ? [{ type: 'upcomingHeader' }] : []),
+                ...trains.slice(1).map(item => ({ type: 'train', item })),
+                ...(passedTrains.length > 0 ? [{ type: 'passedToggle' }] : []),
+                ...(expanded ? passedTrains.map(item => ({ type: 'passed', item })) : []),
+              ]}
+              keyExtractor={(item, index) => {
+                if (item.type === 'train' || item.type === 'passed') return item.item['Train No.'] || index.toString();
+                return item.type + index.toString();
+              }}
+              renderItem={({ item }) => {
+                if (item.type === 'upcomingHeader') {
+                  return (
+                    <View style={styles.sectionTitleContainer}>
+                      <Text style={styles.upcomingTitle}>আজকের দিনের অন্যান্য ট্রেনসমূহ</Text>
+                    </View>
+                  );
+                }
+                if (item.type === 'train') {
+                  return (
+                    <TouchableOpacity onPress={() => goToTrainDetails(item.item['Train No.'])}>
+                      <TrainCard train={item.item} highlight={false} showHeading={false} />
+                    </TouchableOpacity>
+                  );
+                }
+                if (item.type === 'passedToggle') {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => setExpanded(!expanded)}
+                      style={styles.expandableHeader}
+                    >
+                      <Text style={styles.noTrainsText}>ইতিমধ্যে ছেড়ে যাওয়া ট্রেনসমূহ</Text>
+                      <Icon
+                        name={expanded ? 'chevron-up' : 'chevron-down'}
+                        size={24}
+                        color="#2E7D32"
+                      />
+                    </TouchableOpacity>
+                  );
+                }
+                if (item.type === 'passed') {
+                  return (
+                    <TouchableOpacity onPress={() => goToTrainDetails(item.item['Train No.'])}>
+                      <TrainCard train={item.item} highlight={false} passed showHeading={false} />
+                    </TouchableOpacity>
+                  );
+                }
+                return null;
+              }}
               contentContainerStyle={{ paddingBottom: 24 }}
             />
           )}
         </>
       )}
 
-      {/* Show message when no trains for today (no upcoming and no passed) */}
       {Array.isArray(trains) && trains.length === 0 && passedTrains.length === 0 && (
         <View style={styles.noTrainsBox}>
           <Icon name="information" size={20} color="#2E7D32" style={{ marginRight: 4 }} />
@@ -394,7 +418,7 @@ const TimetableScreen = () => {
       )}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   topRow: { flexDirection: 'row', justifyContent: 'space-between', marginVertical: 2 },
@@ -431,21 +455,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#C8E6C9', padding: 8, borderRadius: 6, marginVertical: 12
   },
-nextDayButton: {
-  backgroundColor: '#4caf50',
-  paddingVertical: 10,
-  paddingHorizontal: 16,
-  borderRadius: 6,
-  alignItems: 'center',
-  marginTop: 8,
-  alignSelf: 'center',
-},
-nextDayButtonText: {
-  color: '#fff',
-  fontSize: 16,
-  fontWeight: '600',
-}
-
+  nextDayButton: {
+    backgroundColor: '#4caf50',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 6,
+    alignItems: 'center',
+    marginTop: 8,
+    alignSelf: 'center',
+  },
+  nextDayButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  }
 });
 
 export default TimetableScreen;
