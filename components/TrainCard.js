@@ -1,64 +1,44 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Text } from 'react-native-paper';
+import { Card, Text, IconButton } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native';
+
 
 // Bengali digit conversion
 const engToBengaliDigit = (input) => {
   const digitMap = {
-    '0': '০',
-    '1': '১',
-    '2': '২',
-    '3': '৩',
-    '4': '৪',
-    '5': '৫',
-    '6': '৬',
-    '7': '৭',
-    '8': '৮',
-    '9': '৯',
+    '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪',
+    '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯',
   };
   return input.toString().split('').map(char => digitMap[char] || char).join('');
 };
 
-// AM/PM mapping
-const amPmMap = {
-  AM: 'পূর্বাহ্ণ',
-  PM: 'অপরাহ্ণ',
-};
-
-// Format Date object to Bengali time string
-const getBengaliTime = (date) => {
-  let hours = date.getHours();
-  const minutes = date.getMinutes();
-
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-  hours = hours % 12 || 12;
-
-  const hourBn = engToBengaliDigit(hours);
+// Format to 12-hour Bengali time without AM/PM
+const getBengaliTimeFromString = (time24h) => {
+  if (!time24h) return '';
+  let [hours, minutes] = time24h.split(':').map(Number);
+  hours = hours % 12 || 12; // convert to 12-hour clock
+  const hourBn = engToBengaliDigit(hours.toString().padStart(2, '0'));
   const minuteBn = engToBengaliDigit(minutes.toString().padStart(2, '0'));
-  const ampmBn = amPmMap[ampm];
-
   return `${hourBn}:${minuteBn}`;
 };
 
-// Convert "HH:mm" string to Bengali time format
-const getBengaliTimeFromString = (time24h) => {
-  if (!time24h) return '';
-  const [hours, minutes] = time24h.split(':').map(Number);
-  const date = new Date();
-  date.setHours(hours, minutes, 0, 0);
-  return getBengaliTime(date);
-};
-
 const TrainCard = ({ train, highlight, passed }) => {
+  const navigation = useNavigation();
   const cardStyle = highlight
     ? styles.highlightCard
     : passed
     ? styles.passedCard
     : styles.normalCard;
 
+  const trainNo = train['Train No.'];
+  const dayNight = train['Day Night Time'] || '';
+  const time = getBengaliTimeFromString(train['From Station Time']);
+  const offDay = train['Off Day']?.trim();
+
   return (
-    <Card style={[styles.card, cardStyle]}>
+    <Card style={[styles.card, cardStyle]} elevation={2}>
       <Card.Content style={styles.cardContent}>
         <View style={styles.leftSide}>
           <View style={styles.trainHeader}>
@@ -72,7 +52,7 @@ const TrainCard = ({ train, highlight, passed }) => {
               highlight && { color: 'white' },
               passed && { color: '#666' }
             ]}>
-              {train['Train No.']}
+              {trainNo}
             </Text>
           </View>
           <Text style={[
@@ -91,39 +71,66 @@ const TrainCard = ({ train, highlight, passed }) => {
           </Text>
         </View>
 
-        <View style={styles.rightSide}>
-          <Text style={[
-            styles.dayNightText,
-            highlight && { color: 'white' },
-            passed && { color: '#666' }
-          ]}>
-            {train['Day Night Time']}
-          </Text>
-          <Text style={[
-            styles.trainTime,
-            highlight && { color: 'white' },
-            passed && { color: '#444' }
-          ]}>
-            {getBengaliTimeFromString(train['From Station Time'])}
-          </Text>
+        <View style={styles.rightSideWrapper}>
+          <View style={styles.timeColumn}>
+            <Text style={[
+              styles.dayNightText,
+              highlight && { color: 'white' },
+              passed && { color: '#666' }
+            ]}>
+              {dayNight}
+            </Text>
+            <Text style={[
+              styles.trainTime,
+              highlight && { color: 'white' },
+              passed && { color: '#444' }
+            ]}>
+              {time}
+            </Text>
+            {offDay !== '' && offDay !== undefined && (
+              <View style={styles.offDayRow}>
+                <Icon
+                  name="calendar-remove"
+                  size={18}
+                  color={highlight ? 'white' : passed ? '#666' : 'gray'}
+                  style={{ marginRight: 6 }}
+                />
+                <Text style={[
+                  styles.offDayText,
+                  highlight && { color: 'white' },
+                  passed && { color: '#666' }
+                ]}>
+                  {offDay}
+                </Text>
+              </View>
+            )}
+          </View>
 
-          {train['Off Day']?.trim() !== '' && (
-            <View style={styles.offDayRow}>
-              <Icon
-                name="calendar-remove"
-                size={18}
-                color={highlight ? 'white' : passed ? '#666' : 'gray'}
-                style={{ marginRight: 6 }}
-              />
-              <Text style={[
-                styles.offDayText,
-                highlight && { color: 'white' },
-                passed && { color: '#666' }
-              ]}>
-                {train['Off Day'] || 'None'}
-              </Text>
-            </View>
-          )}
+          <View style={styles.buttonColumn}>
+            <IconButton
+              icon="information-outline"
+              size={30}
+              mode="contained"
+              containerColor={highlight ? 'white' : '#e8f5e9'}
+              iconColor={highlight ? '#4caf50' : '#4caf50'}
+  onPress={() =>
+    navigation.navigate('TrainDetails', {
+      trainNo,
+      trainDetails: train, // ✅ pass this!
+    })
+  }
+            />
+            <IconButton
+              icon="radar"
+              size={30}
+              mode="contained"
+              containerColor={highlight ? 'white' : '#e8f5e9'}
+              iconColor={highlight ? '#4caf50' : '#4caf50'}
+              onPress={() =>
+                navigation.navigate('TrainTrackingScreen', { trainNo })
+              }
+            />
+          </View>
         </View>
       </Card.Content>
     </Card>
@@ -135,25 +142,21 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 6,
     marginHorizontal: 2,
-    elevation: 4,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    shadowOffset: { width: 0, height: 1 },
   },
-  highlightCard: {
-    backgroundColor: '#4caf50', // green bg
-  },
-  normalCard: {
-    backgroundColor: 'white',
-  },
-  passedCard: {
-    backgroundColor: '#d6d6d6', // dark gray
-  },
+  highlightCard: { backgroundColor: '#4caf50' },
+  normalCard: { backgroundColor: '#fff' },
+  passedCard: { backgroundColor: '#d6d6d6' },
   cardContent: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  leftSide: {
-    flex: 1,
-  },
+  leftSide: { flex: 1 },
   trainHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -175,10 +178,21 @@ const styles = StyleSheet.create({
     color: 'gray',
     marginTop: 2,
   },
-  rightSide: {
+  rightSideWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 12,
+  },
+  timeColumn: {
     alignItems: 'flex-end',
-    justifyContent: 'center',
-    minWidth: 100,
+    marginRight: 10,
+    minWidth: 80,
+  },
+  dayNightText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#4caf50',
+    marginBottom: 4,
   },
   trainTime: {
     fontSize: 28,
@@ -194,10 +208,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'gray',
   },
-  dayNightText: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#4caf50',
+  buttonColumn: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 });
 

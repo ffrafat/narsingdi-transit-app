@@ -17,9 +17,12 @@ import DatabaseUpdateScreen from '../screens/DatabaseUpdateScreen';
 import ETicketHomeScreen from '../screens/ETicketHomeScreen';
 import UsefulLinksScreen from '../screens/UsefulLinksScreen';
 import TicketNavigator from '../ticketscreens/TicketNavigator';
+import TrackingReportScreen from '../screens/TrackingReportScreen';
 
 // Train Details Page Import
 import TrainDetailsScreen from '../screens/TrainDetailsScreen';
+import TrainTrackingScreen from '../screens/TrainTrackingScreen';
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -48,6 +51,13 @@ function CustomDrawerContent(props) {
           labelStyle={{ color: '#333', fontWeight: 'bold' }}
           icon={({ size }) => <Icon name="train" color="#333" size={size} />}
           onPress={() => props.navigation.navigate('সময়সূচী')}
+        />
+
+        <DrawerItem
+          label="রিপোর্ট ট্রেন লোকেশন"
+          labelStyle={{ color: '#333', fontWeight: 'bold' }}
+          icon={({ size }) => <Icon name="map-marker-check" color="#333" size={size} />}
+          onPress={() => props.navigation.navigate('রিপোর্ট ট্রেন লোকেশন')}
         />
 
         <DrawerItem
@@ -157,6 +167,7 @@ function DrawerContentNavigator() {
       <Drawer.Screen name="প্রয়োজনীয় লিংকসমূহ" component={UsefulLinksScreen} />
       <Drawer.Screen name="অ্যাপ সম্পর্কে" component={AboutScreen} />
       <Drawer.Screen name="ডেভেলপার" component={CreditsScreen} />
+      <Drawer.Screen name="রিপোর্ট ট্রেন লোকেশন" component={TrackingReportScreen} />
     </Drawer.Navigator>
   );
 }
@@ -166,20 +177,34 @@ export default function MainNavigator() {
     <>
       <StatusBar barStyle="light-content" backgroundColor="#4CAF50" />
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="DrawerHome" component={DrawerContentNavigator} />
-          <Stack.Screen
-            name="TrainDetails"
-            component={TrainDetailsScreen}
-            options={{
-              headerShown: true,
-              title: 'ট্রেনের বিস্তারিত',
-              headerStyle: { backgroundColor: '#4CAF50' },
-              headerTintColor: '#fff',
-              headerTitleStyle: { fontWeight: 'bold' },
-            }}
-          />
-        </Stack.Navigator>
+<Stack.Navigator screenOptions={{ headerShown: false }}>
+  <Stack.Screen name="DrawerHome" component={DrawerContentNavigator} />
+  
+  <Stack.Screen
+    name="TrainDetails"
+    component={TrainDetailsScreen}
+    options={{
+      headerShown: true,
+      title: 'ট্রেনের বিস্তারিত',
+      headerStyle: { backgroundColor: '#4CAF50' },
+      headerTintColor: '#fff',
+      headerTitleStyle: { fontWeight: 'bold' },
+    }}
+  />
+
+  <Stack.Screen
+    name="TrainTrackingScreen"
+    component={TrainTrackingScreen} // ✅ make sure it's imported at the top
+    options={{
+      headerShown: true,
+      title: 'লাইভ ট্র্যাকিং',
+      headerStyle: { backgroundColor: '#4CAF50' },
+      headerTintColor: '#fff',
+      headerTitleStyle: { fontWeight: 'bold' },
+    }}
+  />
+</Stack.Navigator>
+
       </NavigationContainer>
     </>
   );

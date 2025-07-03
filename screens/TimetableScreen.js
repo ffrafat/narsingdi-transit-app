@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react';
+import React, { useEffect, useState, useLayoutEffect, useCallback, useRef } from 'react';
 import {
   View,
   FlatList,
@@ -14,7 +14,7 @@ import {
 } from 'react-native-paper';
 import NetInfo from '@react-native-community/netinfo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useNavigation, useFocusEffect, useRoute } from '@react-navigation/native';
 import TrainCard from '../components/TrainCard';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -81,6 +81,7 @@ const TimetableScreen = () => {
   const navigation = useNavigation();
   const [from, setFrom] = useState('নরসিংদী');
   const [to, setTo] = useState('কমলাপুর');
+  const initialized = useRef(false);
   const [trains, setTrains] = useState([]);
   const [date, setDate] = useState(new Date());
   const [tempDate, setTempDate] = useState(new Date());
@@ -90,22 +91,25 @@ const TimetableScreen = () => {
   const [passedTrains, setPassedTrains] = useState([]);
   const [expanded, setExpanded] = useState(false);
 
-  // Load default stations on focus
-  useFocusEffect(
-    useCallback(() => {
-      const loadDefaultStations = async () => {
-        try {
-          const savedFrom = await AsyncStorage.getItem('default_from');
-          const savedTo = await AsyncStorage.getItem('default_to');
-          if (savedFrom) setFrom(savedFrom);
-          if (savedTo) setTo(savedTo);
-        } catch (e) {
-          console.warn('Error loading default stations:', e);
-        }
-      };
-      loadDefaultStations();
-    }, [])
-  );
+
+  // ✅ Only load default stations ONCE on first render
+useEffect(() => {
+  const loadDefaultStationsOnce = async () => {
+    if (initialized.current) return;
+    try {
+      const savedFrom = await AsyncStorage.getItem('default_from');
+      const savedTo = await AsyncStorage.getItem('default_to');
+      if (savedFrom) setFrom(savedFrom);
+      if (savedTo) setTo(savedTo);
+    } catch (e) {
+      console.warn('Error loading default stations:', e);
+    }
+    initialized.current = true;
+  };
+  loadDefaultStationsOnce();
+}, []);
+
+
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -333,9 +337,8 @@ const TimetableScreen = () => {
             <LiveDot />
           </View>
 
-          <TouchableOpacity onPress={() => goToTrainDetails(trains[0]['Train No.'])}>
+
             <TrainCard train={trains[0]} highlight showHeading />
-          </TouchableOpacity>
 
           {(trains.length > 1 || passedTrains.length > 0) && (
             <FlatList
@@ -359,9 +362,8 @@ const TimetableScreen = () => {
                 }
                 if (item.type === 'train') {
                   return (
-                    <TouchableOpacity onPress={() => goToTrainDetails(item.item['Train No.'])}>
+
                       <TrainCard train={item.item} highlight={false} showHeading={false} />
-                    </TouchableOpacity>
                   );
                 }
                 if (item.type === 'passedToggle') {
@@ -381,9 +383,7 @@ const TimetableScreen = () => {
                 }
                 if (item.type === 'passed') {
                   return (
-                    <TouchableOpacity onPress={() => goToTrainDetails(item.item['Train No.'])}>
                       <TrainCard train={item.item} highlight={false} passed showHeading={false} />
-                    </TouchableOpacity>
                   );
                 }
                 return null;

@@ -5,6 +5,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import { fetchAndCacheRoute } from '../utils/dataFetcher';
 
+
+import { useNavigation } from '@react-navigation/native';
+
+
 const DatabaseUpdateScreen = () => {
   const handleManualUpdate = async () => {
     try {
@@ -34,6 +38,7 @@ const DatabaseUpdateScreen = () => {
       console.error(e);
     }
   };
+const navigation = useNavigation();
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -58,6 +63,19 @@ const DatabaseUpdateScreen = () => {
   >
     এখনই আপডেট করুন
   </Button>
+
+
+
+
+<Button
+  mode="contained"
+  style={{ marginTop: 16 }}
+  onPress={() => navigation.navigate('TrainTrackingScreen', { trainNo: '৭১০' })}
+>
+  লাইভ ট্র্যাকিং টেস্ট করুন (৭১০)
+</Button>
+
+
 </View>
 
       </Card>

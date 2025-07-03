@@ -42,6 +42,7 @@ const AboutAppScreen = () => {
 >
   গোপনীয়তা নীতি পড়ুন
 </Button>
+
       </View>
     </ScrollView>
   );

@@ -29,7 +29,7 @@ const SettingsScreen = () => {
     try {
       await AsyncStorage.setItem('default_from', from);
       await AsyncStorage.setItem('default_to', to);
-      Alert.alert('সেইভ হয়েছে', 'আপনার পরিবর্তনগুলো সফলভাবে সেইভ করা হয়েছে।');
+      Alert.alert('সেইভ হয়েছে', 'নতুন সেট করা স্টেশন দেখতে অ্যাপটি বন্ধ করে আবার চালু করুন।');
     } catch (e) {
       Alert.alert('সেইভ হয়নি', 'সেইভ করার সময় সমস্যা হয়েছে।');
       console.error('Error saving settings:', e);
