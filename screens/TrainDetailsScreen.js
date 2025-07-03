@@ -1,21 +1,17 @@
 import React, { useLayoutEffect, useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, Alert } from 'react-native';
-import { Text, Divider, Button } from 'react-native-paper';
-import trainDetailsData from '../assets/trainDetails.json'; // ✅ adjust path as needed
+import { View, ScrollView, StyleSheet } from 'react-native';
+import { Text, Divider } from 'react-native-paper';
+import trainDetailsData from '../assets/trainDetails.json'; // ✅ Adjust path if needed
 
 const TrainDetailsScreen = ({ route, navigation }) => {
-  const routeTrainDetails = route.params?.trainDetails;
   const trainNo = route.params?.trainNo;
+  const [details, setDetails] = useState(null);
 
-  const [details, setDetails] = useState(routeTrainDetails || null);
-  const [loading, setLoading] = useState(false);
-
-  // 🔍 Debug incoming data
   useEffect(() => {
-    console.log('📥 Received params:', { trainNo, routeTrainDetails });
-
-    if (!routeTrainDetails && trainNo && trainDetailsData[trainNo]) {
+    if (trainNo && trainDetailsData[trainNo]) {
       setDetails(trainDetailsData[trainNo]);
+    } else {
+      setDetails(null);
     }
   }, [trainNo]);
 
@@ -24,25 +20,6 @@ const TrainDetailsScreen = ({ route, navigation }) => {
       title: `${details?.name || 'ট্রেন'} (${trainNo || '—'})`,
     });
   }, [navigation, details, trainNo]);
-
-  const goToTracking = () => {
-    if (loading) return;
-
-    if (!trainNo) {
-      Alert.alert('ত্রুটি', 'ট্রেন নম্বর অনুপস্থিত, ট্র্যাকিং সম্ভব নয়।');
-      console.warn('🚫 Cannot navigate: trainNo is missing');
-      return;
-    }
-
-    console.log('➡️ Navigating to TrainTrackingScreen with trainNo:', trainNo);
-
-    setLoading(true);
-    navigation.navigate('TrainTrackingScreen', { trainNo });
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 800);
-  };
 
   if (!details) {
     return (
@@ -65,16 +42,6 @@ const TrainDetailsScreen = ({ route, navigation }) => {
       <Text style={styles.title}>
         {details.name} ({trainNo})
       </Text>
-
-      <Button
-        mode="contained"
-        onPress={goToTracking}
-        disabled={loading || !trainNo}
-        style={styles.trackButton}
-        icon="map-marker-path"
-      >
-        লাইভ ট্র্যাকিং দেখুন
-      </Button>
 
       <Text style={styles.subtitle}>চলে: {runsOn}</Text>
       <Divider style={{ marginVertical: 12 }} />
@@ -146,10 +113,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 16,
     color: '#000',
-  },
-  trackButton: {
-    marginBottom: 16,
-    backgroundColor: '#4caf50',
   },
 });
 

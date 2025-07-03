@@ -109,20 +109,20 @@ const TrainCard = ({ train, highlight, passed }) => {
           <View style={styles.buttonColumn}>
             <IconButton
               icon="information-outline"
-              size={30}
+              size={22}
               mode="contained"
               containerColor={highlight ? 'white' : '#e8f5e9'}
               iconColor={highlight ? '#4caf50' : '#4caf50'}
-  onPress={() =>
-    navigation.navigate('TrainDetails', {
-      trainNo,
-      trainDetails: train, // ✅ pass this!
-    })
-  }
+onPress={() =>
+  navigation.navigate('TrainDetails', {
+    trainNo, // ✅ only this
+  })
+}
+
             />
             <IconButton
               icon="radar"
-              size={30}
+              size={22}
               mode="contained"
               containerColor={highlight ? 'white' : '#e8f5e9'}
               iconColor={highlight ? '#4caf50' : '#4caf50'}
