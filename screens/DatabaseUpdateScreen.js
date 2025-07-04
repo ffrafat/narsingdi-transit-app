@@ -65,17 +65,6 @@ const navigation = useNavigation();
   </Button>
 
 
-
-
-<Button
-  mode="contained"
-  style={{ marginTop: 16 }}
-  onPress={() => navigation.navigate('TrainTrackingScreen', { trainNo: '৭১০' })}
->
-  লাইভ ট্র্যাকিং টেস্ট করুন (৭১০)
-</Button>
-
-
 </View>
 
       </Card>

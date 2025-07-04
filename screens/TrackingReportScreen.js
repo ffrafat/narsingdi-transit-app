@@ -12,7 +12,7 @@ import { Text, Button, IconButton } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Device from 'expo-device';
 import { useFocusEffect } from '@react-navigation/native';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, getDocs, query, where, orderBy, Timestamp, deleteDoc, doc } from 'firebase/firestore';
 import { Picker } from '@react-native-picker/picker';
 import { db } from '../utils/firebaseConfig';
 import trainDetails from '../assets/trainDetails.json';
@@ -61,41 +61,94 @@ const TrackingReportScreen = ({ navigation }) => {
   );
 
   const handleSubmit = async () => {
-    if (!trainNo || !station || !status) {
-      Alert.alert('ত্রুটি', 'ট্রেন, স্টেশন এবং স্ট্যাটাস পূরণ করুন।');
+  if (!trainNo || !station || !status) {
+    Alert.alert('ত্রুটি', 'ট্রেন, স্টেশন এবং স্ট্যাটাস পূরণ করুন।');
+    return;
+  }
+
+  try {
+    await AsyncStorage.setItem('reporter_name', name);
+    await AsyncStorage.setItem('reporter_contact', contact);
+
+    const reportsRef = collection(db, 'trackingReports');
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayTimestamp = Timestamp.fromDate(today);
+
+    // 🔍 Check for duplicate submissions (same train+station+status+day)
+    const dupQuery = query(
+      reportsRef,
+      where('trainNo', '==', trainNo),
+      where('station', '==', station),
+      where('status', '==', status),
+      where('deviceId', '==', deviceId),
+      where('timestamp', '>=', todayTimestamp),
+    );
+
+    const dupSnapshot = await getDocs(dupQuery);
+    if (!dupSnapshot.empty) {
+      Alert.alert('রিপোর্ট জমা বন্ধ', 'আপনি ইতোমধ্যে আজ একই ট্রেন, স্টেশন এবং স্ট্যাটাসে রিপোর্ট জমা দিয়েছেন।');
       return;
     }
 
-    try {
-      await AsyncStorage.setItem('reporter_name', name);
-      await AsyncStorage.setItem('reporter_contact', contact);
+    // 🕑 Block repeated submission within 1 minute
+    const recentQuery = query(
+      reportsRef,
+      where('deviceId', '==', deviceId),
+      orderBy('timestamp', 'desc'),
+    );
+    const recentSnap = await getDocs(recentQuery);
+    const latest = recentSnap.docs.find(doc => doc.data()?.timestamp?.toDate());
 
-      const reportData = {
-        trainNo,
-        station,
-        status,
-        note,
-        name,
-        contact,
-        reportedAt: now.toISOString(),
-        timestamp: serverTimestamp(),
-        deviceId,
-      };
-
-      await addDoc(collection(db, 'trackingReports'), reportData);
-
-      setTrainNo('');
-      setStation('');
-      setStatus('');
-      setNote('');
-      setNow(new Date());
-
-      Alert.alert('ধন্যবাদ', 'রিপোর্ট সফলভাবে জমা হয়েছে।');
-    } catch (error) {
-      console.error('Error submitting report:', error);
-      Alert.alert('ব্যর্থ হয়েছে', 'রিপোর্ট জমা দেওয়া যায়নি। আবার চেষ্টা করুন।');
+    if (latest) {
+      const latestTime = latest.data().timestamp.toDate();
+      const nowTime = new Date();
+      const diffSeconds = (nowTime - latestTime) / 1000;
+      if (diffSeconds < 60) {
+        Alert.alert('দ্রুত রিপোর্ট', `আপনি মাত্র ${Math.round(diffSeconds)} সেকেন্ড আগে রিপোর্ট করেছেন। দয়া করে একটু অপেক্ষা করুন।`);
+        return;
+      }
     }
-  };
+
+    // ✅ Submit allowed
+    const reportData = {
+      trainNo,
+      station,
+      status,
+      note,
+      name,
+      contact,
+      reportedAt: now.toISOString(),
+      timestamp: serverTimestamp(),
+      deviceId,
+    };
+
+    const docRef = await addDoc(reportsRef, reportData);
+
+    // Reset fields
+    setTrainNo('');
+    setStation('');
+    setStatus('');
+    setNote('');
+    setNow(new Date());
+
+    Alert.alert('ধন্যবাদ', 'রিপোর্ট সফলভাবে জমা হয়েছে।', [
+      {
+        text: 'এই রিপোর্ট মুছুন',
+        style: 'destructive',
+        onPress: async () => {
+          await deleteDoc(doc(db, 'trackingReports', docRef.id));
+          Alert.alert('রিপোর্ট মোছা হয়েছে।');
+        },
+      },
+      { text: 'ঠিক আছে' },
+    ]);
+  } catch (error) {
+    console.error('❌ রিপোর্ট সাবমিশনে ত্রুটি:', error);
+    Alert.alert('ব্যর্থ হয়েছে', 'রিপোর্ট জমা দেওয়া যায়নি। আবার চেষ্টা করুন।');
+  }
+};
+
 
   const Label = ({ icon, text }) => (
     <View style={styles.labelRow}>

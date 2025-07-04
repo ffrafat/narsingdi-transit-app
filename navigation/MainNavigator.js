@@ -54,7 +54,7 @@ function CustomDrawerContent(props) {
         />
 
         <DrawerItem
-          label="রিপোর্ট ট্রেন লোকেশন"
+          label="রিপোর্ট লোকেশন"
           labelStyle={{ color: '#333', fontWeight: 'bold' }}
           icon={({ size }) => <Icon name="map-marker-check" color="#333" size={size} />}
           onPress={() => props.navigation.navigate('রিপোর্ট ট্রেন লোকেশন')}
