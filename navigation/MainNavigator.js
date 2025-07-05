@@ -57,7 +57,7 @@ function CustomDrawerContent(props) {
           label="রিপোর্ট লোকেশন"
           labelStyle={{ color: '#333', fontWeight: 'bold' }}
           icon={({ size }) => <Icon name="map-marker-check" color="#333" size={size} />}
-          onPress={() => props.navigation.navigate('রিপোর্ট ট্রেন লোকেশন')}
+          onPress={() => props.navigation.navigate('রিপোর্ট লোকেশন')}
         />
 
         <DrawerItem
@@ -167,7 +167,7 @@ function DrawerContentNavigator() {
       <Drawer.Screen name="প্রয়োজনীয় লিংকসমূহ" component={UsefulLinksScreen} />
       <Drawer.Screen name="অ্যাপ সম্পর্কে" component={AboutScreen} />
       <Drawer.Screen name="ডেভেলপার" component={CreditsScreen} />
-      <Drawer.Screen name="রিপোর্ট ট্রেন লোকেশন" component={TrackingReportScreen} />
+      <Drawer.Screen name="রিপোর্ট লোকেশন" component={TrackingReportScreen} />
     </Drawer.Navigator>
   );
 }

@@ -17,10 +17,10 @@ const stations = [
   { name: 'আড়িখোলা', mapUrl: 'https://maps.app.goo.gl/u8j3jgAFXSn2b1S67' },
   { name: 'পূবাইল', mapUrl: 'https://maps.app.goo.gl/eJLYEcaJUiWBQsvf8' },
   { name: 'টঙ্গী', mapUrl: 'https://maps.app.goo.gl/xfp9SuNM7UTdc8Yd9' },
-  { name: 'এয়ারপোর্ট', mapUrl: 'https://maps.app.goo.gl/f8nuZu5gjd65ytU69' },
+  { name: 'বিমানবন্দর', mapUrl: 'https://maps.app.goo.gl/f8nuZu5gjd65ytU69' },
   { name: 'ক্যান্টনমেন্ট', mapUrl: 'https://maps.app.goo.gl/wAVDamtjAcvZ65MA8' },
   { name: 'তেজগাঁও', mapUrl: 'https://maps.app.goo.gl/Lq9ocMoAcywR2z4KA' },
-  { name: 'কমলাপুর', mapUrl: 'https://maps.app.goo.gl/199jR4HkTmhb4TXX6' },
+  { name: 'ঢাকা', mapUrl: 'https://maps.app.goo.gl/199jR4HkTmhb4TXX6' },
 ];
 
 

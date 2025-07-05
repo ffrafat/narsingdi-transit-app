@@ -27,7 +27,7 @@ import useUpdatePrompt from '../hooks/useUpdatePrompt';
 
 import trainDetailsData from '../assets/trainDetails.json';
 
-const LOCATIONS = ['কমলাপুর', 'এয়ারপোর্ট', 'নরসিংদী', 'মেথিকান্দা', 'ভৈরব'];
+const LOCATIONS = ['ঢাকা', 'বিমানবন্দর', 'নরসিংদী', 'মেথিকান্দা', 'ভৈরব'];
 
 const bengaliDays = {
   Sunday: 'রবিবার',
@@ -80,7 +80,7 @@ const TimetableScreen = () => {
   useUpdatePrompt();
   const navigation = useNavigation();
   const [from, setFrom] = useState('নরসিংদী');
-  const [to, setTo] = useState('কমলাপুর');
+  const [to, setTo] = useState('ঢাকা');
   const initialized = useRef(false);
   const [trains, setTrains] = useState([]);
   const [date, setDate] = useState(new Date());
@@ -123,18 +123,18 @@ useEffect(() => {
   useEffect(() => {
     const init = async () => {
       const allRoutes = [
-        { from: 'নরসিংদী', to: 'কমলাপুর' },
-        { from: 'নরসিংদী', to: 'এয়ারপোর্ট' },
-        { from: 'কমলাপুর', to: 'নরসিংদী' },
-        { from: 'এয়ারপোর্ট', to: 'নরসিংদী' },
-        { from: 'মেথিকান্দা', to: 'কমলাপুর' },
-        { from: 'মেথিকান্দা', to: 'এয়ারপোর্ট' },
-        { from: 'কমলাপুর', to: 'মেথিকান্দা' },
-        { from: 'এয়ারপোর্ট', to: 'মেথিকান্দা' },
-        { from: 'ভৈরব', to: 'কমলাপুর' },
-        { from: 'ভৈরব', to: 'এয়ারপোর্ট' },
-        { from: 'কমলাপুর', to: 'ভৈরব' },
-        { from: 'এয়ারপোর্ট', to: 'ভৈরব' },
+        { from: 'নরসিংদী', to: 'ঢাকা' },
+        { from: 'নরসিংদী', to: 'বিমানবন্দর' },
+        { from: 'ঢাকা', to: 'নরসিংদী' },
+        { from: 'বিমানবন্দর', to: 'নরসিংদী' },
+        { from: 'মেথিকান্দা', to: 'ঢাকা' },
+        { from: 'মেথিকান্দা', to: 'বিমানবন্দর' },
+        { from: 'ঢাকা', to: 'মেথিকান্দা' },
+        { from: 'বিমানবন্দর', to: 'মেথিকান্দা' },
+        { from: 'ভৈরব', to: 'ঢাকা' },
+        { from: 'ভৈরব', to: 'বিমানবন্দর' },
+        { from: 'ঢাকা', to: 'ভৈরব' },
+        { from: 'বিমানবন্দর', to: 'ভৈরব' },
       ];
 
       const netInfo = await NetInfo.fetch();

@@ -26,12 +26,12 @@ const useUpdatePrompt = () => {
             'অ্যাপের একটি নতুন আপডেট এসেছে। এই আপডেটে অ্যাপটি ব্যবহারে আরও ভালো এক্সপেরিয়েন্স পাবেন।',
             [
               {
-                text: 'পরে করবো',
+                text: 'এখন না',
                 onPress: () => setSkippedThisSession(true),
                 style: 'cancel',
               },
               {
-                text: 'এখনই আপডেট করব',
+                text: 'আপডেট করবো',
                 onPress: () => {
                   Linking.openURL('https://play.google.com/store/apps/details?id=cc.rafat.narsingditransit');
                 },

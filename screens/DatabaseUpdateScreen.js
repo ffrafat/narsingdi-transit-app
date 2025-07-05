@@ -19,18 +19,18 @@ const DatabaseUpdateScreen = () => {
         return;
       }
 
-      await fetchAndCacheRoute('নরসিংদী', 'কমলাপুর');
-      await fetchAndCacheRoute('নরসিংদী', 'এয়ারপোর্ট');
-      await fetchAndCacheRoute('কমলাপুর', 'নরসিংদী');
-      await fetchAndCacheRoute('এয়ারপোর্ট', 'নরসিংদী');
-      await fetchAndCacheRoute('মেথিকান্দা', 'কমলাপুর');
-      await fetchAndCacheRoute('মেথিকান্দা', 'এয়ারপোর্ট');
-      await fetchAndCacheRoute('কমলাপুর', 'মেথিকান্দা');
-      await fetchAndCacheRoute('এয়ারপোর্ট', 'মেথিকান্দা');
-      await fetchAndCacheRoute('ভৈরব', 'কমলাপুর');
-      await fetchAndCacheRoute('ভৈরব', 'এয়ারপোর্ট');
-      await fetchAndCacheRoute('কমলাপুর', 'ভৈরব');
-      await fetchAndCacheRoute('এয়ারপোর্ট', 'ভৈরব');
+      await fetchAndCacheRoute('নরসিংদী', 'ঢাকা');
+      await fetchAndCacheRoute('নরসিংদী', 'বিমানবন্দর');
+      await fetchAndCacheRoute('ঢাকা', 'নরসিংদী');
+      await fetchAndCacheRoute('বিমানবন্দর', 'নরসিংদী');
+      await fetchAndCacheRoute('মেথিকান্দা', 'ঢাকা');
+      await fetchAndCacheRoute('মেথিকান্দা', 'বিমানবন্দর');
+      await fetchAndCacheRoute('ঢাকা', 'মেথিকান্দা');
+      await fetchAndCacheRoute('বিমানবন্দর', 'মেথিকান্দা');
+      await fetchAndCacheRoute('ভৈরব', 'ঢাকা');
+      await fetchAndCacheRoute('ভৈরব', 'বিমানবন্দর');
+      await fetchAndCacheRoute('ঢাকা', 'ভৈরব');
+      await fetchAndCacheRoute('বিমানবন্দর', 'ভৈরব');
 
       Alert.alert('আপডেটেড', 'ডেটা আপডেট সম্পন্ন হয়েছে!', [{ text: 'ঠিক আছে' }]);
     } catch (e) {

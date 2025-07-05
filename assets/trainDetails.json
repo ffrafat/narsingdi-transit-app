@@ -11,7 +11,7 @@
       "duration": "০০:০০"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "০৮:০৭ am",
       "departure": "০৮:১২ am",
       "halt": "০৫ মিনিট",
@@ -60,7 +60,7 @@
       "duration": "০০:২২"
     },
     {
-      "station": "গুলনাবাটি",
+      "station": "গুণাবতী",
       "arrival": "১১:৪৩ am",
       "departure": "১১:৪৫ am",
       "halt": "০২ মিনিট",
@@ -102,7 +102,7 @@
       "duration": "০১:২০"
     },
     {
-      "station": "গুলনাবাটি",
+      "station": "গুণাবতী",
       "arrival": "০৪:৩৬ pm",
       "departure": "০৪:৩৮ pm",
       "halt": "০২ মিনিট",
@@ -172,7 +172,7 @@
       "duration": "০০:০০"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "১০:৫২ am",
       "departure": "১০:৫৭ am",
       "halt": "০৫ মিনিট",
@@ -186,7 +186,7 @@
       "duration": "০০:৩৯"
     },
     {
-      "station": "মেঠিকান্দা",
+      "station": "মেথিকান্দা",
       "arrival": "১১:৫৭ am",
       "departure": "১১:৫৯ am",
       "halt": "০২ মিনিট",
@@ -214,7 +214,7 @@
       "duration": "০০:০৮"
     },
     {
-      "station": "সারাচর",
+      "station": "সরারচর",
       "arrival": "০১:১৪ pm",
       "departure": "০১:১৬ pm",
       "halt": "০২ মিনিট",
@@ -270,7 +270,7 @@
       "duration": "০০:১০"
     },
     {
-      "station": "সারাচর",
+      "station": "সরারচর",
       "arrival": "০৪:৪৫ pm",
       "departure": "০৪:৪৭ pm",
       "halt": "০২ মিনিট",
@@ -298,7 +298,7 @@
       "duration": "০০:২১"
     },
     {
-      "station": "মেঠিকান্দা",
+      "station": "মেথিকান্দা",
       "arrival": "০৬:০৪ pm",
       "departure": "০৬:০৬ pm",
       "halt": "০২ মিনিট",
@@ -312,7 +312,7 @@
       "duration": "০০:২১"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "০৭:২০ pm",
       "departure": "",
       "halt": "--- মিনিট",
@@ -340,7 +340,7 @@
       "duration": "০০:০০"
     },
     {
-      "station": "কুমিরা",
+      "station": "কুমীরা",
       "arrival": "০৬:২৬ am",
       "departure": "০৬:২৮ am",
       "halt": "০২ মিনিট",
@@ -382,7 +382,7 @@
       "duration": "০০:২১"
     },
     {
-      "station": "শশিদল",
+      "station": "শশীদল",
       "arrival": "০৯:০৫ am",
       "departure": "০৯:০৭ am",
       "halt": "০২ মিনিট",
@@ -417,7 +417,7 @@
       "duration": "০০:২১"
     },
     {
-      "station": "মেঠিকান্দা",
+      "station": "মেথিকান্দা",
       "arrival": "১১:০৮ am",
       "departure": "১১:১০ am",
       "halt": "০২ মিনিট",
@@ -431,7 +431,7 @@
       "duration": "০০:১৭"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "১২:১০ pm",
       "departure": "১২:১৩ pm",
       "halt": "০৩ মিনিট",
@@ -459,7 +459,7 @@
       "duration": "০০:০০"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "০২:৩৮ pm",
       "departure": "০২:৪৩ pm",
       "halt": "০৫ মিনিট",
@@ -473,7 +473,7 @@
       "duration": "০০:৩৭"
     },
     {
-      "station": "মেঠিকান্দা",
+      "station": "মেথিকান্দা",
       "arrival": "০৩:৪১ pm",
       "departure": "০৩:৪৩ pm",
       "halt": "০২ মিনিট",
@@ -508,7 +508,7 @@
       "duration": "০০:১৬"
     },
     {
-      "station": "শশিদল",
+      "station": "শশীদল",
       "arrival": "০৫:১৬ pm",
       "departure": "০৫:১৮ pm",
       "halt": "০২ মিনিট",
@@ -550,7 +550,7 @@
       "duration": "০০:২১"
     },
     {
-      "station": "কুমিরা",
+      "station": "কুমীরা",
       "arrival": "০৭:৫৬ pm",
       "departure": "০৭:৫৮ pm",
       "halt": "০২ মিনিট",
@@ -592,7 +592,7 @@
       "duration": "০০:১৪"
     },
     {
-      "station": "বাজরা",
+      "station": "বজরা",
       "arrival": "০৬:৩৪ am",
       "departure": "০৬:৩৬ am",
       "halt": "০২ মিনিট",
@@ -662,7 +662,7 @@
       "duration": "০০:৩৩"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "১০:৪৭ am",
       "departure": "",
       "halt": "--- মিনিট",
@@ -690,7 +690,7 @@
       "duration": "০০:০০"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "০৩:৩৩ pm",
       "departure": "০৩:৩৮ pm",
       "halt": "০৫ মিনিট",
@@ -767,7 +767,7 @@
       "duration": "---"
     },
     {
-      "station": "বাজরা",
+      "station": "বজরা",
       "arrival": "০৭:৫৩ pm",
       "departure": "",
       "halt": "--- মিনিট",
@@ -809,7 +809,7 @@
       "duration": "০০:০০"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "০৭:৩৮ am",
       "departure": "০৭:৪৩ am",
       "halt": "০৫ মিনিট",
@@ -844,7 +844,7 @@
       "duration": "০০:০৮"
     },
     {
-      "station": "সারাচর",
+      "station": "সরারচর",
       "arrival": "০৯:৫২ am",
       "departure": "০৯:৫৪ am",
       "halt": "০২ মিনিট",
@@ -900,7 +900,7 @@
       "duration": "০০:১০"
     },
     {
-      "station": "সারাচর",
+      "station": "সরারচর",
       "arrival": "০৭:১৫ am",
       "departure": "০৭:১৭ am",
       "halt": "০২ মিনিট",
@@ -928,7 +928,7 @@
       "duration": "০০:২৩"
     },
     {
-      "station": "মেঠিকান্দা",
+      "station": "মেথিকান্দা",
       "arrival": "০৮:৩৮ am",
       "departure": "০৮:৪০ am",
       "halt": "০২ মিনিট",
@@ -942,7 +942,7 @@
       "duration": "০০:২২"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "০৯:৫৩ am",
       "departure": "",
       "halt": "--- মিনিট",
@@ -970,7 +970,7 @@
       "duration": "০০:০০"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "০৭:০৮ pm",
       "departure": "০৭:১৩ pm",
       "halt": "০৫ মিনিট",
@@ -984,7 +984,7 @@
       "duration": "০০:৪০"
     },
     {
-      "station": "মেঠিকান্দা",
+      "station": "মেথিকান্দা",
       "arrival": "০৮:১২ pm",
       "departure": "০৮:১৪ pm",
       "halt": "০২ মিনিট",
@@ -1012,7 +1012,7 @@
       "duration": "০০:০৯"
     },
     {
-      "station": "সারাচর",
+      "station": "সরারচর",
       "arrival": "০৯:৩০ pm",
       "departure": "০৯:৩২ pm",
       "halt": "০২ মিনিট",
@@ -1068,7 +1068,7 @@
       "duration": "০০:২৩"
     },
     {
-      "station": "সারাচর",
+      "station": "সরারচর",
       "arrival": "০১:৫২ pm",
       "departure": "০১:৫৪ pm",
       "halt": "০২ মিনিট",
@@ -1103,7 +1103,7 @@
       "duration": "০০:২৯"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "০৪:১২ pm",
       "departure": "",
       "halt": "--- মিনিট",
@@ -1131,7 +1131,7 @@
       "duration": "০০:০০"
     },
     {
-      "station": "কুমিরা",
+      "station": "কুমীরা",
       "arrival": "১২:৫৬ pm",
       "departure": "১২:৫৮ pm",
       "halt": "০২ মিনিট",
@@ -1229,7 +1229,7 @@
       "duration": "০০:০০"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "০৯:৪৩ pm",
       "departure": "০৯:৪৮ pm",
       "halt": "০৫ মিনিট",
@@ -1306,7 +1306,7 @@
       "duration": "০০:২৫"
     },
     {
-      "station": "কুমিরা",
+      "station": "কুমীরা",
       "arrival": "০২:৫৫ am",
       "departure": "",
       "halt": "--- মিনিট",
@@ -1334,7 +1334,7 @@
       "duration": "০০:০০"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "১০:২৩ pm",
       "departure": "১০:২৮ pm",
       "halt": "০৫ মিনিট",
@@ -1355,7 +1355,7 @@
       "duration": "০০:২৯"
     },
     {
-      "station": "শ্যাইস্তাগঞ্জ",
+      "station": "শায়েস্তাগঞ্জ",
       "arrival": "০১:২২ am",
       "departure": "০১:২৫ am",
       "halt": "০৩ মিনিট",
@@ -1376,7 +1376,7 @@
       "duration": "০০:১৯"
     },
     {
-      "station": "শামসেরনগর",
+      "station": "শমসেরনগর",
       "arrival": "০২:৪১ am",
       "departure": "০২:৪৩ am",
       "halt": "০২ মিনিট",
@@ -1390,7 +1390,7 @@
       "duration": "০০:২৫"
     },
     {
-      "station": "বড়মচল",
+      "station": "বরমচাল",
       "arrival": "০৩:২৫ am",
       "departure": "০৩:২৭ am",
       "halt": "০২ মিনিট",
@@ -1432,7 +1432,7 @@
       "duration": "০০:৩৯"
     },
     {
-      "station": "বড়মচল",
+      "station": "বরমচাল",
       "arrival": "১২:২৮ am",
       "departure": "১২:৩০ am",
       "halt": "০২ মিনিট",
@@ -1446,7 +1446,7 @@
       "duration": "০০:১৩"
     },
     {
-      "station": "শামসেরনগর",
+      "station": "শমসেরনগর",
       "arrival": "০১:০৯ am",
       "departure": "০১:১১ am",
       "halt": "০২ মিনিট",
@@ -1467,7 +1467,7 @@
       "duration": "০০:১৯"
     },
     {
-      "station": "শ্যাইস্তাগঞ্জ",
+      "station": "শায়েস্তাগঞ্জ",
       "arrival": "০২:৩০ am",
       "departure": "০২:৩৩ am",
       "halt": "০৩ মিনিট",
@@ -1488,7 +1488,7 @@
       "duration": "০০:২৮"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "০৫:১২ am",
       "departure": "",
       "halt": "--- মিনিট",
@@ -1516,7 +1516,7 @@
       "duration": "০০:০০"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "০৬:৫৩ am",
       "departure": "০৬:৫৮ am",
       "halt": "০৫ মিনিট",
@@ -1551,7 +1551,7 @@
       "duration": "০০:৩৮"
     },
     {
-      "station": "শ্যাইস্তাগঞ্জ",
+      "station": "শায়েস্তাগঞ্জ",
       "arrival": "০৯:৫২ am",
       "departure": "০৯:৫৫ am",
       "halt": "০৩ মিনিট",
@@ -1635,7 +1635,7 @@
       "duration": "০০:১৮"
     },
     {
-      "station": "শ্যাইস্তাগঞ্জ",
+      "station": "শায়েস্তাগঞ্জ",
       "arrival": "০৬:৪৬ pm",
       "departure": "০৬:৪৯ pm",
       "halt": "০৩ মিনিট",
@@ -1670,7 +1670,7 @@
       "duration": "০০:২১"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "১০:১২ pm",
       "departure": "",
       "halt": "--- মিনিট",
@@ -1761,7 +1761,7 @@
       "duration": "০০:০০"
     },
     {
-      "station": "বিমান বন্দর",
+      "station": "বিমানবন্দর",
       "arrival": "১১:৩৮ pm",
       "departure": "১১:৪৩ pm",
       "halt": "০৫ মিনিট",

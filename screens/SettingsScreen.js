@@ -5,11 +5,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DropdownSelector from '../components/DropdownSelector';
 
-const stationList = ['নরসিংদী', 'কমলাপুর', 'এয়ারপোর্ট', 'ভৈরব', 'মেথিকান্দা'];
+const stationList = ['নরসিংদী', 'ঢাকা', 'বিমানবন্দর', 'ভৈরব', 'মেথিকান্দা'];
 
 const SettingsScreen = () => {
   const [from, setFrom] = useState('নরসিংদী');
-  const [to, setTo] = useState('কমলাপুর');
+  const [to, setTo] = useState('ঢাকা');
 
   useEffect(() => {
     const loadDefaults = async () => {

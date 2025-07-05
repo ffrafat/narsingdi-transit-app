@@ -2,31 +2,31 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const fetchAndCacheRoute = async (from, to) => {
   let url = null;
-  if (from === 'নরসিংদী' && (to === 'কমলাপুর' || to === 'এয়ারপোর্ট')) {
+  if (from === 'নরসিংদী' && (to === 'ঢাকা' || to === 'বিমানবন্দর')) {
     url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/NarsingdiToKamalapurAirport';
   }
-  if (from === 'কমলাপুর' && to === 'নরসিংদী') {
+  if (from === 'ঢাকা' && to === 'নরসিংদী') {
     url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/KamalapurToNarsingdi';
   }
-  if (from === 'এয়ারপোর্ট' && to === 'নরসিংদী') {
+  if (from === 'বিমানবন্দর' && to === 'নরসিংদী') {
     url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/AirportToNarsingdi';
   }
-  if (from === 'মেথিকান্দা' && (to === 'কমলাপুর' || to === 'এয়ারপোর্ট')) {
+  if (from === 'মেথিকান্দা' && (to === 'ঢাকা' || to === 'বিমানবন্দর')) {
     url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/MethikandaToKamalapurAirport';
   }
-  if (from === 'কমলাপুর' && to === 'মেথিকান্দা') {
+  if (from === 'ঢাকা' && to === 'মেথিকান্দা') {
     url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/KamalapurToMethikanda';
   }
-  if (from === 'এয়ারপোর্ট' && to === 'মেথিকান্দা') {
+  if (from === 'বিমানবন্দর' && to === 'মেথিকান্দা') {
     url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/AirportToMethikanda';
   }
-    if (from === 'ভৈরব' && (to === 'কমলাপুর' || to === 'এয়ারপোর্ট')) {
+    if (from === 'ভৈরব' && (to === 'ঢাকা' || to === 'বিমানবন্দর')) {
     url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/BhairabToKamalapurAirport';
   }
-    if (from === 'কমলাপুর' && to === 'ভৈরব') {
+    if (from === 'ঢাকা' && to === 'ভৈরব') {
     url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/KamalapurToBhairab';
   }
-  if (from === 'এয়ারপোর্ট' && to === 'ভৈরব') {
+  if (from === 'বিমানবন্দর' && to === 'ভৈরব') {
     url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/AirportToBhairab';
   }
 
