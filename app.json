@@ -2,6 +2,7 @@
   "expo": {
     "name": "Narsingdi Transit",
     "slug": "narsingdi-transit",
+    "scheme": "com.googleusercontent.apps.1033915031162-f43tahd1c9bh6tr1qs65vf8brf6cmcq1",
     "version": "1.4",
     "platforms": [
       "android"

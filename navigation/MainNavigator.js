@@ -14,10 +14,19 @@ import TimetableScreen from '../screens/TimetableScreen';
 import AboutScreen from '../screens/AboutScreen';
 import CreditsScreen from '../screens/CreditsScreen';
 import DatabaseUpdateScreen from '../screens/DatabaseUpdateScreen';
-import ETicketHomeScreen from '../screens/ETicketHomeScreen';
 import UsefulLinksScreen from '../screens/UsefulLinksScreen';
-import TicketNavigator from '../ticketscreens/TicketNavigator';
+
 import TrackingReportScreen from '../screens/TrackingReportScreen';
+
+
+// Tracking Related Screens
+import LiveTrackingHomeScreen from '../screens/LiveTrackingHomeScreen';
+import TrackingNavigator from '../trackingscreens/TrackingNavigator';
+
+
+// ETicket Related Screens
+import ETicketHomeScreen from '../screens/ETicketHomeScreen';
+import TicketNavigator from '../ticketscreens/TicketNavigator';
 
 // Train Details Page Import
 import TrainDetailsScreen from '../screens/TrainDetailsScreen';
@@ -52,7 +61,12 @@ function CustomDrawerContent(props) {
           icon={({ size }) => <Icon name="train" color="#333" size={size} />}
           onPress={() => props.navigation.navigate('সময়সূচী')}
         />
-
+        <DrawerItem
+          label="ট্রেন ট্র্যাকিং"
+          labelStyle={{ color: '#333', fontWeight: 'bold' }}
+          icon={({ size }) => <Icon name="ticket-confirmation" color="#333" size={size} />}
+          onPress={() => props.navigation.navigate('ট্রেন ট্র্যাকিং')}
+        />
         <DrawerItem
           label="রিপোর্ট লোকেশন"
           labelStyle={{ color: '#333', fontWeight: 'bold' }}
@@ -164,6 +178,7 @@ function DrawerContentNavigator() {
       <Drawer.Screen name="ডেটাবেজ আপডেট" component={DatabaseUpdateScreen} />
       <Drawer.Screen name="সেটিংস" component={SettingsScreen} />
       <Drawer.Screen name="রেলওয়ে ই-টিকিট" component={TicketNavigator} />
+      <Drawer.Screen name="ট্রেন ট্র্যাকিং" component={TrackingNavigator} />
       <Drawer.Screen name="প্রয়োজনীয় লিংকসমূহ" component={UsefulLinksScreen} />
       <Drawer.Screen name="অ্যাপ সম্পর্কে" component={AboutScreen} />
       <Drawer.Screen name="ডেভেলপার" component={CreditsScreen} />
