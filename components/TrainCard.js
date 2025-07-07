@@ -4,8 +4,18 @@ import { Card, Text, IconButton } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
+// Bengali digit to English digit converter (for URLs)
+const convertBnToEnDigits = (input) => {
+  const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+  let output = '';
+  for (let char of input) {
+    const index = bnDigits.indexOf(char);
+    output += index === -1 ? char : index.toString();
+  }
+  return output;
+};
 
-// Bengali digit conversion
+// Format to 12-hour Bengali time without AM/PM
 const engToBengaliDigit = (input) => {
   const digitMap = {
     '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪',
@@ -14,11 +24,10 @@ const engToBengaliDigit = (input) => {
   return input.toString().split('').map(char => digitMap[char] || char).join('');
 };
 
-// Format to 12-hour Bengali time without AM/PM
 const getBengaliTimeFromString = (time24h) => {
   if (!time24h) return '';
   let [hours, minutes] = time24h.split(':').map(Number);
-  hours = hours % 12 || 12; // convert to 12-hour clock
+  hours = hours % 12 || 12;
   const hourBn = engToBengaliDigit(hours.toString().padStart(2, '0'));
   const minuteBn = engToBengaliDigit(minutes.toString().padStart(2, '0'));
   return `${hourBn}:${minuteBn}`;
@@ -26,16 +35,23 @@ const getBengaliTimeFromString = (time24h) => {
 
 const TrainCard = ({ train, highlight, passed }) => {
   const navigation = useNavigation();
+
+  // Log full train object to debug
+  console.log('🐞 train object:', train);
+
   const cardStyle = highlight
     ? styles.highlightCard
     : passed
     ? styles.passedCard
     : styles.normalCard;
 
-  const trainNo = train['Train No.'];
+  const trainNo = train['Train No.']; // use this everywhere
   const dayNight = train['Day Night Time'] || '';
   const time = getBengaliTimeFromString(train['From Station Time']);
   const offDay = train['Off Day']?.trim();
+
+  // Convert Bengali train number to English digits for URL
+  const englishTrainNo = convertBnToEnDigits(String(trainNo));
 
   return (
     <Card style={[styles.card, cardStyle]} elevation={2}>
@@ -109,26 +125,26 @@ const TrainCard = ({ train, highlight, passed }) => {
           <View style={styles.buttonColumn}>
             <IconButton
               icon="information-outline"
-              size={22}
-              mode="contained"
-              containerColor={highlight ? 'white' : '#e8f5e9'}
-              iconColor={highlight ? '#4caf50' : '#4caf50'}
-onPress={() =>
-  navigation.navigate('TrainDetails', {
-    trainNo, // ✅ only this
-  })
-}
-
-            />
-            <IconButton
-              icon="radar"
-              size={22}
+              size={18}
               mode="contained"
               containerColor={highlight ? 'white' : '#e8f5e9'}
               iconColor={highlight ? '#4caf50' : '#4caf50'}
               onPress={() =>
-                navigation.navigate('WebTracking', { trainNo: train.no })
+                navigation.navigate('TrainDetails', {
+                  trainNo, // keep this as is
+                })
               }
+            />
+            <IconButton
+              icon="radar"
+              size={18}
+              mode="contained"
+              containerColor={highlight ? 'white' : '#e8f5e9'}
+              iconColor={highlight ? '#4caf50' : '#4caf50'}
+              onPress={() => {
+                console.log('🚀 Navigating to WebTracking with trainNo:', englishTrainNo);
+                navigation.navigate('WebTracking', { trainNo: englishTrainNo });
+              }}
             />
           </View>
         </View>
