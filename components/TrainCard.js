@@ -127,7 +127,7 @@ onPress={() =>
               containerColor={highlight ? 'white' : '#e8f5e9'}
               iconColor={highlight ? '#4caf50' : '#4caf50'}
               onPress={() =>
-                navigation.navigate('TrainTrackingScreen', { trainNo })
+                navigation.navigate('WebTracking', { trainNo: train.no })
               }
             />
           </View>

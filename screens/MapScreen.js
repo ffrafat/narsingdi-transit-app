@@ -9,7 +9,7 @@ const stations = [
   { name: 'শ্রীনিধি', mapUrl: 'https://maps.app.goo.gl/8SpgP6FeVBXwdQhE9' },
   { name: 'মেথিকান্দা', mapUrl: 'https://maps.app.goo.gl/rkwX8jNLXM4X1sxS6' },
   { name: 'হাঁটুভাঙ্গা', mapUrl: 'https://maps.app.goo.gl/psDsbn8kq4A1wD9K9' },
-  { name: 'খানাবাড়ি', mapUrl: 'https://maps.app.goo.gl/uUqtANxtPHGPJVFz8' },
+  { name: 'খানাবাড়ী', mapUrl: 'https://maps.app.goo.gl/uUqtANxtPHGPJVFz8' },
   { name: 'আমীরগঞ্জ', mapUrl: 'https://maps.app.goo.gl/x8SyBMFud1dX2XVT8' },
   { name: 'নরসিংদী', mapUrl: 'https://maps.app.goo.gl/rAFXRWJdat5jgMw88' },
   { name: 'জিনারদী', mapUrl: 'https://maps.app.goo.gl/NzWCGarJoBkWcrKRA' },

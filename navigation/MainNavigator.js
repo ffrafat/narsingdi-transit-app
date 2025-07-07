@@ -13,15 +13,13 @@ import SettingsScreen from '../screens/SettingsScreen';
 import TimetableScreen from '../screens/TimetableScreen';
 import AboutScreen from '../screens/AboutScreen';
 import CreditsScreen from '../screens/CreditsScreen';
-import DatabaseUpdateScreen from '../screens/DatabaseUpdateScreen';
 import UsefulLinksScreen from '../screens/UsefulLinksScreen';
-
-import TrackingReportScreen from '../screens/TrackingReportScreen';
 
 
 // Tracking Related Screens
 import LiveTrackingHomeScreen from '../screens/LiveTrackingHomeScreen';
 import TrackingNavigator from '../trackingscreens/TrackingNavigator';
+import TrackingWebViewScreen from '../trackingscreens/TrackingWebViewScreen';
 
 
 // ETicket Related Screens
@@ -30,7 +28,6 @@ import TicketNavigator from '../ticketscreens/TicketNavigator';
 
 // Train Details Page Import
 import TrainDetailsScreen from '../screens/TrainDetailsScreen';
-import TrainTrackingScreen from '../screens/TrainTrackingScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -64,14 +61,8 @@ function CustomDrawerContent(props) {
         <DrawerItem
           label="ট্রেন ট্র্যাকিং"
           labelStyle={{ color: '#333', fontWeight: 'bold' }}
-          icon={({ size }) => <Icon name="ticket-confirmation" color="#333" size={size} />}
+          icon={({ size }) => <Icon name="satellite-variant" color="#333" size={size} />}
           onPress={() => props.navigation.navigate('ট্রেন ট্র্যাকিং')}
-        />
-        <DrawerItem
-          label="রিপোর্ট লোকেশন"
-          labelStyle={{ color: '#333', fontWeight: 'bold' }}
-          icon={({ size }) => <Icon name="map-marker-check" color="#333" size={size} />}
-          onPress={() => props.navigation.navigate('রিপোর্ট লোকেশন')}
         />
 
         <DrawerItem
@@ -79,13 +70,6 @@ function CustomDrawerContent(props) {
           labelStyle={{ color: '#333', fontWeight: 'bold' }}
           icon={({ size }) => <Icon name="map" color="#333" size={size} />}
           onPress={() => props.navigation.navigate('স্টেশন ম্যাপ')}
-        />
-
-        <DrawerItem
-          label="ডেটাবেজ আপডেট"
-          labelStyle={{ color: '#333', fontWeight: 'bold' }}
-          icon={({ size }) => <Icon name="database-refresh" color="#333" size={size} />}
-          onPress={() => props.navigation.navigate('ডেটাবেজ আপডেট')}
         />
 
         <DrawerItem
@@ -175,14 +159,12 @@ function DrawerContentNavigator() {
     >
       <Drawer.Screen name="সময়সূচী" component={TimetableScreen} />
       <Drawer.Screen name="স্টেশন ম্যাপ" component={MapScreen} />
-      <Drawer.Screen name="ডেটাবেজ আপডেট" component={DatabaseUpdateScreen} />
       <Drawer.Screen name="সেটিংস" component={SettingsScreen} />
       <Drawer.Screen name="রেলওয়ে ই-টিকিট" component={TicketNavigator} />
       <Drawer.Screen name="ট্রেন ট্র্যাকিং" component={TrackingNavigator} />
       <Drawer.Screen name="প্রয়োজনীয় লিংকসমূহ" component={UsefulLinksScreen} />
       <Drawer.Screen name="অ্যাপ সম্পর্কে" component={AboutScreen} />
       <Drawer.Screen name="ডেভেলপার" component={CreditsScreen} />
-      <Drawer.Screen name="রিপোর্ট লোকেশন" component={TrackingReportScreen} />
     </Drawer.Navigator>
   );
 }
@@ -194,25 +176,27 @@ export default function MainNavigator() {
       <NavigationContainer>
 <Stack.Navigator screenOptions={{ headerShown: false }}>
   <Stack.Screen name="DrawerHome" component={DrawerContentNavigator} />
-  
+
+
+<Stack.Screen
+  name="WebTracking"
+  component={TrackingWebViewScreen}
+  options={{
+    headerShown: true,
+    title: 'লাইভ ট্র্যাকিং আপডেট',
+    headerStyle: { backgroundColor: '#4CAF50' },
+    headerTintColor: '#fff',
+    headerTitleStyle: { fontWeight: 'bold' },
+  }}
+/>
+
+
   <Stack.Screen
     name="TrainDetails"
     component={TrainDetailsScreen}
     options={{
       headerShown: true,
       title: 'ট্রেনের বিস্তারিত',
-      headerStyle: { backgroundColor: '#4CAF50' },
-      headerTintColor: '#fff',
-      headerTitleStyle: { fontWeight: 'bold' },
-    }}
-  />
-
-  <Stack.Screen
-    name="TrainTrackingScreen"
-    component={TrainTrackingScreen} // ✅ make sure it's imported at the top
-    options={{
-      headerShown: true,
-      title: 'লাইভ ট্র্যাকিং',
       headerStyle: { backgroundColor: '#4CAF50' },
       headerTintColor: '#fff',
       headerTitleStyle: { fontWeight: 'bold' },

@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, Pressable, Dimensions } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import {useGoogleLogin} from '../utils/useGoogleLogin';
 
 const options = [
   { title: 'লাইভ ট্র্যাকিং', icon: 'satellite-variant', screen: 'TrainTrackingList' },
@@ -17,7 +16,6 @@ const cardSize = Dimensions.get('window').width / numColumns - 24;
 
 const LiveTrackingHomeScreen = () => {
   const navigation = useNavigation();
-  const { promptAsync } = useGoogleLogin();
 
   return (
     <View style={styles.container}>
@@ -35,19 +33,6 @@ const LiveTrackingHomeScreen = () => {
           </View>
         </Pressable>
       ))}
-
-      <View style={{ marginTop: 20, width: '100%' }}>
-        <Button
-          mode="contained"
-          onPress={() => promptAsync()}
-          icon="google"
-          buttonColor="#DB4437"
-          textColor="white"
-          contentStyle={{ paddingVertical: 10 }}
-        >
-          Google দিয়ে লগইন করুন
-        </Button>
-      </View>
     </View>
   );
 };
