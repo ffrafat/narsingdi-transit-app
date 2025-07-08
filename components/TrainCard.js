@@ -36,9 +36,6 @@ const getBengaliTimeFromString = (time24h) => {
 const TrainCard = ({ train, highlight, passed }) => {
   const navigation = useNavigation();
 
-  // Log full train object to debug
-  console.log('🐞 train object:', train);
-
   const cardStyle = highlight
     ? styles.highlightCard
     : passed
