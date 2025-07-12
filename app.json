@@ -3,7 +3,7 @@
     "name": "Narsingdi Transit",
     "slug": "narsingdi-transit",
     "scheme": "com.googleusercontent.apps.1033915031162-f43tahd1c9bh6tr1qs65vf8brf6cmcq1",
-    "version": "1.5",
+    "version": "1.6",
     "platforms": [
       "android"
     ],
@@ -21,7 +21,7 @@
     },
     "android": {
       "package": "cc.rafat.narsingditransit",
-      "versionCode": 14,
+      "versionCode": 15,
       "permissions": [],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

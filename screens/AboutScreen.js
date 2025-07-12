@@ -18,7 +18,7 @@ const AboutAppScreen = () => {
     <Image source={require('../assets/icon.png')} style={styles.appIcon} />
     <View>
       <Text style={styles.appName}>নরসিংদী ট্রানজিট</Text>
-      <Text style={styles.versionText}>ভার্সন: ১.৫</Text>
+      <Text style={styles.versionText}>ভার্সন: ১.৬</Text>
     </View>
   </View>
       {/* App Card */}
