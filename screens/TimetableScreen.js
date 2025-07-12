@@ -329,26 +329,53 @@ useEffect(() => {
         </View>
       )}
 
-      {Array.isArray(trains) && trains.length === 0 && passedTrains.length > 0 && (
-        <>
-          <View style={styles.noTrainsBox}>
-            <Icon name="information" size={20} color="#2E7D32" style={{ marginRight: 4 }} />
-            <RNText style={styles.noTrainsText}>আজকের জন্য এই রুটে আর কোনো ট্রেন নেই।</RNText>
-          </View>
+ {Array.isArray(trains) && trains.length === 0 && passedTrains.length > 0 && (
+  <>
+    <View style={styles.noTrainsBox}>
+      <Icon name="information" size={20} color="#2E7D32" style={{ marginRight: 4 }} />
+      <RNText style={styles.noTrainsText}>আজকের জন্য এই রুটে আর কোনো ট্রেন নেই।</RNText>
+    </View>
 
-          <TouchableOpacity
-            style={styles.nextDayButton}
-            onPress={() => {
-              const tomorrow = new Date(date);
-              tomorrow.setDate(date.getDate() + 1);
-              setTempDate(tomorrow);
-              setShowDatePicker(true);
-            }}
-          >
-            <RNText style={styles.nextDayButtonText}>পরবর্তী দিনের ট্রেনসমূহ দেখুন</RNText>
-          </TouchableOpacity>
-        </>
-      )}
+        <TouchableOpacity
+      style={styles.nextDayButton}
+      onPress={() => {
+        const tomorrow = new Date(date);
+        tomorrow.setDate(date.getDate() + 1);
+        setTempDate(tomorrow);
+        setShowDatePicker(true);
+      }}
+    >
+      <RNText style={styles.nextDayButtonText}>পরবর্তী দিনের ট্রেনসমূহ দেখুন</RNText>
+    </TouchableOpacity>
+
+    {/* Expandable header for passed trains */}
+    <TouchableOpacity
+      onPress={() => setExpanded(!expanded)}
+      style={styles.expandableHeader}
+    >
+      <Text style={styles.noTrainsText}>ইতিমধ্যে ছেড়ে যাওয়া ট্রেনসমূহ</Text>
+      <Icon
+        name={expanded ? 'chevron-up' : 'chevron-down'}
+        size={24}
+        color="#2E7D32"
+      />
+    </TouchableOpacity>
+
+    {expanded && (
+      <FlatList
+        data={passedTrains}
+        keyExtractor={(item) => item['Train No.']}
+        renderItem={({ item }) => (
+          <TrainCard train={item} highlight={false} passed showHeading={false} />
+        )}
+        contentContainerStyle={{ paddingBottom: 24 }}
+      />
+    )}
+
+
+  </>
+)}
+
 
       {Array.isArray(trains) && trains.length > 0 && (
         <>
@@ -414,13 +441,6 @@ useEffect(() => {
             />
           )}
         </>
-      )}
-
-      {Array.isArray(trains) && trains.length === 0 && passedTrains.length === 0 && (
-        <View style={styles.noTrainsBox}>
-          <Icon name="information" size={20} color="#2E7D32" style={{ marginRight: 4 }} />
-          <RNText style={styles.noTrainsText}>আজকের জন্য এই রুটে আর কোনো ট্রেন নেই।</RNText>
-        </View>
       )}
 
       {showDatePicker && (
