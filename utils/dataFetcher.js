@@ -30,6 +30,10 @@ export const fetchAndCacheRoute = async (from, to) => {
     url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/AirportToBhairab';
   }
 
+  if (from === 'দৌলতকান্দি' && (to === 'ঢাকা' || to === 'বিমানবন্দর' || to === 'তেজগাঁও')) {
+    url = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/DoulotkandiToAirportTejgaonKamalapur';
+  }
+
 
   if (!url) return;
 
