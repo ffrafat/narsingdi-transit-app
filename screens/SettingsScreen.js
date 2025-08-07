@@ -7,7 +7,7 @@ import DropdownSelector from '../components/DropdownSelector';
 import NetInfo from '@react-native-community/netinfo';
 import { fetchAndCacheRoute } from '../utils/dataFetcher';
 
-const stationList = ['নরসিংদী', 'ঢাকা', 'বিমানবন্দর', 'ভৈরব', 'মেথিকান্দা'];
+const stationList = ['ঢাকা', 'তেজগাঁও', 'বিমানবন্দর', 'নরসিংদী', 'মেথিকান্দা', 'দৌলতকান্দি', 'ভৈরব'];
 
 const SettingsScreen = () => {
   const [from, setFrom] = useState('নরসিংদী');
