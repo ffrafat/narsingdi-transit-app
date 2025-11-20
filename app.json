@@ -27,7 +27,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#4caf50"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "memoryPageSize": "16KB"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -43,6 +44,7 @@
     "plugins": [
       "react-native-rate-app",
       "expo-font"
-    ]
+    ],
+    "sdkVersion": "54.0.0"
   }
 }
