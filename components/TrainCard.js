@@ -1,21 +1,10 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Text, IconButton } from 'react-native-paper';
+import { Text, IconButton, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
-// Bengali digit to English digit converter (for URLs)
-const convertBnToEnDigits = (input) => {
-  const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
-  let output = '';
-  for (let char of input) {
-    const index = bnDigits.indexOf(char);
-    output += index === -1 ? char : index.toString();
-  }
-  return output;
-};
-
-// Format to 12-hour Bengali time without AM/PM
+// Bengali digit converter
 const engToBengaliDigit = (input) => {
   const digitMap = {
     '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪',
@@ -24,207 +13,217 @@ const engToBengaliDigit = (input) => {
   return input.toString().split('').map(char => digitMap[char] || char).join('');
 };
 
+const convertBnToEnDigits = (input) => {
+  const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+  let output = '';
+  for (let char of String(input)) {
+    const index = bnDigits.indexOf(char);
+    output += index === -1 ? char : index.toString();
+  }
+  return output;
+};
+
 const getBengaliTimeFromString = (time24h) => {
   if (!time24h) return '';
   let [hours, minutes] = time24h.split(':').map(Number);
   hours = hours % 12 || 12;
-  const hourBn = engToBengaliDigit(hours.toString().padStart(2, '0'));
-  const minuteBn = engToBengaliDigit(minutes.toString().padStart(2, '0'));
-  return `${hourBn}:${minuteBn}`;
+  return `${engToBengaliDigit(hours.toString().padStart(2, '0'))}:${engToBengaliDigit(minutes.toString().padStart(2, '0'))}`;
 };
 
 const TrainCard = ({ train, highlight, passed }) => {
   const navigation = useNavigation();
+  const theme = useTheme();
+  const styles = getStyles(theme, highlight, passed);
 
-  const cardStyle = highlight
-    ? styles.highlightCard
-    : passed
-    ? styles.passedCard
-    : styles.normalCard;
-
-  const trainNo = train['Train No.']; // use this everywhere
+  const trainNo = train['Train No.'] || '';
+  const trainName = train['Train Name'] || '';
   const dayNight = train['Day Night Time'] || '';
   const time = getBengaliTimeFromString(train['From Station Time']);
   const offDay = train['Off Day']?.trim();
-
-  // Convert Bengali train number to English digits for URL
   const englishTrainNo = convertBnToEnDigits(String(trainNo));
 
   return (
-    <Card style={[styles.card, cardStyle]} elevation={2}>
-      <Card.Content style={styles.cardContent}>
-        <View style={styles.leftSide}>
-          <View style={styles.trainHeader}>
-            <Icon
-              name="train"
-              size={highlight ? 26 : 22}
-              color={highlight ? 'white' : passed ? '#666' : '#4caf50'}
-            />
-            <Text style={[
-              styles.trainNo,
-              highlight && { color: 'white' },
-              passed && { color: '#666' }
-            ]}>
-              {trainNo}
+    <View style={styles.card}>
+      <View style={styles.content}>
+        {/* Left Section */}
+        <View style={styles.leftSection}>
+          <View style={styles.header}>
+            <View style={styles.trainNoBox}>
+              <Text style={styles.trainNoText}>{trainNo}</Text>
+            </View>
+            <Text style={styles.trainName} numberOfLines={1}>{trainName}</Text>
+          </View>
+
+          <View style={styles.routeRow}>
+            <Icon name="map-marker-path" size={16} color={styles.routeIcon.color} />
+            <Text style={styles.routeText} numberOfLines={1}>
+              {train['Start Station']} → {train['End Station']}
             </Text>
           </View>
-          <Text style={[
-            styles.trainName,
-            highlight && { color: 'white' },
-            passed && { color: '#444' }
-          ]}>
-            {train['Train Name']}
-          </Text>
-          <Text style={[
-            styles.trainRoute,
-            highlight && { color: 'rgba(255,255,255,0.7)' },
-            passed && { color: '#777' }
-          ]}>
-            {train['Start Station']} - {train['End Station']}
-          </Text>
+
+          {offDay && (
+            <View style={styles.offDayRow}>
+              <Icon name="calendar-remove" size={14} color={styles.offDayIcon.color} />
+              <Text style={styles.offDayText}>{offDay} বন্ধ</Text>
+            </View>
+          )}
         </View>
 
-        <View style={styles.rightSideWrapper}>
-          <View style={styles.timeColumn}>
-            <Text style={[
-              styles.dayNightText,
-              highlight && { color: 'white' },
-              passed && { color: '#666' }
-            ]}>
-              {dayNight}
-            </Text>
-            <Text style={[
-              styles.trainTime,
-              highlight && { color: 'white' },
-              passed && { color: '#444' }
-            ]}>
-              {time}
-            </Text>
-            {offDay !== '' && offDay !== undefined && (
-              <View style={styles.offDayRow}>
-                <Icon
-                  name="calendar-remove"
-                  size={18}
-                  color={highlight ? 'white' : passed ? '#666' : 'gray'}
-                  style={{ marginRight: 6 }}
-                />
-                <Text style={[
-                  styles.offDayText,
-                  highlight && { color: 'white' },
-                  passed && { color: '#666' }
-                ]}>
-                  {offDay}
-                </Text>
-              </View>
-            )}
+        {/* Right Section */}
+        <View style={styles.rightSection}>
+          <View style={styles.timeContainer}>
+            <Text style={styles.dayNight}>{dayNight}</Text>
+            <Text style={styles.time}>{time}</Text>
           </View>
 
-          <View style={styles.buttonColumn}>
+          <View style={styles.actions}>
             <IconButton
-              icon="information-outline"
-              size={18}
+              icon="information"
+              size={20}
               mode="contained"
-              containerColor={highlight ? 'white' : '#e8f5e9'}
-              iconColor={highlight ? '#4caf50' : '#4caf50'}
-              onPress={() =>
-                navigation.navigate('TrainDetails', {
-                  trainNo, // keep this as is
-                })
-              }
+              onPress={() => navigation.navigate('TrainDetails', { trainNo })}
+              containerColor={styles.btnInfo.backgroundColor}
+              iconColor={styles.btnInfo.color}
+              style={styles.btn}
             />
             <IconButton
-              icon="radar"
-              size={18}
+              icon="map-marker"
+              size={20}
               mode="contained"
-              containerColor={highlight ? 'white' : '#e8f5e9'}
-              iconColor={highlight ? '#4caf50' : '#4caf50'}
-              onPress={() => {
-                console.log('🚀 Navigating to WebTracking with trainNo:', englishTrainNo);
-                navigation.navigate('WebTracking', { trainNo: englishTrainNo });
-              }}
+              onPress={() => navigation.navigate('WebTracking', { trainNo: englishTrainNo })}
+              containerColor={styles.btnTrack.backgroundColor}
+              iconColor={styles.btnTrack.color}
+              style={styles.btn}
             />
           </View>
         </View>
-      </Card.Content>
-    </Card>
+      </View>
+    </View>
   );
 };
 
-const styles = StyleSheet.create({
-  card: {
-    borderRadius: 10,
-    marginVertical: 6,
-    marginHorizontal: 2,
-    backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    shadowOffset: { width: 0, height: 1 },
-  },
-  highlightCard: { backgroundColor: '#4caf50' },
-  normalCard: { backgroundColor: '#fff' },
-  passedCard: { backgroundColor: '#d6d6d6' },
-  cardContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  leftSide: { flex: 1 },
-  trainHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 4,
-  },
-  trainNo: {
-    marginLeft: 8,
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#4caf50',
-  },
-  trainName: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#222',
-  },
-  trainRoute: {
-    fontSize: 14,
-    color: 'gray',
-    marginTop: 2,
-  },
-  rightSideWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft: 12,
-  },
-  timeColumn: {
-    alignItems: 'flex-end',
-    marginRight: 10,
-    minWidth: 80,
-  },
-  dayNightText: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#4caf50',
-    marginBottom: 4,
-  },
-  trainTime: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#4caf50',
-  },
-  offDayRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 6,
-  },
-  offDayText: {
-    fontSize: 14,
-    color: 'gray',
-  },
-  buttonColumn: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-});
+const getStyles = (theme, highlight, passed) => {
+  const cardBg = highlight ? theme.colors.primary : passed ? theme.colors.surfaceVariant : theme.colors.surface;
+  const textColor = highlight ? '#FFFFFF' : passed ? theme.colors.outline : theme.colors.onSurface;
+  const mutedColor = highlight ? 'rgba(255,255,255,0.8)' : theme.colors.onSurfaceVariant;
+
+  return StyleSheet.create({
+    card: {
+      marginHorizontal: 12,
+      marginVertical: 6,
+      borderRadius: 16,
+      backgroundColor: cardBg,
+      elevation: highlight ? 6 : 2,
+      shadowColor: highlight ? theme.colors.primary : '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: highlight ? 0.3 : 0.1,
+      shadowRadius: 8,
+      borderWidth: 1,
+      borderColor: highlight ? theme.colors.primary : theme.colors.outlineVariant,
+    },
+    content: {
+      flexDirection: 'row',
+      padding: 16,
+    },
+    leftSection: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 8,
+    },
+    trainNoBox: {
+      backgroundColor: highlight ? 'rgba(255,255,255,0.25)' : theme.colors.primaryContainer,
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      borderRadius: 6,
+      marginRight: 10,
+    },
+    trainNoText: {
+      fontSize: 11,
+      fontWeight: '900',
+      color: highlight ? '#FFFFFF' : theme.colors.onPrimaryContainer,
+      letterSpacing: 0.5,
+    },
+    trainName: {
+      fontSize: 18,
+      fontWeight: '800',
+      color: textColor,
+      flex: 1,
+    },
+    routeRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 6,
+    },
+    routeIcon: {
+      color: mutedColor,
+    },
+    routeText: {
+      fontSize: 13,
+      fontWeight: '600',
+      color: mutedColor,
+      marginLeft: 8,
+      flex: 1,
+    },
+    offDayRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: 4,
+    },
+    offDayIcon: {
+      color: highlight ? '#FFCDD2' : theme.colors.error,
+    },
+    offDayText: {
+      fontSize: 11,
+      fontWeight: '700',
+      color: highlight ? '#FFCDD2' : theme.colors.error,
+      marginLeft: 6,
+    },
+    rightSection: {
+      alignItems: 'flex-end',
+      justifyContent: 'space-between',
+      marginLeft: 16,
+    },
+    timeContainer: {
+      alignItems: 'flex-end',
+    },
+    dayNight: {
+      fontSize: 10,
+      fontWeight: '900',
+      color: highlight ? 'rgba(255,255,255,0.7)' : theme.colors.secondary,
+      textTransform: 'uppercase',
+      letterSpacing: 1,
+      marginBottom: 4,
+    },
+    time: {
+      fontSize: 28,
+      fontWeight: '900',
+      color: highlight ? '#FFFFFF' : theme.colors.primary,
+      letterSpacing: -1,
+      lineHeight: 32,
+    },
+    actions: {
+      flexDirection: 'row',
+      marginTop: 8,
+    },
+    btn: {
+      margin: 0,
+      marginLeft: 6,
+      width: 36,
+      height: 36,
+    },
+    btnInfo: {
+      backgroundColor: highlight ? 'rgba(255,255,255,0.2)' : theme.colors.secondaryContainer,
+      color: highlight ? '#FFFFFF' : theme.colors.onSecondaryContainer,
+    },
+    btnTrack: {
+      backgroundColor: highlight ? 'rgba(255,255,255,0.2)' : theme.colors.primaryContainer,
+      color: highlight ? '#FFFFFF' : theme.colors.onPrimaryContainer,
+    },
+  });
+};
 
 export default TrainCard;

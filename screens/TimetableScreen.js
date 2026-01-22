@@ -7,10 +7,14 @@ import {
   Alert,
   Pressable,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import {
   Text,
   IconButton,
+  useTheme,
+  Surface,
+  Button,
 } from 'react-native-paper';
 import NetInfo from '@react-native-community/netinfo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,6 +22,7 @@ import { useNavigation, useFocusEffect, useRoute } from '@react-navigation/nativ
 import TrainCard from '../components/TrainCard';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { LinearGradient } from 'expo-linear-gradient';
 import LiveDot from '../components/LiveDot';
 import DropdownSelector from '../components/DropdownSelector';
 
@@ -65,8 +70,12 @@ const bengaliMonths = {
 const getBengaliTime = (date) => {
   let hours = date.getHours();
   const minutes = date.getMinutes();
+  const period = hours >= 12 ? 'pm' : 'am';
   hours = hours % 12 || 12;
-  return `${engToBengaliDigit(hours.toString().padStart(2, '0'))}:${engToBengaliDigit(minutes.toString().padStart(2, '0'))}`;
+  return {
+    time: `${engToBengaliDigit(hours.toString().padStart(2, '0'))}:${engToBengaliDigit(minutes.toString().padStart(2, '0'))}`,
+    period: period
+  };
 };
 
 const getBengaliDate = (date) => {
@@ -77,6 +86,8 @@ const getBengaliDate = (date) => {
 };
 
 const TimetableScreen = () => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   useUpdatePrompt();
   const navigation = useNavigation();
   const [from, setFrom] = useState('নরসিংদী');
@@ -93,21 +104,21 @@ const TimetableScreen = () => {
 
 
   // ✅ Only load default stations ONCE on first render
-useEffect(() => {
-  const loadDefaultStationsOnce = async () => {
-    if (initialized.current) return;
-    try {
-      const savedFrom = await AsyncStorage.getItem('default_from');
-      const savedTo = await AsyncStorage.getItem('default_to');
-      if (savedFrom) setFrom(savedFrom);
-      if (savedTo) setTo(savedTo);
-    } catch (e) {
-      console.warn('Error loading default stations:', e);
-    }
-    initialized.current = true;
-  };
-  loadDefaultStationsOnce();
-}, []);
+  useEffect(() => {
+    const loadDefaultStationsOnce = async () => {
+      if (initialized.current) return;
+      try {
+        const savedFrom = await AsyncStorage.getItem('default_from');
+        const savedTo = await AsyncStorage.getItem('default_to');
+        if (savedFrom) setFrom(savedFrom);
+        if (savedTo) setTo(savedTo);
+      } catch (e) {
+        console.warn('Error loading default stations:', e);
+      }
+      initialized.current = true;
+    };
+    loadDefaultStationsOnce();
+  }, []);
 
 
 
@@ -250,7 +261,7 @@ useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <IconButton icon="calendar" size={24} iconColor="#fff" onPress={() => {
+          <IconButton icon="calendar" size={24} iconColor={theme.colors.onPrimary} onPress={() => {
             setTempDate(date);
             setShowDatePicker(true);
           }} />
@@ -284,163 +295,140 @@ useEffect(() => {
   };
 
   return (
-    <View style={{ flex: 1, paddingHorizontal: 12, paddingTop: 4 }}>
-      <View style={styles.topRow}>
-        <View style={styles.leftTopRow}>
-          <Icon name="clock-outline" size={34} color="#000" style={{ marginRight: 4, marginTop: 4, marginLeft: 16 }} />
-          <RNText style={styles.bigTime}>{getBengaliTime(currentTime)}</RNText>
+    <View style={styles.container}>
+      {/* Immersive Header */}
+      <LinearGradient
+        colors={['#075d37', '#41ab5d']}
+        style={styles.headerGradient}
+      >
+        <View style={styles.headerTop}>
+          <View>
+            <TouchableOpacity
+              style={styles.headerDateContainer}
+              onPress={() => setShowDatePicker(true)}
+            >
+              <RNText style={styles.headerDateText}>{getBengaliDate(date)}</RNText>
+              <Icon name="chevron-down" size={16} color="rgba(255,255,255,0.7)" />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.headerTimeContainer}>
+            <View style={styles.timeIconContainer}>
+              <Icon name="clock-outline" size={16} color="rgba(255,255,255,0.9)" />
+            </View>
+            <View style={styles.timeDisplay}>
+              <RNText style={styles.headerTimeText}>{getBengaliTime(currentTime).time}</RNText>
+              <RNText style={styles.timePeriod}>{getBengaliTime(currentTime).period}</RNText>
+            </View>
+          </View>
         </View>
-        <View style={styles.rightTopRow}>
-          <RNText style={styles.mediumWeekday}>
-            {bengaliDays[date.toLocaleDateString('en-US', { weekday: 'long' })]}
-          </RNText>
-          <RNText style={styles.fullDate}>{getBengaliDate(date)}</RNText>
-        </View>
-      </View>
 
-      <View style={styles.dropdownRow}>
-        <DropdownSelector options={LOCATIONS} selected={from} onChange={setFrom} circular icon="map-marker" />
-        <View style={styles.journeyLine}>
-          <View style={styles.journeyDot} />
-          <View style={styles.journeyLineBar} />
-          <View style={styles.journeyDot} />
+        {/* Floating Journey Selector */}
+        <Surface style={styles.floatingSelector} elevation={4}>
+          <View style={styles.selectorRow}>
+            <View style={styles.stationBlock}>
+              <RNText style={styles.selectorHint}>যাত্রা</RNText>
+              <DropdownSelector options={LOCATIONS} selected={from} onChange={setFrom} />
+            </View>
 
-          <Pressable
-            onPress={() => {
-              const temp = from;
-              setFrom(to);
-              setTo(temp);
-            }}
-            style={styles.reverseButton}
-          >
-            <Icon name="swap-horizontal" size={24} color="#fff" />
-          </Pressable>
+            <TouchableOpacity
+              style={styles.swapBtn}
+              onPress={() => {
+                const temp = from;
+                setFrom(to);
+                setTo(temp);
+              }}
+            >
+              <Icon name="swap-horizontal" size={24} color={theme.colors.primary} />
+            </TouchableOpacity>
 
-        </View>
-        <DropdownSelector options={LOCATIONS} selected={to} onChange={setTo} circular icon="map-marker" />
-      </View>
+            <View style={[styles.stationBlock, { alignItems: 'flex-end' }]}>
+              <RNText style={styles.selectorHint}>গন্তব্য</RNText>
+              <DropdownSelector options={LOCATIONS} selected={to} onChange={setTo} />
+            </View>
+          </View>
+        </Surface>
+      </LinearGradient>
 
       {trains === null && (
-        <View>
-          <View style={styles.errorBox}>
-            <Icon name="alert-circle" size={20} color="#d32f2f" style={{ marginRight: 4 }} />
-            <RNText style={styles.errorText}>দুঃখিত! এই রুটের জন্য সময়সূচী খুঁজে পাওয়া যায়নি।</RNText>
-          </View>
+        <View style={styles.emptyState}>
+          <Icon name="calendar-question" size={64} color={theme.colors.outlineVariant} />
+          <RNText style={styles.emptyText}>এই রুটে কোনো তথ্য নেই</RNText>
         </View>
       )}
 
- {Array.isArray(trains) && trains.length === 0 && passedTrains.length > 0 && (
-  <>
-    <View style={styles.noTrainsBox}>
-      <Icon name="information" size={20} color="#2E7D32" style={{ marginRight: 4 }} />
-      <RNText style={styles.noTrainsText}>আজকের জন্য এই রুটে আর কোনো ট্রেন নেই।</RNText>
-    </View>
+      {Array.isArray(trains) && trains.length === 0 && passedTrains.length > 0 && (
+        <ScrollView contentContainerStyle={styles.centeredList}>
+          <View style={styles.allPassedContainer}>
+            <Icon name="check-circle-outline" size={48} color={theme.colors.primary} />
+            <RNText style={styles.allPassedText}>আজকের সব ট্রেন ছেড়ে গেছে</RNText>
 
-        <TouchableOpacity
-      style={styles.nextDayButton}
-      onPress={() => {
-        const tomorrow = new Date(date);
-        tomorrow.setDate(date.getDate() + 1);
-        setTempDate(tomorrow);
-        setShowDatePicker(true);
-      }}
-    >
-      <RNText style={styles.nextDayButtonText}>পরবর্তী দিনের ট্রেনসমূহ দেখুন</RNText>
-    </TouchableOpacity>
-
-    {/* Expandable header for passed trains */}
-    <TouchableOpacity
-      onPress={() => setExpanded(!expanded)}
-      style={styles.expandableHeader}
-    >
-      <Text style={styles.noTrainsText}>ইতিমধ্যে ছেড়ে যাওয়া ট্রেনসমূহ</Text>
-      <Icon
-        name={expanded ? 'chevron-up' : 'chevron-down'}
-        size={24}
-        color="#2E7D32"
-      />
-    </TouchableOpacity>
-
-    {expanded && (
-      <FlatList
-        data={passedTrains}
-        keyExtractor={(item) => item['Train No.']}
-        renderItem={({ item }) => (
-          <TrainCard train={item} highlight={false} passed showHeading={false} />
-        )}
-        contentContainerStyle={{ paddingBottom: 24 }}
-      />
-    )}
-
-
-  </>
-)}
-
-
-      {Array.isArray(trains) && trains.length > 0 && (
-        <>
-          <View style={styles.sectionTitleContainer}>
-            <Text style={styles.nextDepartureTitle}>
-              পরবর্তী ট্রেন {getNextDepartureIn()} পর
-            </Text>
-            <LiveDot />
+            <Button
+              mode="contained"
+              onPress={() => {
+                const tomorrow = new Date(date);
+                tomorrow.setDate(date.getDate() + 1);
+                setDate(tomorrow);
+              }}
+              style={styles.tomorrowBtn}
+            >
+              আগামীকালের সূচী দেখুন
+            </Button>
           </View>
 
+          <View style={styles.passedHeader}>
+            <RNText style={styles.passedHeaderText}>ছেড়ে যাওয়া ট্রেন ({passedTrains.length})</RNText>
+            <View style={styles.headerLine} />
+          </View>
 
-            <TrainCard train={trains[0]} highlight showHeading />
+          {passedTrains.map(item => <TrainCard key={item['Train No.']} train={item} passed />)}
+        </ScrollView>
+      )}
 
-          {(trains.length > 1 || passedTrains.length > 0) && (
-            <FlatList
-              data={[
-                ...(trains.length > 1 ? [{ type: 'upcomingHeader' }] : []),
-                ...trains.slice(1).map(item => ({ type: 'train', item })),
-                ...(passedTrains.length > 0 ? [{ type: 'passedToggle' }] : []),
-                ...(expanded ? passedTrains.map(item => ({ type: 'passed', item })) : []),
-              ]}
-              keyExtractor={(item, index) => {
-                if (item.type === 'train' || item.type === 'passed') return item.item['Train No.'] || index.toString();
-                return item.type + index.toString();
-              }}
-              renderItem={({ item }) => {
-                if (item.type === 'upcomingHeader') {
-                  return (
-                    <View style={styles.sectionTitleContainer}>
-                      <Text style={styles.upcomingTitle}>আজকের দিনের অন্যান্য ট্রেনসমূহ</Text>
-                    </View>
-                  );
-                }
-                if (item.type === 'train') {
-                  return (
-
-                      <TrainCard train={item.item} highlight={false} showHeading={false} />
-                  );
-                }
-                if (item.type === 'passedToggle') {
-                  return (
-                    <TouchableOpacity
-                      onPress={() => setExpanded(!expanded)}
-                      style={styles.expandableHeader}
-                    >
-                      <Text style={styles.noTrainsText}>ইতিমধ্যে ছেড়ে যাওয়া ট্রেনসমূহ</Text>
-                      <Icon
-                        name={expanded ? 'chevron-up' : 'chevron-down'}
-                        size={24}
-                        color="#2E7D32"
-                      />
-                    </TouchableOpacity>
-                  );
-                }
-                if (item.type === 'passed') {
-                  return (
-                      <TrainCard train={item.item} highlight={false} passed showHeading={false} />
-                  );
-                }
-                return null;
-              }}
-              contentContainerStyle={{ paddingBottom: 24 }}
-            />
-          )}
-        </>
+      {Array.isArray(trains) && trains.length > 0 && (
+        <FlatList
+          data={[
+            { type: 'status' },
+            { type: 'hero', item: trains[0] },
+            ...(trains.length > 1 ? [{ type: 'subHeader' }] : []),
+            ...trains.slice(1).map(item => ({ type: 'train', item })),
+            ...(passedTrains.length > 0 ? [{ type: 'passedHeader' }] : []),
+            ...passedTrains.map(item => ({ type: 'passed', item })),
+          ]}
+          keyExtractor={(item, index) => item.type + (item.item?.['Train No.'] || index)}
+          contentContainerStyle={styles.listContainer}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => {
+            if (item.type === 'status') {
+              return (
+                <View style={styles.nextTrainBanner}>
+                  <View style={styles.bannerInfo}>
+                    <RNText style={styles.nextTrainLabel}>পরবর্তী ট্রেন</RNText>
+                    <RNText style={styles.countdownText}>{getNextDepartureIn()} পর</RNText>
+                  </View>
+                  <LiveDot />
+                </View>
+              );
+            }
+            if (item.type === 'hero') return <TrainCard train={item.item} highlight />;
+            if (item.type === 'subHeader') return (
+              <View style={styles.sectionHeader}>
+                <RNText style={styles.sectionHeaderText}>আজকের অন্যান্য ট্রেন</RNText>
+                <View style={styles.headerLine} />
+              </View>
+            );
+            if (item.type === 'train') return <TrainCard train={item.item} />;
+            if (item.type === 'passedHeader') {
+              return (
+                <View style={styles.sectionHeader}>
+                  <RNText style={styles.sectionHeaderText}>ছেড়ে যাওয়া ট্রেন ({passedTrains.length})</RNText>
+                  <View style={styles.headerLine} />
+                </View>
+              );
+            }
+            if (item.type === 'passed') return <TrainCard train={item.item} passed />;
+            return null;
+          }}
+        />
       )}
 
       {showDatePicker && (
@@ -449,12 +437,8 @@ useEffect(() => {
           mode="date"
           display="calendar"
           onChange={(event, selectedDate) => {
-            if (event.type === 'set' && selectedDate) {
-              setDate(selectedDate);
-              setShowDatePicker(false);
-            } else {
-              setShowDatePicker(false);
-            }
+            if (event.type === 'set' && selectedDate) setDate(selectedDate);
+            setShowDatePicker(false);
           }}
         />
       )}
@@ -462,55 +446,206 @@ useEffect(() => {
   );
 }
 
-const styles = StyleSheet.create({
-  topRow: { flexDirection: 'row', justifyContent: 'space-between', marginVertical: 2 },
-  leftTopRow: { flexDirection: 'row', alignItems: 'center' },
-  bigTime: { fontSize: 32, fontWeight: '700', color: '#000', marginRight: 12 },
-  rightTopRow: { flexDirection: 'column', alignItems: 'flex-end' },
-  mediumWeekday: { fontSize: 16, fontWeight: '700', color: '#000', marginRight: 16 },
-  fullDate: { fontSize: 12, fontWeight: '700', color: '#000', marginBottom: 12, marginRight: 16 },
-  sectionTitleContainer: { flexDirection: 'row', marginVertical: 8, alignItems: 'center' },
-  nextDepartureTitle: { fontSize: 18, fontWeight: '700', color: '#2e7d32' },
-  upcomingTitle: { fontSize: 16, fontWeight: '700', color: '#555' },
-  errorBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#ffcdd2', padding: 8, borderRadius: 6, marginVertical: 12 },
-  errorText: { color: '#d32f2f', fontSize: 16, margin: 4 },
-  noTrainsBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#C8E6C9', padding: 8, borderRadius: 6, marginVertical: 12 },
-  noTrainsText: { color: '#2E7D32', fontSize: 16, margin: 4 },
-  dropdownRow: { flexDirection: 'row', justifyContent: 'center', marginBottom: 8, alignItems: 'center' },
-  journeyLine: { flexDirection: 'row', alignItems: 'center', marginHorizontal: 8 },
-  journeyDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: '#4caf50' },
-  journeyLineBar: { width: 60, height: 2, backgroundColor: '#4caf50' },
-  reverseButton: {
-    position: 'absolute',
-    top: '5%',
-    left: '50%',
-    transform: [{ translateX: -12 }, { translateY: -12 }],
-    backgroundColor: '#4caf50',
-    borderRadius: 24,
-    padding: 4,
-    elevation: 3,
-    zIndex: 10,
+const getStyles = (theme) => StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
   },
-  expandableHeader: {
+  headerGradient: {
+    paddingTop: 16,
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+    borderBottomLeftRadius: 24,
+    borderBottomRightRadius: 24,
+    marginBottom: 70,
+  },
+  headerTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#C8E6C9', padding: 8, borderRadius: 6, marginVertical: 12
+    marginBottom: 20,
   },
-  nextDayButton: {
-    backgroundColor: '#4caf50',
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    borderRadius: 6,
-    alignItems: 'center',
-    marginTop: 8,
-    alignSelf: 'center',
-  },
-  nextDayButtonText: {
-    color: '#fff',
+  greetingText: {
     fontSize: 16,
-    fontWeight: '600',
-  }
+    color: 'rgba(255,255,255,0.8)',
+    fontWeight: '700',
+  },
+  headerDateContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 4,
+  },
+  headerDateText: {
+    fontSize: 22,
+    color: '#FFFFFF',
+    fontWeight: '900',
+    marginRight: 6,
+  },
+  headerTimeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+  },
+  timeIconContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  timeDisplay: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    backgroundColor: 'transparent',
+  },
+  headerTimeText: {
+    fontSize: 24,
+    color: '#FFFFFF',
+    fontWeight: '900',
+    letterSpacing: 0.5,
+  },
+  timePeriod: {
+    fontSize: 11,
+    color: 'rgba(255,255,255,0.85)',
+    fontWeight: '700',
+    marginLeft: 4,
+    textTransform: 'lowercase',
+  },
+  floatingSelector: {
+    position: 'absolute',
+    bottom: -65,
+    left: 20,
+    right: 20,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    padding: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  selectorRow: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  stationBlock: {
+    flex: 1,
+  },
+  selectorHint: {
+    fontSize: 10,
+    color: theme.colors.primary,
+    fontWeight: 'bold',
+    marginBottom: 4,
+    textTransform: 'uppercase',
+  },
+  swapBtn: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: theme.colors.primaryContainer,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
+  listContainer: {
+    paddingTop: 10,
+    paddingBottom: 30,
+  },
+  nextTrainBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: theme.colors.primaryContainer,
+    marginHorizontal: 16,
+    padding: 16,
+    borderRadius: 16,
+    marginBottom: 16,
+  },
+  bannerInfo: {
+    flex: 1,
+  },
+  nextTrainLabel: {
+    fontSize: 12,
+    color: theme.colors.onPrimaryContainer,
+    fontWeight: 'bold',
+    opacity: 0.7,
+  },
+  countdownText: {
+    fontSize: 18,
+    color: theme.colors.onPrimaryContainer,
+    fontWeight: '900',
+    marginTop: 2,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    marginTop: 24,
+    marginBottom: 12,
+  },
+  sectionHeaderText: {
+    fontSize: 14,
+    fontWeight: '900',
+    color: theme.colors.outline,
+    marginRight: 10,
+    textTransform: 'uppercase',
+  },
+  headerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: theme.colors.outlineVariant,
+  },
+  emptyState: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 40,
+  },
+  emptyText: {
+    marginTop: 16,
+    fontSize: 18,
+    color: theme.colors.outline,
+    fontWeight: 'bold',
+  },
+  allPassedContainer: {
+    alignItems: 'center',
+    padding: 30,
+    marginTop: 20,
+  },
+  allPassedText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: theme.colors.onSurface,
+    marginTop: 16,
+    marginBottom: 24,
+    textAlign: 'center',
+  },
+  tomorrowBtn: {
+    borderRadius: 14,
+    paddingVertical: 4,
+  },
+  passedHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    marginVertical: 20,
+  },
+  passedHeaderText: {
+    fontSize: 14,
+    fontWeight: '900',
+    color: theme.colors.outline,
+    marginRight: 10,
+    textTransform: 'uppercase',
+  },
+  centeredList: {
+    padding: 12,
+  },
 });
+
+
+
 
 export default TimetableScreen;

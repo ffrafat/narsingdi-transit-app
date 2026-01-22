@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, Linking, Pressable } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, useTheme, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Button } from 'react-native-paper';
 import { Image } from 'react-native';
 
 const AboutAppScreen = () => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   const openPrivacyPolicy = () => {
     Linking.openURL('https://transit.rafat.cc/privacy-policy');
   };
@@ -13,14 +14,14 @@ const AboutAppScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
 
-        {/* App Header with Icon, Name, Version */}
-  <View style={styles.appHeader}>
-    <Image source={require('../assets/icon.png')} style={styles.appIcon} />
-    <View>
-      <Text style={styles.appName}>নরসিংদী ট্রানজিট</Text>
-      <Text style={styles.versionText}>ভার্সন: ১.৬</Text>
-    </View>
-  </View>
+      {/* App Header with Icon, Name, Version */}
+      <View style={styles.appHeader}>
+        <Image source={require('../assets/icon.png')} style={styles.appIcon} />
+        <View>
+          <Text style={styles.appName}>নরসিংদী ট্রানজিট</Text>
+          <Text style={styles.versionText}>ভার্সন: ১.৬</Text>
+        </View>
+      </View>
       {/* App Card */}
       <View style={styles.card}>
         <Text style={styles.paragraph}>
@@ -29,32 +30,33 @@ const AboutAppScreen = () => {
         <Text style={styles.paragraph}>
           এটি <Text style={styles.bold}>বাংলাদেশ রেলওয়ের</Text> কোন অফিশিয়াল অ্যাপ নয়, এবং বাংলাদেশ রেলওয়ের সাথে আমাদের কোনো প্রত্যক্ষ বা পরোক্ষ সম্পর্ক নেই। যাত্রীসাধারণের সুবিধার কথা মাথায় রেখেই অলাভজনক এই অ্যাপটি তৈরি করা হয়েছে।
         </Text>
-                <Text style={styles.paragraph}>
-আমরা আপনার ব্যক্তিগত তথ্যের সুরক্ষাকে গুরুত্ব দেই। এই অ্যাপটি আপনার কোনো ব্যক্তিগত তথ্য জমা রাখে না। আমাদের সম্পূর্ণ গোপনীয়তা নীতি পড়তে নিচের লিংকে ক্লিক করুন।
+        <Text style={styles.paragraph}>
+          আমরা আপনার ব্যক্তিগত তথ্যের সুরক্ষাকে গুরুত্ব দেই। এই অ্যাপটি আপনার কোনো ব্যক্তিগত তথ্য জমা রাখে না। আমাদের সম্পূর্ণ গোপনীয়তা নীতি পড়তে নিচের লিংকে ক্লিক করুন।
         </Text>
         <Button
-  icon="shield-lock"
-  mode="contained"
-  onPress={openPrivacyPolicy}
-  style={styles.privacyButton}
-  contentStyle={{ flexDirection: 'row' }}
-  labelStyle={{ color: '#fff', fontWeight: 'bold' }}
->
-  গোপনীয়তা নীতি পড়ুন
-</Button>
+          icon="shield-lock"
+          mode="contained"
+          onPress={openPrivacyPolicy}
+          style={styles.privacyButton}
+          contentStyle={{ flexDirection: 'row' }}
+          labelStyle={{ color: theme.colors.onPrimary, fontWeight: 'bold' }}
+        >
+          গোপনীয়তা নীতি পড়ুন
+        </Button>
 
       </View>
     </ScrollView>
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (theme) => StyleSheet.create({
   container: {
     padding: 16,
     paddingBottom: 40,
+    backgroundColor: theme.colors.background,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.surface,
     borderRadius: 10,
     elevation: 4,
     padding: 16,
@@ -69,39 +71,39 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     marginLeft: 10,
-    color: '#2e7d32',
+    color: theme.colors.primary,
   },
   paragraph: {
     fontSize: 16,
-    color: '#333',
+    color: theme.colors.onSurface,
     lineHeight: 24,
     marginBottom: 10,
     textAlign: 'justify',
   },
   bullet: {
     fontSize: 16,
-    color: '#444',
+    color: theme.colors.onSurfaceVariant,
     marginBottom: 6,
     paddingLeft: 10,
   },
   bold: {
     fontWeight: 'bold',
-    color: '#2e7d32',
+    color: theme.colors.primary,
   },
   linkText: {
     fontSize: 16,
-    color: '#4caf50',
+    color: theme.colors.primary,
     textDecorationLine: 'underline',
     marginTop: 8,
   },
 
   privacyButton: {
-  marginTop: 10,
-  backgroundColor: '#4caf50',
-  borderRadius: 6,
-},
+    marginTop: 10,
+    backgroundColor: theme.colors.primary,
+    borderRadius: 6,
+  },
 
-appHeader: {
+  appHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 16,
@@ -115,14 +117,15 @@ appHeader: {
   appName: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#4CAF50',
+    color: theme.colors.primary,
   },
   versionText: {
     fontSize: 16,
-    color: '#888',
+    color: theme.colors.onSurfaceVariant,
     fontWeight: 'bold',
   },
 
 });
+
 
 export default AboutAppScreen;

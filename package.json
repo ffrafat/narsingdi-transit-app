@@ -49,7 +49,7 @@
     "react-native-vector-icons": "^10.2.0",
     "react-native-version-check": "^3.5.0",
     "react-native-webview": "^13.15.0",
-    "vector-icons": "^0.1.0"
+    "undefined": "expo-google-fonts/anek-bangla"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

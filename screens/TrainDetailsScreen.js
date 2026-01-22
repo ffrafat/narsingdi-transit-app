@@ -1,12 +1,14 @@
 import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
-import { Text, Divider, Card } from 'react-native-paper';
+import { Text, Divider, Card, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import trainDetailsData from '../assets/trainDetails.json';
 
 const TrainDetailsScreen = ({ route, navigation }) => {
   const trainNo = route.params?.trainNo;
   const [details, setDetails] = useState(null);
+  const theme = useTheme();
+  const styles = getStyles(theme);
 
   useEffect(() => {
     if (trainNo && trainDetailsData[trainNo]) {
@@ -45,7 +47,7 @@ const TrainDetailsScreen = ({ route, navigation }) => {
       <Divider style={{ marginVertical: 12 }} />
 
       <View style={styles.sectionHeader}>
-        <Icon name="train-car" size={20} color="#2e7d32" style={{ marginRight: 6 }} />
+        <Icon name="train-car" size={20} color={theme.colors.primary} style={{ marginRight: 6 }} />
         <Text style={styles.sectionTitle}>স্টপেজসমূহ</Text>
       </View>
 
@@ -56,14 +58,14 @@ const TrainDetailsScreen = ({ route, navigation }) => {
               <Text style={styles.station}>{stop.station}</Text>
 
               <View style={styles.row}>
-                <Icon name="clock-outline" size={16} color="#666" style={styles.icon} />
+                <Icon name="clock-outline" size={16} color={theme.colors.onSurfaceVariant} style={styles.icon} />
                 <Text style={styles.stopInfo}>
                   আগমন: {stop.arrival || '—'} | ছাড়ে: {stop.departure || '—'}
                 </Text>
               </View>
 
               <View style={styles.row}>
-                <Icon name="timer-sand" size={16} color="#666" style={styles.icon} />
+                <Icon name="timer-sand" size={16} color={theme.colors.onSurfaceVariant} style={styles.icon} />
                 <Text style={styles.stopInfo}>
                   বিরতি: {stop.halt || '—'} মিনিট | সময়কাল: {stop.duration || '—'}
                 </Text>
@@ -77,7 +79,7 @@ const TrainDetailsScreen = ({ route, navigation }) => {
 
       <View style={styles.durationCard}>
         <View style={styles.rowCenter}>
-          <Icon name="clock-check-outline" size={18} color="#2e7d32" style={styles.icon} />
+          <Icon name="clock-check-outline" size={18} color={theme.colors.primary} style={styles.icon} />
           <Text style={styles.durationText}>
             মোট সময়কাল: {details.totalDuration || 'তথ্য নেই'}
           </Text>
@@ -87,20 +89,22 @@ const TrainDetailsScreen = ({ route, navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (theme) => StyleSheet.create({
   container: {
     padding: 16,
     paddingBottom: 32,
+    backgroundColor: theme.colors.background,
   },
   fallbackContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 32,
+    backgroundColor: theme.colors.background,
   },
   fallbackText: {
     fontSize: 18,
-    color: '#d32f2f',
+    color: theme.colors.error,
     textAlign: 'center',
     fontWeight: '600',
   },
@@ -108,12 +112,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 4,
-    color: '#4caf50',
+    color: theme.colors.primary,
   },
   subtitle: {
     fontSize: 16,
     marginBottom: 12,
-    color: '#333',
+    color: theme.colors.onSurface,
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -123,35 +127,35 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#2e7d32',
+    color: theme.colors.primary,
   },
   stopCard: {
     marginBottom: 12,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: theme.colors.surface,
     borderRadius: 8,
-    borderColor: '#ddd',
+    borderColor: theme.colors.outlineVariant,
   },
   station: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#4caf50',
+    color: theme.colors.primary,
     marginBottom: 6,
   },
   stopInfo: {
     fontSize: 14,
-    color: '#444',
+    color: theme.colors.onSurfaceVariant,
     marginBottom: 2,
   },
   durationCard: {
     marginTop: 20,
     padding: 14,
-    backgroundColor: '#e8f5e9',
+    backgroundColor: theme.colors.primaryContainer,
     borderRadius: 8,
   },
   durationText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#2e7d32',
+    color: theme.colors.onPrimaryContainer,
     textAlign: 'center',
   },
   icon: {
@@ -168,5 +172,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
 
 export default TrainDetailsScreen;

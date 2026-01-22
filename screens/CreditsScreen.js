@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Image, Linking, ScrollView } from 'react-native';
-import { Text, Card, Divider, Button } from 'react-native-paper';
+import { Text, Card, Divider, Button, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const openLink = async (url) => {
@@ -9,6 +9,8 @@ const openLink = async (url) => {
 };
 
 const CreditScreen = () => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Card style={styles.card}>
@@ -26,19 +28,19 @@ const CreditScreen = () => {
           <Divider style={styles.divider} />
 
           <View style={styles.itemRow}>
-            <Icon name="web" size={22} color="#4caf50" />
+            <Icon name="web" size={22} color={theme.colors.primary} />
             <Text style={styles.linkText} onPress={() => openLink('https://rafat.cc')}>rafat.cc</Text>
           </View>
 
           <View style={styles.itemRow}>
-            <Icon name="facebook" size={22} color="#4caf50" />
+            <Icon name="facebook" size={22} color={theme.colors.primary} />
             <Text style={styles.linkText} onPress={() => openLink('https://facebook.com/fslfrqrft')}>
               fb.com/fslfrqrft
             </Text>
           </View>
 
           <View style={styles.itemRow}>
-            <Icon name="whatsapp" size={22} color="#4caf50" />
+            <Icon name="whatsapp" size={22} color={theme.colors.primary} />
             <Text style={styles.linkText} onPress={() => openLink('https://wa.me/8801734512161')}>
               +880 1734 512161
             </Text>
@@ -50,31 +52,32 @@ const CreditScreen = () => {
       <Card style={styles.card}>
         <Card.Content>
           <Text style={styles.description}>
-আমরা এই অ্যাপটিকে বিজ্ঞাপনমুক্ত এবং সবার জন্য বিনামূল্যে রেখেছি। আপনি যদি এটি ব্যবহার করে উপকৃত হোন তাহলে ডোনেশনের মাধ্যমে আমাদের এই প্রচেষ্টাতে সাহায্যের হাত বাড়িয়ে দিতে পারেন।
+            আমরা এই অ্যাপটিকে বিজ্ঞাপনমুক্ত এবং সবার জন্য বিনামূল্যে রেখেছি। আপনি যদি এটি ব্যবহার করে উপকৃত হোন তাহলে ডোনেশনের মাধ্যমে আমাদের এই প্রচেষ্টাতে সাহায্যের হাত বাড়িয়ে দিতে পারেন।
           </Text>
-<Button
-  icon="currency-bdt"
-  mode="contained"
+          <Button
+            icon="currency-bdt"
+            mode="contained"
 
-  style={styles.donateButton}
-  contentStyle={{ flexDirection: 'row' }}
-  labelStyle={{ color: '#fff', fontWeight: 'bold' }}
->
-  বিকাশ সেন্ড মানি: 01734512161
-</Button>
+            style={styles.donateButton}
+            contentStyle={{ flexDirection: 'row' }}
+            labelStyle={{ color: theme.colors.onPrimary, fontWeight: 'bold' }}
+          >
+            বিকাশ সেন্ড মানি: 01734512161
+          </Button>
         </Card.Content>
       </Card>
     </ScrollView>
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (theme) => StyleSheet.create({
   container: {
     padding: 16,
     paddingBottom: 40,
+    backgroundColor: theme.colors.background,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.surface,
     borderRadius: 10,
     marginBottom: 16,
     elevation: 4,
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#2e7d32',
+    color: theme.colors.primary,
   },
   profileContainer: {
     alignItems: 'center',
@@ -93,21 +96,21 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 35,
     borderWidth: 2,
-    borderColor: '#4caf50',
+    borderColor: theme.colors.primary,
     marginBottom: 8,
   },
   name: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#333',
+    color: theme.colors.onSurface,
   },
   role: {
     fontSize: 14,
-    color: '#888',
+    color: theme.colors.onSurfaceVariant,
   },
   divider: {
     marginVertical: 12,
-    backgroundColor: '#ccc',
+    backgroundColor: theme.colors.outlineVariant,
   },
   itemRow: {
     flexDirection: 'row',
@@ -116,28 +119,29 @@ const styles = StyleSheet.create({
   },
   linkText: {
     fontSize: 16,
-    color: '#4caf50',
+    color: theme.colors.primary,
     textDecorationLine: 'underline',
     marginLeft: 8,
   },
   description: {
     fontSize: 15,
-    color: '#444',
+    color: theme.colors.onSurface,
     lineHeight: 22,
     textAlign: 'justify',
   },
   boldCenter: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#2e7d32',
+    color: theme.colors.primary,
     textAlign: 'center',
     marginTop: 8,
   },
-    donateButton: {
-  marginTop: 10,
-  backgroundColor: '#4caf50',
-  borderRadius: 6,
-},
+  donateButton: {
+    marginTop: 10,
+    backgroundColor: theme.colors.primary,
+    borderRadius: 6,
+  },
 });
+
 
 export default CreditScreen;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Pressable, Dimensions } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -20,6 +20,8 @@ const cardSize = Dimensions.get('window').width / numColumns - 24;
 
 const ETicketHomeScreen = () => {
   const navigation = useNavigation();
+  const theme = useTheme();
+  const styles = getStyles(theme);
 
   return (
     <View style={styles.container}>
@@ -31,7 +33,7 @@ const ETicketHomeScreen = () => {
         >
           <View style={styles.card}>
             <View style={styles.cardContent}>
-              <Icon name={item.icon} size={32} color="#4caf50" />
+              <Icon name={item.icon} size={32} color={theme.colors.primary} />
               <Text style={styles.title}>{item.title}</Text>
             </View>
           </View>
@@ -41,12 +43,14 @@ const ETicketHomeScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (theme) => StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     padding: 12,
+    flex: 1,
+    backgroundColor: theme.colors.background,
   },
   cardWrapper: {
     width: cardSize,
@@ -54,7 +58,7 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 10,
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.surface,
     marginHorizontal: 2,
     marginVertical: 6,
     elevation: 4,
@@ -70,10 +74,11 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 8,
     fontSize: 14,
-    fontWeight:'bold',
+    fontWeight: 'bold',
     textAlign: 'center',
-    color: '#222',
+    color: theme.colors.onSurface,
   },
 });
+
 
 export default ETicketHomeScreen;

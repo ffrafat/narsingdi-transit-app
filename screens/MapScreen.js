@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, Linking } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { Text, Button, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const stations = [
@@ -25,6 +25,8 @@ const stations = [
 
 
 const MapScreen = () => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   const openMap = (url) => {
     Linking.openURL(url).catch((err) => console.warn('Cannot open map:', err));
   };
@@ -60,10 +62,11 @@ const MapScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (theme) => StyleSheet.create({
   container: {
     paddingVertical: 20,
     paddingHorizontal: 16,
+    backgroundColor: theme.colors.background,
   },
   timelineItem: {
     flexDirection: 'row',
@@ -77,13 +80,13 @@ const styles = StyleSheet.create({
     width: 14,
     height: 14,
     borderRadius: 7,
-    backgroundColor: '#4caf50',
+    backgroundColor: theme.colors.primary,
     marginTop: 4,
   },
   line: {
     flex: 1,
     width: 2,
-    backgroundColor: '#ccc',
+    backgroundColor: theme.colors.outlineVariant,
     marginTop: 4,
   },
   contentRow: {
@@ -91,7 +94,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: theme.colors.surface,
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 10,
@@ -100,22 +103,23 @@ const styles = StyleSheet.create({
   stationName: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
+    color: theme.colors.onSurface,
     flexShrink: 1,
     marginRight: 12,
   },
   mapButton: {
     borderRadius: 6,
-    backgroundColor: '#4caf50',
+    backgroundColor: theme.colors.primary,
   },
   buttonContent: {
     flexDirection: 'row-reverse',
   },
   buttonLabel: {
-    color: '#fff',
+    color: theme.colors.onPrimary,
     fontWeight: '600',
   },
 });
+
 
 
 export default MapScreen;

@@ -4,4 +4,5 @@ module.exports = {
       packageName: "cc.rafat.narsingditransit",
     },
   },
+  assets: ['./assets/fonts/'],
 };

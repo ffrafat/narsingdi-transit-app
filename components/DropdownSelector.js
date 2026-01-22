@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Menu, Button, Text } from 'react-native-paper';
+import { Menu, Button, Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const DropdownSelector = ({ label, options, selected, onChange }) => {
   const [visible, setVisible] = React.useState(false);
+  const theme = useTheme();
 
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
@@ -17,10 +18,10 @@ const DropdownSelector = ({ label, options, selected, onChange }) => {
         <Button
           mode="outlined"
           onPress={openMenu}
-          style={styles.button}
+          style={[styles.button, { borderColor: theme.colors.primary }]}
           contentStyle={styles.content}
-          icon={() => <Icon name="map-marker" size={18} color="#4caf50" />}
-          labelStyle={{ color: '#4caf50', fontWeight: '700' }}
+          icon={() => <Icon name="map-marker" size={18} color={theme.colors.primary} />}
+          labelStyle={{ color: theme.colors.primary, fontWeight: '700' }}
           uppercase={false}
         >
           {selected}
@@ -44,10 +45,10 @@ const DropdownSelector = ({ label, options, selected, onChange }) => {
 const styles = StyleSheet.create({
   button: {
     borderRadius: 24,
-    borderColor: '#4caf50',
     minWidth: 130,
     justifyContent: 'flex-start',
   },
 });
 
 export default DropdownSelector;
+

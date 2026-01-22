@@ -1,25 +1,55 @@
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
-import * as React from 'react';
-import { Provider as PaperProvider, MD3LightTheme } from 'react-native-paper';
+import React from 'react';
+import { useColorScheme, Text } from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
+import { lightTheme, darkTheme } from './theme';
 import MainNavigator from './navigation/MainNavigator';
+import { ThemeProvider, useAppTheme } from './ThemeContext';
+import { useFonts } from 'expo-font';
 
-const theme = {
-  ...MD3LightTheme,
-  colors: {
-    ...MD3LightTheme.colors,
-    primary: '#4CAF50', // green accent
-    secondary: '#81C784',
-    onPrimary: '#ffffff', // text/icons on primary background
-    background: '#ffffff', // optional: ensure clean white bg
-    surface: '#f5f5f5',    // optional: soft gray surfaces
-  },
-};
+// Set default font for all Text components
+if (Text.defaultProps == null) {
+  Text.defaultProps = {};
+}
+Text.defaultProps.allowFontScaling = false;
+Text.defaultProps.style = [{ fontFamily: 'AnekBangla_400Regular' }];
+
+function MainApp() {
+  const { isDark } = useAppTheme();
+  const finalTheme = isDark ? darkTheme : lightTheme;
+
+  let [fontsLoaded, fontError] = useFonts({
+    'AnekBangla_400Regular': require('./assets/fonts/AnekBangla-Regular.ttf'),
+    'AnekBangla_500Medium': require('./assets/fonts/AnekBangla-Medium.ttf'),
+    'AnekBangla_600SemiBold': require('./assets/fonts/AnekBangla-SemiBold.ttf'),
+    'AnekBangla_700Bold': require('./assets/fonts/AnekBangla-Bold.ttf'),
+    'AnekBangla_800ExtraBold': require('./assets/fonts/AnekBangla-ExtraBold.ttf'),
+  });
+
+  // Debug logging
+  React.useEffect(() => {
+    console.log('Fonts loaded:', fontsLoaded);
+    if (fontError) {
+      console.error('Font loading error:', fontError);
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
+  return (
+    <PaperProvider theme={finalTheme}>
+      <MainNavigator />
+    </PaperProvider>
+  );
+}
 
 export default function App() {
   return (
-    <PaperProvider theme={theme}>
-      <MainNavigator />
-    </PaperProvider>
+    <ThemeProvider>
+      <MainApp />
+    </ThemeProvider>
   );
 }

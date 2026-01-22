@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, View, StyleSheet } from 'react-native';
+import { useTheme } from 'react-native-paper';
 
 const LiveDot = () => {
+  const theme = useTheme();
   const pulseAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -27,8 +29,8 @@ const LiveDot = () => {
 
   return (
     <View style={styles.dotContainer}>
-      <Animated.View style={[styles.dot, { opacity, transform: [{ scale }] }]} />
-      <View style={styles.innerDot} />
+      <Animated.View style={[styles.dot, { opacity, transform: [{ scale }], backgroundColor: theme.colors.primary }]} />
+      <View style={[styles.innerDot, { backgroundColor: theme.colors.primary }]} />
     </View>
   );
 };
@@ -47,14 +49,13 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
     borderRadius: 9,
-    backgroundColor: '#4caf50',
   },
   innerDot: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#4caf50',
   },
 });
 
 export default LiveDot;
+
