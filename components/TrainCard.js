@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text, IconButton, useTheme } from 'react-native-paper';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 // Bengali digit converter
 const engToBengaliDigit = (input) => {
@@ -26,78 +27,107 @@ const convertBnToEnDigits = (input) => {
 const getBengaliTimeFromString = (time24h) => {
   if (!time24h) return '';
   let [hours, minutes] = time24h.split(':').map(Number);
+  const period = hours >= 12 ? 'অপ.' : 'পূ.';
   hours = hours % 12 || 12;
-  return `${engToBengaliDigit(hours.toString().padStart(2, '0'))}:${engToBengaliDigit(minutes.toString().padStart(2, '0'))}`;
+  return {
+    time: `${engToBengaliDigit(hours.toString().padStart(2, '0'))}:${engToBengaliDigit(minutes.toString().padStart(2, '0'))}`,
+    period: period
+  };
 };
 
 const TrainCard = ({ train, highlight, passed }) => {
   const navigation = useNavigation();
   const theme = useTheme();
-  const styles = getStyles(theme, highlight, passed);
 
   const trainNo = train['Train No.'] || '';
   const trainName = train['Train Name'] || '';
   const dayNight = train['Day Night Time'] || '';
-  const time = getBengaliTimeFromString(train['From Station Time']);
+  const { time, period } = getBengaliTimeFromString(train['From Station Time']);
   const offDay = train['Off Day']?.trim();
   const englishTrainNo = convertBnToEnDigits(String(trainNo));
 
-  return (
-    <View style={styles.card}>
-      <View style={styles.content}>
-        {/* Left Section */}
-        <View style={styles.leftSection}>
-          <View style={styles.header}>
-            <View style={styles.trainNoBox}>
-              <Text style={styles.trainNoText}>{trainNo}</Text>
-            </View>
-            <Text style={styles.trainName} numberOfLines={1}>{trainName}</Text>
-          </View>
+  const styles = getStyles(theme, highlight, passed);
 
-          <View style={styles.routeRow}>
-            <Icon name="map-marker-path" size={16} color={styles.routeIcon.color} />
-            <Text style={styles.routeText} numberOfLines={1}>
-              {train['Start Station']} → {train['End Station']}
-            </Text>
-          </View>
+  // Define dynamic colors to avoid StyleSheet property access issues
+  const iconColors = {
+    info: highlight ? '#FFFFFF' : theme.colors.onSecondaryContainer,
+    track: highlight ? '#FFFFFF' : theme.colors.onPrimaryContainer,
+    route: highlight ? 'rgba(255,255,255,0.8)' : theme.colors.onSurfaceVariant,
+    offDay: highlight ? '#FFCDD2' : theme.colors.error,
+  };
 
-          {offDay && (
-            <View style={styles.offDayRow}>
-              <Icon name="calendar-remove" size={14} color={styles.offDayIcon.color} />
-              <Text style={styles.offDayText}>{offDay} বন্ধ</Text>
-            </View>
-          )}
+  const CardContent = () => (
+    <View style={styles.content}>
+      {/* Left Section */}
+      <View style={styles.leftSection}>
+        <View style={styles.header}>
+          <View style={styles.trainNoBox}>
+            <Text style={styles.trainNoText}>{trainNo}</Text>
+          </View>
+          <Text style={styles.trainName} numberOfLines={1}>{trainName}</Text>
         </View>
 
-        {/* Right Section */}
-        <View style={styles.rightSection}>
-          <View style={styles.timeContainer}>
-            <Text style={styles.dayNight}>{dayNight}</Text>
-            <Text style={styles.time}>{time}</Text>
-          </View>
+        <View style={styles.routeRow}>
+          <Icon name="map-marker-path" size={16} color={iconColors.route} />
+          <Text style={styles.routeText} numberOfLines={1}>
+            {train['Start Station']} → {train['End Station']}
+          </Text>
+        </View>
 
-          <View style={styles.actions}>
-            <IconButton
-              icon="information"
-              size={20}
-              mode="contained"
-              onPress={() => navigation.navigate('TrainDetails', { trainNo })}
-              containerColor={styles.btnInfo.backgroundColor}
-              iconColor={styles.btnInfo.color}
-              style={styles.btn}
-            />
-            <IconButton
-              icon="map-marker"
-              size={20}
-              mode="contained"
-              onPress={() => navigation.navigate('WebTracking', { trainNo: englishTrainNo })}
-              containerColor={styles.btnTrack.backgroundColor}
-              iconColor={styles.btnTrack.color}
-              style={styles.btn}
-            />
+        {offDay && (
+          <View style={styles.offDayRow}>
+            <Icon name="calendar-remove" size={14} color={iconColors.offDay} />
+            <Text style={styles.offDayText}>{offDay} বন্ধ</Text>
           </View>
+        )}
+      </View>
+
+      {/* Right Section */}
+      <View style={styles.rightSection}>
+        <View style={styles.timeContainer}>
+          <Text style={styles.dayNight}>{dayNight}</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
+            <Text style={styles.time}>{time}</Text>
+            <Text style={styles.periodText}>{period}</Text>
+          </View>
+        </View>
+
+        <View style={styles.actions}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('TrainDetails', { trainNo })}
+            style={[styles.btn, styles.btnInfo]}
+          >
+            <Icon name="information" size={20} color={iconColors.info} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('WebTracking', { trainNo: englishTrainNo })}
+            style={[styles.btn, styles.btnTrack]}
+          >
+            <Icon name="map-marker" size={18} color={iconColors.track} />
+          </TouchableOpacity>
         </View>
       </View>
+    </View>
+  );
+
+  if (highlight) {
+    return (
+      <LinearGradient
+        colors={['#075d37', '#41ab5d']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.card}
+      >
+        <CardContent />
+      </LinearGradient>
+    );
+  }
+
+  return (
+    <View style={styles.card}>
+      <CardContent />
     </View>
   );
 };
@@ -112,14 +142,15 @@ const getStyles = (theme, highlight, passed) => {
       marginHorizontal: 12,
       marginVertical: 6,
       borderRadius: 16,
-      backgroundColor: cardBg,
-      elevation: highlight ? 6 : 2,
-      shadowColor: highlight ? theme.colors.primary : '#000',
+      backgroundColor: highlight ? 'transparent' : cardBg,
+      elevation: highlight ? 4 : 2,
+      shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: highlight ? 0.3 : 0.1,
-      shadowRadius: 8,
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
       borderWidth: 1,
-      borderColor: highlight ? theme.colors.primary : theme.colors.outlineVariant,
+      borderColor: highlight ? 'rgba(255,255,255,0.2)' : theme.colors.outlineVariant,
+      overflow: 'hidden',
     },
     content: {
       flexDirection: 'row',
@@ -135,7 +166,7 @@ const getStyles = (theme, highlight, passed) => {
       marginBottom: 8,
     },
     trainNoBox: {
-      backgroundColor: highlight ? 'rgba(255,255,255,0.25)' : theme.colors.primaryContainer,
+      backgroundColor: highlight ? 'rgba(255,255,255,0.2)' : theme.colors.primaryContainer,
       paddingHorizontal: 8,
       paddingVertical: 4,
       borderRadius: 6,
@@ -158,9 +189,6 @@ const getStyles = (theme, highlight, passed) => {
       alignItems: 'center',
       marginBottom: 6,
     },
-    routeIcon: {
-      color: mutedColor,
-    },
     routeText: {
       fontSize: 13,
       fontWeight: '600',
@@ -172,9 +200,6 @@ const getStyles = (theme, highlight, passed) => {
       flexDirection: 'row',
       alignItems: 'center',
       marginTop: 4,
-    },
-    offDayIcon: {
-      color: highlight ? '#FFCDD2' : theme.colors.error,
     },
     offDayText: {
       fontSize: 11,
@@ -205,23 +230,33 @@ const getStyles = (theme, highlight, passed) => {
       letterSpacing: -1,
       lineHeight: 32,
     },
+    periodText: {
+      fontSize: 12,
+      fontWeight: '800',
+      color: highlight ? 'rgba(255,255,255,0.8)' : theme.colors.secondary,
+      marginLeft: 2,
+    },
     actions: {
       flexDirection: 'row',
       marginTop: 8,
     },
     btn: {
-      margin: 0,
-      marginLeft: 6,
-      width: 36,
-      height: 36,
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginLeft: 8,
     },
     btnInfo: {
-      backgroundColor: highlight ? 'rgba(255,255,255,0.2)' : theme.colors.secondaryContainer,
-      color: highlight ? '#FFFFFF' : theme.colors.onSecondaryContainer,
+      backgroundColor: highlight ? 'rgba(255, 255, 255, 0.2)' : theme.colors.secondaryContainer,
+      borderWidth: highlight ? 1 : 0,
+      borderColor: 'rgba(255, 255, 255, 0.3)',
     },
     btnTrack: {
-      backgroundColor: highlight ? 'rgba(255,255,255,0.2)' : theme.colors.primaryContainer,
-      color: highlight ? '#FFFFFF' : theme.colors.onPrimaryContainer,
+      backgroundColor: highlight ? 'rgba(255, 255, 255, 0.2)' : theme.colors.primaryContainer,
+      borderWidth: highlight ? 1 : 0,
+      borderColor: 'rgba(255, 255, 255, 0.3)',
     },
   });
 };

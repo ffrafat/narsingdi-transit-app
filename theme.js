@@ -2,10 +2,10 @@
 import { MD3LightTheme, MD3DarkTheme } from 'react-native-paper';
 
 const lightBrandColors = {
-  primary: '#4caf50',
+  primary: '#075d37',
   onPrimary: '#ffffff',
-  primaryContainer: '#c8e6c9',
-  onPrimaryContainer: '#002106',
+  primaryContainer: '#cce9d8',
+  onPrimaryContainer: '#00210e',
   secondary: '#55634e',
   onSecondary: '#ffffff',
   secondaryContainer: '#d8e8cb',
@@ -45,10 +45,10 @@ const lightBrandColors = {
 };
 
 const darkBrandColors = {
-  primary: '#81c784',
-  onPrimary: '#00390f',
-  primaryContainer: '#00531a',
-  onPrimaryContainer: '#9cf49f',
+  primary: '#41ab5d',
+  onPrimary: '#003912',
+  primaryContainer: '#286a3b',
+  onPrimaryContainer: '#cce9d8',
   secondary: '#bcccaf',
   onSecondary: '#273423',
   secondaryContainer: '#3e4a38',

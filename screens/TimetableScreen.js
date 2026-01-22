@@ -70,7 +70,7 @@ const bengaliMonths = {
 const getBengaliTime = (date) => {
   let hours = date.getHours();
   const minutes = date.getMinutes();
-  const period = hours >= 12 ? 'pm' : 'am';
+  const period = hours >= 12 ? 'অপ.' : 'পূ.';
   hours = hours % 12 || 12;
   return {
     time: `${engToBengaliDigit(hours.toString().padStart(2, '0'))}:${engToBengaliDigit(minutes.toString().padStart(2, '0'))}`,
@@ -256,20 +256,12 @@ const TimetableScreen = () => {
     return () => clearInterval(interval);
   }, [rawData, date]);
 
-  // Header calendar button
+  // Ensure the calendar icon is removed from the navigation header
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <IconButton icon="calendar" size={24} iconColor={theme.colors.onPrimary} onPress={() => {
-            setTempDate(date);
-            setShowDatePicker(true);
-          }} />
-        </View>
-      ),
+      headerRight: null,
     });
-  }, [navigation, date]);
-
+  }, [navigation]);
   // Next departure countdown text
   const getNextDepartureIn = () => {
     if (!trains?.length) return '';
@@ -302,19 +294,15 @@ const TimetableScreen = () => {
         style={styles.headerGradient}
       >
         <View style={styles.headerTop}>
-          <View>
-            <TouchableOpacity
-              style={styles.headerDateContainer}
-              onPress={() => setShowDatePicker(true)}
-            >
-              <RNText style={styles.headerDateText}>{getBengaliDate(date)}</RNText>
-              <Icon name="chevron-down" size={16} color="rgba(255,255,255,0.7)" />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            style={styles.headerDateContainer}
+            onPress={() => setShowDatePicker(true)}
+          >
+            <RNText style={styles.headerDateText}>{getBengaliDate(date)}</RNText>
+            <Icon name="chevron-down" size={20} color="rgba(255,255,255,0.9)" />
+          </TouchableOpacity>
+
           <View style={styles.headerTimeContainer}>
-            <View style={styles.timeIconContainer}>
-              <Icon name="clock-outline" size={16} color="rgba(255,255,255,0.9)" />
-            </View>
             <View style={styles.timeDisplay}>
               <RNText style={styles.headerTimeText}>{getBengaliTime(currentTime).time}</RNText>
               <RNText style={styles.timePeriod}>{getBengaliTime(currentTime).period}</RNText>
@@ -323,27 +311,42 @@ const TimetableScreen = () => {
         </View>
 
         {/* Floating Journey Selector */}
-        <Surface style={styles.floatingSelector} elevation={4}>
+        <Surface style={styles.floatingSelector} elevation={2}>
           <View style={styles.selectorRow}>
             <View style={styles.stationBlock}>
-              <RNText style={styles.selectorHint}>যাত্রা</RNText>
-              <DropdownSelector options={LOCATIONS} selected={from} onChange={setFrom} />
+              <View style={styles.hintRow}>
+                <RNText style={styles.selectorHint}>যাত্রা</RNText>
+              </View>
+              <DropdownSelector
+                options={LOCATIONS}
+                selected={from}
+                onChange={setFrom}
+              />
             </View>
 
-            <TouchableOpacity
-              style={styles.swapBtn}
-              onPress={() => {
-                const temp = from;
-                setFrom(to);
-                setTo(temp);
-              }}
-            >
-              <Icon name="swap-horizontal" size={24} color={theme.colors.primary} />
-            </TouchableOpacity>
+            <View style={styles.swapBtnWrapper}>
+              <TouchableOpacity
+                style={styles.swapBtn}
+                activeOpacity={0.8}
+                onPress={() => {
+                  const temp = from;
+                  setFrom(to);
+                  setTo(temp);
+                }}
+              >
+                <Icon name="swap-horizontal" size={22} color="#FFFFFF" />
+              </TouchableOpacity>
+            </View>
 
-            <View style={[styles.stationBlock, { alignItems: 'flex-end' }]}>
-              <RNText style={styles.selectorHint}>গন্তব্য</RNText>
-              <DropdownSelector options={LOCATIONS} selected={to} onChange={setTo} />
+            <View style={styles.stationBlock}>
+              <View style={[styles.hintRow, { justifyContent: 'flex-end' }]}>
+                <RNText style={styles.selectorHint}>গন্তব্য</RNText>
+              </View>
+              <DropdownSelector
+                options={LOCATIONS}
+                selected={to}
+                onChange={setTo}
+              />
             </View>
           </View>
         </Surface>
@@ -400,13 +403,19 @@ const TimetableScreen = () => {
           renderItem={({ item }) => {
             if (item.type === 'status') {
               return (
-                <View style={styles.nextTrainBanner}>
+                <Surface style={styles.nextTrainBanner} elevation={1}>
+                  <View style={styles.timerIconBox}>
+                    <Icon name="timer-outline" size={24} color={theme.colors.primary} />
+                  </View>
                   <View style={styles.bannerInfo}>
                     <RNText style={styles.nextTrainLabel}>পরবর্তী ট্রেন</RNText>
                     <RNText style={styles.countdownText}>{getNextDepartureIn()} পর</RNText>
                   </View>
-                  <LiveDot />
-                </View>
+                  <View style={styles.liveStatus}>
+                    <RNText style={styles.liveText}>লাইভ</RNText>
+                    <LiveDot />
+                  </View>
+                </Surface>
               );
             }
             if (item.type === 'hero') return <TrainCard train={item.item} highlight />;
@@ -452,12 +461,12 @@ const getStyles = (theme) => StyleSheet.create({
     backgroundColor: theme.colors.background,
   },
   headerGradient: {
-    paddingTop: 16,
+    paddingTop: 8,
     paddingBottom: 20,
     paddingHorizontal: 20,
     borderBottomLeftRadius: 24,
     borderBottomRightRadius: 24,
-    marginBottom: 70,
+    marginBottom: 90,
   },
   headerTop: {
     flexDirection: 'row',
@@ -473,28 +482,25 @@ const getStyles = (theme) => StyleSheet.create({
   headerDateContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 4,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
   },
   headerDateText: {
-    fontSize: 22,
+    fontSize: 16,
     color: '#FFFFFF',
     fontWeight: '900',
     marginRight: 6,
   },
   headerTimeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   timeIconContainer: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 10,
+    display: 'none',
   },
   timeDisplay: {
     flexDirection: 'row',
@@ -502,28 +508,31 @@ const getStyles = (theme) => StyleSheet.create({
     backgroundColor: 'transparent',
   },
   headerTimeText: {
-    fontSize: 24,
+    fontSize: 32,
     color: '#FFFFFF',
     fontWeight: '900',
-    letterSpacing: 0.5,
+    letterSpacing: -0.5,
+    lineHeight: 36,
   },
   timePeriod: {
-    fontSize: 11,
-    color: 'rgba(255,255,255,0.85)',
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.8)',
     fontWeight: '700',
     marginLeft: 4,
-    textTransform: 'lowercase',
   },
   floatingSelector: {
     position: 'absolute',
-    bottom: -65,
-    left: 20,
-    right: 20,
+    bottom: -85,
+    left: 12,
+    right: 12,
     backgroundColor: '#FFFFFF',
-    borderRadius: 20,
+    borderRadius: 24,
     padding: 16,
+    paddingTop: 12,
     flexDirection: 'row',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.05)',
   },
   selectorRow: {
     flexDirection: 'row',
@@ -535,20 +544,37 @@ const getStyles = (theme) => StyleSheet.create({
     flex: 1,
   },
   selectorHint: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: 'bold',
-    marginBottom: 4,
+    fontSize: 11,
+    color: theme.colors.outline,
+    fontWeight: '800',
     textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginHorizontal: 4,
+  },
+  hintRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+    paddingHorizontal: 4,
+  },
+  swapBtnWrapper: {
+    paddingTop: 20, // To align with the dropdown pills
+    marginHorizontal: 12,
   },
   swapBtn: {
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: theme.colors.primaryContainer,
+    backgroundColor: theme.colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 10,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    borderWidth: 2,
+    borderColor: '#FFFFFF',
   },
   listContainer: {
     paddingTop: 10,
@@ -557,27 +583,55 @@ const getStyles = (theme) => StyleSheet.create({
   nextTrainBanner: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: theme.colors.primaryContainer,
-    marginHorizontal: 16,
-    padding: 16,
-    borderRadius: 16,
+    marginHorizontal: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 20,
     marginBottom: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(7, 93, 55, 0.15)',
+  },
+  timerIconBox: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(7, 93, 55, 0.1)',
   },
   bannerInfo: {
     flex: 1,
   },
   nextTrainLabel: {
-    fontSize: 12,
-    color: theme.colors.onPrimaryContainer,
-    fontWeight: 'bold',
-    opacity: 0.7,
+    fontSize: 11,
+    color: theme.colors.primary,
+    fontWeight: '800',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+    opacity: 0.8,
   },
   countdownText: {
     fontSize: 18,
-    color: theme.colors.onPrimaryContainer,
+    color: theme.colors.onSurface,
     fontWeight: '900',
     marginTop: 2,
+  },
+  liveStatus: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(7, 93, 55, 0.1)',
+  },
+  liveText: {
+    fontSize: 10,
+    fontWeight: '900',
+    color: theme.colors.primary,
+    textTransform: 'uppercase',
   },
   sectionHeader: {
     flexDirection: 'row',
