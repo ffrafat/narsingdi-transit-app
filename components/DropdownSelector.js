@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Menu, Text, useTheme } from 'react-native-paper';
+import { Menu, Button, Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const DropdownSelector = ({ label, options, selected, onChange, style }) => {
@@ -16,31 +16,20 @@ const DropdownSelector = ({ label, options, selected, onChange, style }) => {
         visible={visible}
         onDismiss={closeMenu}
         anchor={
-          <TouchableOpacity
+          <Button
+            mode="contained"
             onPress={openMenu}
-            activeOpacity={0.7}
             style={[
               styles.button,
-              { backgroundColor: theme.colors.surfaceVariant + '40' } // Subtle background
+              { backgroundColor: theme.colors.surfaceVariant + '40' }
             ]}
+            contentStyle={styles.content}
+            labelStyle={[styles.label, { color: theme.colors.primary }]}
+            icon={() => <Icon name="map-marker" size={18} color={theme.colors.primary} />}
+            uppercase={false}
           >
-            <View style={styles.content}>
-              <Icon
-                name="map-marker"
-                size={18}
-                color={theme.colors.primary}
-                style={styles.icon}
-              />
-              <Text style={[styles.label, { color: theme.colors.primary }]} numberOfLines={1}>
-                {selected}
-              </Text>
-              <Icon
-                name="chevron-down"
-                size={16}
-                color={theme.colors.onSurfaceVariant}
-              />
-            </View>
-          </TouchableOpacity>
+            {selected}
+          </Button>
         }
         contentStyle={styles.menuContent}
       >
@@ -67,27 +56,25 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 16,
     height: 48,
-    paddingHorizontal: 12,
-    justifyContent: 'center',
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.05)',
+    elevation: 0,
+    justifyContent: 'center',
   },
   content: {
     flexDirection: 'row',
+    height: 48,
     alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  icon: {
-    marginRight: 8,
   },
   label: {
     fontWeight: '700',
     fontSize: 14,
-    flex: 1,
+    textAlign: 'left',
   },
   menuContent: {
     borderRadius: 12,
     marginTop: 4,
+    backgroundColor: '#FFFFFF',
   }
 });
 

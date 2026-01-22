@@ -27,12 +27,8 @@ const convertBnToEnDigits = (input) => {
 const getBengaliTimeFromString = (time24h) => {
   if (!time24h) return '';
   let [hours, minutes] = time24h.split(':').map(Number);
-  const period = hours >= 12 ? 'অপ.' : 'পূ.';
   hours = hours % 12 || 12;
-  return {
-    time: `${engToBengaliDigit(hours.toString().padStart(2, '0'))}:${engToBengaliDigit(minutes.toString().padStart(2, '0'))}`,
-    period: period
-  };
+  return `${engToBengaliDigit(hours.toString().padStart(2, '0'))}:${engToBengaliDigit(minutes.toString().padStart(2, '0'))}`;
 };
 
 const TrainCard = ({ train, highlight, passed }) => {
@@ -42,7 +38,7 @@ const TrainCard = ({ train, highlight, passed }) => {
   const trainNo = train['Train No.'] || '';
   const trainName = train['Train Name'] || '';
   const dayNight = train['Day Night Time'] || '';
-  const { time, period } = getBengaliTimeFromString(train['From Station Time']);
+  const time = getBengaliTimeFromString(train['From Station Time']);
   const offDay = train['Off Day']?.trim();
   const englishTrainNo = convertBnToEnDigits(String(trainNo));
 
@@ -88,7 +84,6 @@ const TrainCard = ({ train, highlight, passed }) => {
           <Text style={styles.dayNight}>{dayNight}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
             <Text style={styles.time}>{time}</Text>
-            <Text style={styles.periodText}>{period}</Text>
           </View>
         </View>
 
@@ -230,12 +225,7 @@ const getStyles = (theme, highlight, passed) => {
       letterSpacing: -1,
       lineHeight: 32,
     },
-    periodText: {
-      fontSize: 12,
-      fontWeight: '800',
-      color: highlight ? 'rgba(255,255,255,0.8)' : theme.colors.secondary,
-      marginLeft: 2,
-    },
+
     actions: {
       flexDirection: 'row',
       marginTop: 8,

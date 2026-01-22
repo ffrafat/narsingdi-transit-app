@@ -23,7 +23,7 @@ import TrainCard from '../components/TrainCard';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { LinearGradient } from 'expo-linear-gradient';
-import LiveDot from '../components/LiveDot';
+import PulsingTimerIcon from '../components/PulsingTimerIcon';
 import DropdownSelector from '../components/DropdownSelector';
 
 import { fetchAndCacheRoute, loadFromCache } from '../utils/dataFetcher';
@@ -288,27 +288,29 @@ const TimetableScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Immersive Header */}
-      <LinearGradient
-        colors={['#075d37', '#41ab5d']}
-        style={styles.headerGradient}
-      >
-        <View style={styles.headerTop}>
-          <TouchableOpacity
-            style={styles.headerDateContainer}
-            onPress={() => setShowDatePicker(true)}
-          >
-            <RNText style={styles.headerDateText}>{getBengaliDate(date)}</RNText>
-            <Icon name="chevron-down" size={20} color="rgba(255,255,255,0.9)" />
-          </TouchableOpacity>
+      {/* Immersive Header and Floating Selector Container */}
+      <View style={styles.headerWrapper}>
+        <LinearGradient
+          colors={['#075d37', '#41ab5d']}
+          style={styles.headerGradient}
+        >
+          <View style={styles.headerTop}>
+            <TouchableOpacity
+              style={styles.headerDateContainer}
+              onPress={() => setShowDatePicker(true)}
+            >
+              <RNText style={styles.headerDateText}>{getBengaliDate(date)}</RNText>
+              <Icon name="chevron-down" size={20} color="rgba(255,255,255,0.9)" />
+            </TouchableOpacity>
 
-          <View style={styles.headerTimeContainer}>
-            <View style={styles.timeDisplay}>
-              <RNText style={styles.headerTimeText}>{getBengaliTime(currentTime).time}</RNText>
-              <RNText style={styles.timePeriod}>{getBengaliTime(currentTime).period}</RNText>
+            <View style={styles.headerTimeContainer}>
+              <View style={styles.timeDisplay}>
+                <RNText style={styles.headerTimeText}>{getBengaliTime(currentTime).time}</RNText>
+                <RNText style={styles.timePeriod}>{getBengaliTime(currentTime).period}</RNText>
+              </View>
             </View>
           </View>
-        </View>
+        </LinearGradient>
 
         {/* Floating Journey Selector */}
         <Surface style={styles.floatingSelector} elevation={2}>
@@ -350,7 +352,7 @@ const TimetableScreen = () => {
             </View>
           </View>
         </Surface>
-      </LinearGradient>
+      </View>
 
       {trains === null && (
         <View style={styles.emptyState}>
@@ -403,19 +405,15 @@ const TimetableScreen = () => {
           renderItem={({ item }) => {
             if (item.type === 'status') {
               return (
-                <Surface style={styles.nextTrainBanner} elevation={1}>
+                <View style={styles.nextTrainBanner}>
                   <View style={styles.timerIconBox}>
-                    <Icon name="timer-outline" size={24} color={theme.colors.primary} />
+                    <PulsingTimerIcon size={24} color={theme.colors.primary} />
                   </View>
                   <View style={styles.bannerInfo}>
                     <RNText style={styles.nextTrainLabel}>পরবর্তী ট্রেন</RNText>
                     <RNText style={styles.countdownText}>{getNextDepartureIn()} পর</RNText>
                   </View>
-                  <View style={styles.liveStatus}>
-                    <RNText style={styles.liveText}>লাইভ</RNText>
-                    <LiveDot />
-                  </View>
-                </Surface>
+                </View>
               );
             }
             if (item.type === 'hero') return <TrainCard train={item.item} highlight />;
@@ -445,6 +443,7 @@ const TimetableScreen = () => {
           value={tempDate}
           mode="date"
           display="calendar"
+          accentColor={theme.colors.primary}
           onChange={(event, selectedDate) => {
             if (event.type === 'set' && selectedDate) setDate(selectedDate);
             setShowDatePicker(false);
@@ -460,13 +459,16 @@ const getStyles = (theme) => StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.background,
   },
+  headerWrapper: {
+    zIndex: 100,
+    position: 'relative',
+  },
   headerGradient: {
-    paddingTop: 8,
-    paddingBottom: 20,
+    paddingTop: 10,
+    paddingBottom: 80,
     paddingHorizontal: 20,
     borderBottomLeftRadius: 24,
     borderBottomRightRadius: 24,
-    marginBottom: 90,
   },
   headerTop: {
     flexDirection: 'row',
@@ -521,18 +523,17 @@ const getStyles = (theme) => StyleSheet.create({
     marginLeft: 4,
   },
   floatingSelector: {
-    position: 'absolute',
-    bottom: -85,
-    left: 12,
-    right: 12,
+    marginTop: -55,
+    marginHorizontal: 12,
     backgroundColor: '#FFFFFF',
     borderRadius: 24,
     padding: 16,
     paddingTop: 12,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.05)',
+    elevation: 4,
   },
   selectorRow: {
     flexDirection: 'row',
@@ -577,29 +578,34 @@ const getStyles = (theme) => StyleSheet.create({
     borderColor: '#FFFFFF',
   },
   listContainer: {
-    paddingTop: 10,
+    paddingTop: 45, // Space for the floating overlap
     paddingBottom: 30,
   },
   nextTrainBanner: {
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: '#FFFFFF',
     marginHorizontal: 12,
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 20,
     marginBottom: 16,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
     borderWidth: 1,
-    borderColor: 'rgba(7, 93, 55, 0.15)',
+    borderColor: 'rgba(65, 171, 93, 0.08)',
   },
   timerIconBox: {
     width: 44,
     height: 44,
     borderRadius: 22,
+    backgroundColor: 'rgba(65, 171, 93, 0.08)',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 14,
-    borderWidth: 1,
-    borderColor: 'rgba(7, 93, 55, 0.1)',
   },
   bannerInfo: {
     flex: 1,
@@ -619,13 +625,8 @@ const getStyles = (theme) => StyleSheet.create({
     marginTop: 2,
   },
   liveStatus: {
-    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: 'rgba(7, 93, 55, 0.1)',
   },
   liveText: {
     fontSize: 10,
