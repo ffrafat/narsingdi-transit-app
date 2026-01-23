@@ -1,46 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Alert, ScrollView } from 'react-native';
+import { View, StyleSheet, Alert, ScrollView, ImageBackground, Text as RNText } from 'react-native';
 import { Text, Button, Card, useTheme, Surface } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import DropdownSelector from '../components/DropdownSelector';
 import NetInfo from '@react-native-community/netinfo';
 import { fetchAndCacheRoute } from '../utils/dataFetcher';
 import { useAppTheme } from '../ThemeContext';
+import { HERO_THEMES } from '../constants/heroThemes';
+import { LinearGradient } from 'expo-linear-gradient';
+import { TouchableOpacity } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 
 const stationList = ['ঢাকা', 'তেজগাঁও', 'বিমানবন্দর', 'নরসিংদী', 'মেথিকান্দা', 'দৌলতকান্দি', 'ভৈরব'];
 
 const SettingsScreen = () => {
-  const [from, setFrom] = useState('নরসিংদী');
-  const [to, setTo] = useState('ঢাকা');
   const theme = useTheme();
-  const styles = getStyles(theme);
-  const { themeMode, setThemeMode } = useAppTheme();
-
-  useEffect(() => {
-    const loadDefaults = async () => {
-      try {
-        const savedFrom = await AsyncStorage.getItem('default_from');
-        const savedTo = await AsyncStorage.getItem('default_to');
-        if (savedFrom) setFrom(savedFrom);
-        if (savedTo) setTo(savedTo);
-      } catch (e) {
-        console.warn('Error loading settings:', e);
-      }
-    };
-    loadDefaults();
-  }, []);
-
-  const handleSave = async () => {
-    try {
-      await AsyncStorage.setItem('default_from', from);
-      await AsyncStorage.setItem('default_to', to);
-      Alert.alert('সেইভ হয়েছে', 'নতুন সেট করা স্টেশন দেখতে অ্যাপটি বন্ধ করে আবার চালু করুন।');
-    } catch (e) {
-      Alert.alert('সেইভ হয়নি', 'সেইভ করার সময় সমস্যা হয়েছে।');
-      console.error('Error saving settings:', e);
-    }
-  };
+  const insets = useSafeAreaInsets();
+  const styles = getStyles(theme, insets);
+  const {
+    themeMode,
+    setThemeMode,
+    heroTheme,
+    setHeroTheme,
+    defaultFrom,
+    setDefaultFrom,
+    defaultTo,
+    setDefaultTo
+  } = useAppTheme();
 
   const handleManualUpdate = async () => {
     try {
@@ -66,177 +54,303 @@ const SettingsScreen = () => {
     }
   };
 
+  const HeaderContent = () => (
+    <View style={styles.headerTitleWrapper}>
+      {/* Title is handled by navigation header */}
+    </View>
+  );
+
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Text style={styles.pageHeader}>অ্যাপ সেটিংস</Text>
-
-      {/* Default station card */}
-      <Surface style={styles.surface} elevation={1}>
-        <View style={styles.headerRow}>
-          <View style={styles.iconBox}>
-            <Icon name="map-marker-path" size={22} color={theme.colors.primary} />
-          </View>
-          <Text style={styles.headerText}>ডিফল্ট স্টেশন</Text>
+    <View style={styles.container}>
+      <View style={styles.headerWrapper}>
+        <View style={styles.headerGradientContainer}>
+          {heroTheme.image ? (
+            <ImageBackground
+              source={heroTheme.image}
+              style={styles.headerBackgroundImage}
+              resizeMode="cover"
+            >
+              <LinearGradient
+                colors={['rgba(0,0,0,0.5)', 'transparent']}
+                style={StyleSheet.absoluteFill}
+              />
+              <LinearGradient
+                colors={heroTheme.colors}
+                style={[styles.headerGradient, { backgroundColor: 'transparent' }]}
+                opacity={0.85}
+              >
+                <HeaderContent />
+              </LinearGradient>
+            </ImageBackground>
+          ) : (
+            <LinearGradient
+              colors={heroTheme.colors}
+              style={styles.headerGradient}
+            >
+              <HeaderContent />
+            </LinearGradient>
+          )}
         </View>
+      </View>
 
-        <View style={styles.row}>
-          <View style={styles.half}>
-            <Text style={styles.label}>যাত্রা শুরু</Text>
-            <DropdownSelector options={stationList} selected={from} onChange={setFrom} />
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        {/* Database update card - NOW FIRST */}
+        <Surface style={styles.surface} elevation={1}>
+          <View style={styles.headerRow}>
+            <View style={[styles.iconBox, { backgroundColor: 'rgba(65, 171, 93, 0.08)' }]}>
+              <Icon name="cloud-sync-outline" size={22} color={theme.colors.primary} />
+            </View>
+            <Text style={styles.headerText}>তথ্য আপডেট</Text>
           </View>
 
-          <View style={styles.half}>
-            <Text style={styles.label}>যাত্রা শেষ</Text>
-            <DropdownSelector options={stationList} selected={to} onChange={setTo} />
-          </View>
-        </View>
+          <Text style={styles.description}>
+            অফলাইনে ব্যবহারের জন্য নতুন সময়সূচি ডাউনলোড বা আপডেট করতে নিচের বাটনে ক্লিক করুন।
+          </Text>
 
-        <Button
-          icon="check-circle"
-          mode="contained"
-          style={styles.actionBtn}
-          labelStyle={styles.btnLabel}
-          onPress={handleSave}
-        >
-          পরিবর্তন সংরক্ষণ করুন
-        </Button>
-      </Surface>
-
-      {/* Theme selection card */}
-      <Surface style={styles.surface} elevation={1}>
-        <View style={styles.headerRow}>
-          <View style={[styles.iconBox, { backgroundColor: theme.colors.secondaryContainer }]}>
-            <Icon name="palette-outline" size={22} color={theme.colors.secondary} />
-          </View>
-          <Text style={styles.headerText}>অ্যাপ থিম</Text>
-        </View>
-
-        <View style={styles.themeToggleRow}>
           <Button
-            mode={themeMode === 'light' ? 'contained' : 'text'}
-            onPress={() => setThemeMode('light')}
-            style={styles.themeBtn}
-            icon="weather-sunny"
-            labelStyle={{ fontWeight: 'bold' }}
-            compact
+            icon="download-outline"
+            mode="outlined"
+            style={[styles.actionBtn, { borderColor: theme.colors.outline }]}
+            labelStyle={[styles.btnLabel, { color: theme.colors.primary }]}
+            onPress={handleManualUpdate}
           >
-            লাইট
+            আপডেট করুন
           </Button>
-          <Button
-            mode={themeMode === 'dark' ? 'contained' : 'text'}
-            onPress={() => setThemeMode('dark')}
-            style={styles.themeBtn}
-            icon="weather-night"
-            labelStyle={{ fontWeight: 'bold' }}
-            compact
-          >
-            ডার্ক
-          </Button>
-        </View>
-      </Surface>
+        </Surface>
 
-      {/* Database update card */}
-      <Surface style={styles.surface} elevation={1}>
-        <View style={styles.headerRow}>
-          <View style={[styles.iconBox, { backgroundColor: theme.colors.errorContainer }]}>
-            <Icon name="cloud-sync-outline" size={22} color={theme.colors.error} />
+        {/* Default station card */}
+        <Surface style={styles.surface} elevation={1}>
+          <View style={styles.headerRow}>
+            <View style={styles.iconBox}>
+              <Icon name="map-marker-path" size={22} color={theme.colors.primary} />
+            </View>
+            <Text style={styles.headerText}>ডিফল্ট স্টেশন</Text>
           </View>
-          <Text style={styles.headerText}>তথ্য আপডেট</Text>
-        </View>
 
-        <Text style={styles.description}>
-          অফলাইনে ব্যবহারের জন্য নতুন সময়সূচি ডাউনলোড বা আপডেট করতে নিচের বাটনে ক্লিক করুন।
-        </Text>
+          <View style={styles.row}>
+            <View style={styles.half}>
+              <Text style={styles.label}>যাত্রা শুরু</Text>
+              <DropdownSelector options={stationList} selected={defaultFrom} onChange={setDefaultFrom} />
+            </View>
 
-        <Button
-          icon="download-outline"
-          mode="outlined"
-          style={[styles.actionBtn, { borderColor: theme.colors.outline }]}
-          labelStyle={[styles.btnLabel, { color: theme.colors.primary }]}
-          onPress={handleManualUpdate}
-        >
-          এখনই আপডেট করুন
-        </Button>
-      </Surface>
-    </ScrollView>
+            <View style={styles.half}>
+              <Text style={styles.label}>যাত্রা শেষ</Text>
+              <DropdownSelector options={stationList} selected={defaultTo} onChange={setDefaultTo} />
+            </View>
+          </View>
+        </Surface>
+
+        {/* Theme selection card */}
+        <Surface style={styles.surface} elevation={1}>
+          <View style={styles.headerRow}>
+            <View style={[styles.iconBox, { backgroundColor: 'rgba(65, 171, 93, 0.08)' }]}>
+              <Icon name="palette-outline" size={22} color={theme.colors.primary} />
+            </View>
+            <Text style={styles.headerText}>কালার মোড</Text>
+          </View>
+
+          <View style={styles.themeToggleRow}>
+            <Button
+              mode={themeMode === 'light' ? 'contained' : 'text'}
+              onPress={() => setThemeMode('light')}
+              style={styles.themeBtn}
+              icon="weather-sunny"
+              labelStyle={{ fontFamily: 'AnekBangla_700Bold' }}
+              compact
+            >
+              লাইট
+            </Button>
+            <Button
+              mode={themeMode === 'dark' ? 'contained' : 'text'}
+              onPress={() => setThemeMode('dark')}
+              style={styles.themeBtn}
+              icon="weather-night"
+              labelStyle={{ fontFamily: 'AnekBangla_700Bold' }}
+              compact
+            >
+              ডার্ক
+            </Button>
+          </View>
+        </Surface>
+
+        {/* Hero Theme Selection */}
+        <Surface style={styles.surface} elevation={1}>
+          <View style={styles.headerRow}>
+            <View style={[styles.iconBox, { backgroundColor: 'rgba(65, 171, 93, 0.08)' }]}>
+              <Icon name="image-outline" size={22} color={theme.colors.primary} />
+            </View>
+            <Text style={styles.headerText}>ব্যাকগ্রাউন্ড থিম</Text>
+          </View>
+
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.heroThemeScroll}>
+            {HERO_THEMES.map((t) => {
+              const isActive = heroTheme.id === t.id;
+              return (
+                <TouchableOpacity
+                  key={t.id}
+                  onPress={() => setHeroTheme(t)}
+                  activeOpacity={0.8}
+                  style={[
+                    styles.heroThemeCard,
+                    isActive && styles.heroThemeCardActive
+                  ]}
+                >
+                  <View style={styles.heroThemePreviewContainer}>
+                    {t.image ? (
+                      <ImageBackground
+                        source={t.image}
+                        style={styles.heroThemePreview}
+                        imageStyle={{ borderRadius: 10 }}
+                      >
+                        <LinearGradient
+                          colors={['rgba(0,0,0,0.5)', 'transparent']}
+                          style={StyleSheet.absoluteFill}
+                        />
+                        <LinearGradient
+                          colors={t.colors}
+                          style={StyleSheet.absoluteFill}
+                          opacity={0.85}
+                        />
+                        {isActive && (
+                          <View style={styles.selectionOverlay}>
+                            <Icon name="check-circle" size={24} color="#FFFFFF" />
+                          </View>
+                        )}
+                      </ImageBackground>
+                    ) : (
+                      <LinearGradient
+                        colors={t.colors}
+                        style={styles.heroThemePreview}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                      >
+                        {isActive && (
+                          <View style={styles.selectionOverlay}>
+                            <Icon name="check-circle" size={24} color="#FFFFFF" />
+                          </View>
+                        )}
+                      </LinearGradient>
+                    )}
+                  </View>
+                  <Text
+                    numberOfLines={1}
+                    style={[
+                      styles.heroThemeName,
+                      isActive && styles.heroThemeNameActive
+                    ]}
+                  >
+                    {t.name}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+        </Surface>
+
+        {/* Sections below moved above locally within the single chunk */}
+      </ScrollView>
+    </View>
   );
 };
 
-const getStyles = (theme) => StyleSheet.create({
+const getStyles = (theme, insets) => StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.background,
   },
-  content: {
-    padding: 16,
-    paddingBottom: 40,
+  headerWrapper: {
+    // Basic wrapper
   },
-  pageHeader: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: theme.colors.outline,
-    marginBottom: 20,
-    textTransform: 'uppercase',
-    letterSpacing: 1.5,
+  headerGradientContainer: {
+    borderBottomLeftRadius: 32,
+    borderBottomRightRadius: 32,
+    overflow: 'hidden',
+    backgroundColor: '#075d37', // Fallback base color
+  },
+  headerBackgroundImage: {
+    width: '100%',
+  },
+  headerGradient: {
+    paddingTop: insets.top + 40,
+    paddingBottom: 15,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerTitleWrapper: {
+    height: 30,
+  },
+  content: {
+    padding: 12,
+    paddingVertical: 16,
+    paddingBottom: 40,
   },
   surface: {
     backgroundColor: theme.colors.surface,
     borderRadius: 20,
-    padding: 20,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: theme.colors.outlineVariant,
+    padding: 18,
+    marginBottom: 12,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    borderWidth: 0,
   },
   headerRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 16,
   },
   iconBox: {
-    width: 40,
-    height: 40,
+    width: 38,
+    height: 38,
     borderRadius: 12,
-    backgroundColor: theme.colors.primaryContainer,
+    backgroundColor: 'rgba(65, 171, 93, 0.08)',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
   },
   headerText: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 17,
+    fontFamily: 'AnekBangla_800ExtraBold',
     color: theme.colors.onSurface,
+    letterSpacing: -0.5,
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: 16,
   },
   half: {
     width: '47%',
   },
   label: {
     fontSize: 11,
-    fontWeight: '800',
+    fontFamily: 'AnekBangla_800ExtraBold',
     marginBottom: 8,
     color: theme.colors.primary,
     textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    letterSpacing: 1,
   },
   actionBtn: {
     borderRadius: 12,
-    marginTop: 4,
+    marginTop: 0,
+    height: 42,
+    justifyContent: 'center',
   },
   btnLabel: {
     fontSize: 14,
-    fontWeight: 'bold',
-    paddingVertical: 2,
+    fontFamily: 'AnekBangla_800ExtraBold',
+    paddingVertical: 0,
+    letterSpacing: 0.5,
   },
   description: {
     fontSize: 13,
     color: theme.colors.onSurfaceVariant,
-    marginBottom: 20,
+    marginBottom: 16,
     lineHeight: 18,
-    fontWeight: '500',
+    fontFamily: 'AnekBangla_600SemiBold',
   },
   themeToggleRow: {
     flexDirection: 'row',
@@ -247,6 +361,52 @@ const getStyles = (theme) => StyleSheet.create({
   themeBtn: {
     flex: 1,
     borderRadius: 10,
+  },
+  heroThemeScroll: {
+    paddingVertical: 4,
+    paddingRight: 20,
+    gap: 12,
+  },
+  heroThemeCard: {
+    width: 95,
+    alignItems: 'center',
+    borderRadius: 14,
+    padding: 2,
+    opacity: 0.6,
+  },
+  heroThemeCardActive: {
+    opacity: 1,
+  },
+  heroThemePreviewContainer: {
+    borderRadius: 8,
+    overflow: 'hidden',
+    marginBottom: 6,
+    width: '100%',
+    height: 52,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.05)',
+  },
+  heroThemePreview: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  selectionOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  heroThemeName: {
+    fontSize: 10,
+    fontFamily: 'AnekBangla_800ExtraBold',
+    color: theme.colors.onSurfaceVariant,
+    textAlign: 'center',
+  },
+  heroThemeNameActive: {
+    color: theme.colors.primary,
+    fontFamily: 'AnekBangla_800ExtraBold',
   },
 });
 

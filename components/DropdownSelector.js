@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Menu, Button, Text, useTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 
 const DropdownSelector = ({ label, options, selected, onChange, style }) => {
   const [visible, setVisible] = React.useState(false);
@@ -42,7 +42,7 @@ const DropdownSelector = ({ label, options, selected, onChange, style }) => {
             }}
             title={opt}
             titleStyle={{
-              fontWeight: opt === selected ? 'bold' : 'normal',
+              fontFamily: opt === selected ? 'AnekBangla_700Bold' : 'AnekBangla_400Regular',
               color: opt === selected ? theme.colors.primary : theme.colors.onSurface
             }}
           />
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    fontWeight: '700',
+    fontFamily: 'AnekBangla_700Bold',
     fontSize: 14,
     textAlign: 'left',
   },

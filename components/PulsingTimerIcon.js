@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 
 const PulsingTimerIcon = ({ size, color }) => {
     const pulseAnim = useRef(new Animated.Value(0)).current;

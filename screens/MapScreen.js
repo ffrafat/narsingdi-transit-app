@@ -1,7 +1,10 @@
-import React from 'react';
-import { View, StyleSheet, ScrollView, Linking } from 'react-native';
-import { Text, Button, useTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { View, StyleSheet, ScrollView, Linking, ImageBackground, Text as RNText, TouchableOpacity } from 'react-native';
+import { Text, Button, useTheme, Surface } from 'react-native-paper';
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
+import { useAppTheme } from '../ThemeContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const stations = [
   { name: 'ভৈরব', mapUrl: 'https://maps.app.goo.gl/VtrF4pZNouEjXxNq5' },
@@ -23,103 +26,214 @@ const stations = [
   { name: 'ঢাকা', mapUrl: 'https://maps.app.goo.gl/199jR4HkTmhb4TXX6' },
 ];
 
-
 const MapScreen = () => {
+  const { heroTheme } = useAppTheme();
   const theme = useTheme();
-  const styles = getStyles(theme);
+  const insets = useSafeAreaInsets();
+  const navigation = useNavigation();
+  const styles = getStyles(theme, insets);
+
   const openMap = (url) => {
     Linking.openURL(url).catch((err) => console.warn('Cannot open map:', err));
   };
 
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {stations.map((station, index) => (
-        <View key={index} style={styles.timelineItem}>
-          <View style={styles.timelineLeft}>
-            <View style={styles.dot} />
-            {index !== stations.length - 1 && <View style={styles.line} />}
-          </View>
+  const HeaderContent = () => (
+    <View style={styles.headerTitleWrapper}>
+      {/* Title is handled by navigation header */}
+    </View>
+  );
 
-          <View style={styles.contentRow}>
-            <Text style={styles.stationName} numberOfLines={1} ellipsizeMode="tail">
-              {station.name}
-            </Text>
-            <Button
-              icon="map-marker"
-              mode="contained"
-              onPress={() => openMap(station.mapUrl)}
-              contentStyle={styles.buttonContent}
-              labelStyle={styles.buttonLabel}
-              style={styles.mapButton}
-              compact
+  return (
+    <View style={styles.container}>
+      <View style={styles.headerWrapper}>
+        <View style={styles.headerGradientContainer}>
+          {heroTheme.image ? (
+            <ImageBackground
+              source={heroTheme.image}
+              style={styles.headerBackgroundImage}
+              resizeMode="cover"
             >
-              গুগল ম্যাপ
-            </Button>
-          </View>
+              <LinearGradient
+                colors={['rgba(0,0,0,0.5)', 'transparent']}
+                style={StyleSheet.absoluteFill}
+              />
+              <LinearGradient
+                colors={heroTheme.colors}
+                style={[styles.headerGradient, { backgroundColor: 'transparent' }]}
+                opacity={0.85}
+              >
+                <HeaderContent />
+              </LinearGradient>
+            </ImageBackground>
+          ) : (
+            <LinearGradient
+              colors={heroTheme.colors}
+              style={styles.headerGradient}
+            >
+              <HeaderContent />
+            </LinearGradient>
+          )}
         </View>
-      ))}
-    </ScrollView>
+      </View>
+
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        {stations.map((station, index) => (
+          <View
+            key={index}
+            style={styles.timelineItem}
+          >
+            <View style={styles.timelineLeft}>
+              <View style={[styles.dot, index === 0 && styles.firstDot, index === stations.length - 1 && styles.lastDot]} />
+              {index !== stations.length - 1 && <View style={styles.line} />}
+            </View>
+
+            <Surface style={styles.stationCard} elevation={1}>
+              <View style={styles.cardContent}>
+                <View style={styles.stationInfo}>
+                  <View style={styles.markerContainer}>
+                    <Icon name="train" size={20} color={theme.colors.primary} />
+                  </View>
+                  <Text style={styles.stationName}>{station.name}</Text>
+                </View>
+
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() => openMap(station.mapUrl)}
+                  style={styles.mapIconButton}
+                >
+                  <Icon name="directions" size={20} color="#FFFFFF" />
+                </TouchableOpacity>
+              </View>
+            </Surface>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
   );
 };
 
-const getStyles = (theme) => StyleSheet.create({
+const getStyles = (theme, insets) => StyleSheet.create({
   container: {
-    paddingVertical: 20,
-    paddingHorizontal: 16,
+    flex: 1,
     backgroundColor: theme.colors.background,
+  },
+  headerWrapper: {
+    backgroundColor: 'transparent',
+  },
+  headerGradientContainer: {
+    borderBottomLeftRadius: 32,
+    borderBottomRightRadius: 32,
+    overflow: 'hidden',
+    backgroundColor: '#075d37', // Fallback base color
+  },
+  headerBackgroundImage: {
+    width: '100%',
+  },
+  headerGradient: {
+    paddingTop: insets.top + 40, // Reduced from 50
+    paddingBottom: 15, // Reduced from 25
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerTitleWrapper: {
+    height: 30, // Maintains structure without visible content
+  },
+  scrollContent: {
+    paddingVertical: 24,
+    paddingHorizontal: 16,
   },
   timelineItem: {
     flexDirection: 'row',
-    marginBottom: 24,
+    marginBottom: 0,
   },
   timelineLeft: {
     alignItems: 'center',
-    width: 30,
+    width: 40,
   },
   dot: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: theme.colors.outlineVariant,
+    zIndex: 2,
+    marginTop: 22,
+    borderWidth: 2,
+    borderColor: theme.colors.background,
+  },
+  firstDot: {
+    backgroundColor: theme.colors.primary,
     width: 14,
     height: 14,
     borderRadius: 7,
-    backgroundColor: theme.colors.primary,
-    marginTop: 4,
+  },
+  lastDot: {
+    backgroundColor: theme.colors.secondary,
+    width: 14,
+    height: 14,
+    borderRadius: 7,
   },
   line: {
-    flex: 1,
+    position: 'absolute',
+    top: 22,
+    bottom: -22,
     width: 2,
     backgroundColor: theme.colors.outlineVariant,
-    marginTop: 4,
+    opacity: 0.5,
   },
-  contentRow: {
+  stationCard: {
     flex: 1,
+    backgroundColor: theme.colors.surface,
+    marginBottom: 16,
+    borderRadius: 20, // Unified borderRadius
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    borderWidth: 0, // Removed border
+    overflow: 'hidden',
+  },
+  cardContent: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: theme.colors.surface,
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 16,
+  },
+  stationInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  markerContainer: {
+    width: 36,
+    height: 36,
     borderRadius: 10,
-    elevation: 2,
+    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
   },
   stationName: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'AnekBangla_800ExtraBold',
     color: theme.colors.onSurface,
     flexShrink: 1,
-    marginRight: 12,
   },
-  mapButton: {
-    borderRadius: 6,
+  mapIconButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     backgroundColor: theme.colors.primary,
-  },
-  buttonContent: {
-    flexDirection: 'row-reverse',
-  },
-  buttonLabel: {
-    color: theme.colors.onPrimary,
-    fontWeight: '600',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
   },
 });
-
-
 
 export default MapScreen;

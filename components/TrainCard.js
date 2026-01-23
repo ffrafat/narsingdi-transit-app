@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useAppTheme } from '../ThemeContext';
 
 // Bengali digit converter
 const engToBengaliDigit = (input) => {
@@ -14,15 +14,7 @@ const engToBengaliDigit = (input) => {
   return input.toString().split('').map(char => digitMap[char] || char).join('');
 };
 
-const convertBnToEnDigits = (input) => {
-  const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
-  let output = '';
-  for (let char of String(input)) {
-    const index = bnDigits.indexOf(char);
-    output += index === -1 ? char : index.toString();
-  }
-  return output;
-};
+
 
 const getBengaliTimeFromString = (time24h) => {
   if (!time24h) return '';
@@ -34,26 +26,28 @@ const getBengaliTimeFromString = (time24h) => {
 const TrainCard = ({ train, highlight, passed }) => {
   const navigation = useNavigation();
   const theme = useTheme();
+  const { heroTheme } = useAppTheme();
 
   const trainNo = train['Train No.'] || '';
   const trainName = train['Train Name'] || '';
   const dayNight = train['Day Night Time'] || '';
   const time = getBengaliTimeFromString(train['From Station Time']);
   const offDay = train['Off Day']?.trim();
-  const englishTrainNo = convertBnToEnDigits(String(trainNo));
 
   const styles = getStyles(theme, highlight, passed);
 
   // Define dynamic colors to avoid StyleSheet property access issues
   const iconColors = {
-    info: highlight ? '#FFFFFF' : theme.colors.onSecondaryContainer,
-    track: highlight ? '#FFFFFF' : theme.colors.onPrimaryContainer,
-    route: highlight ? 'rgba(255,255,255,0.8)' : theme.colors.onSurfaceVariant,
-    offDay: highlight ? '#FFCDD2' : theme.colors.error,
+    info: highlight ? '#FFFFFF' : passed ? 'rgba(7, 93, 55, 0.6)' : theme.colors.onSecondaryContainer,
+    route: highlight ? 'rgba(255,255,255,0.8)' : passed ? 'rgba(7, 93, 55, 0.5)' : theme.colors.onSurfaceVariant,
+    offDay: highlight ? '#FFFFFF' : passed ? 'rgba(7, 93, 55, 0.5)' : theme.colors.outline,
   };
 
   const CardContent = () => (
     <View style={styles.content}>
+      {/* Vertical Accent Line */}
+      {!highlight && !passed && <View style={styles.accentLine} />}
+
       {/* Left Section */}
       <View style={styles.leftSection}>
         <View style={styles.header}>
@@ -64,7 +58,9 @@ const TrainCard = ({ train, highlight, passed }) => {
         </View>
 
         <View style={styles.routeRow}>
-          <Icon name="map-marker-path" size={16} color={iconColors.route} />
+          <View style={styles.smallIconBox}>
+            <Icon name="map-marker-path" size={16} color={iconColors.route} />
+          </View>
           <Text style={styles.routeText} numberOfLines={1}>
             {train['Start Station']} → {train['End Station']}
           </Text>
@@ -72,51 +68,67 @@ const TrainCard = ({ train, highlight, passed }) => {
 
         {offDay && (
           <View style={styles.offDayRow}>
-            <Icon name="calendar-remove" size={14} color={iconColors.offDay} />
+            <View style={styles.smallIconBox}>
+              <Icon name="calendar-remove" size={14} color={iconColors.offDay} />
+            </View>
             <Text style={styles.offDayText}>{offDay} বন্ধ</Text>
           </View>
         )}
       </View>
 
-      {/* Right Section */}
       <View style={styles.rightSection}>
         <View style={styles.timeContainer}>
           <Text style={styles.dayNight}>{dayNight}</Text>
-          <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
-            <Text style={styles.time}>{time}</Text>
-          </View>
+          <Text style={styles.time}>{time}</Text>
         </View>
 
-        <View style={styles.actions}>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => navigation.navigate('TrainDetails', { trainNo })}
-            style={[styles.btn, styles.btnInfo]}
-          >
-            <Icon name="information" size={20} color={iconColors.info} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => navigation.navigate('WebTracking', { trainNo: englishTrainNo })}
-            style={[styles.btn, styles.btnTrack]}
-          >
-            <Icon name="map-marker" size={18} color={iconColors.track} />
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('TrainDetails', { trainNo })}
+          style={[styles.btn, styles.btnInfo]}
+        >
+          <Icon
+            name="chevron-right"
+            size={highlight ? 20 : 18}
+            color={iconColors.info}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );
 
   if (highlight) {
     return (
-      <LinearGradient
-        colors={['#075d37', '#41ab5d']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.card}
-      >
+      <View style={styles.card}>
+        {heroTheme.image ? (
+          <>
+            <ImageBackground
+              source={heroTheme.image}
+              style={StyleSheet.absoluteFill}
+              resizeMode="cover"
+            />
+            {/* Layer 1: Dark shadow matching header icons */}
+            <LinearGradient
+              colors={['rgba(0,0,0,0.5)', 'transparent']}
+              style={StyleSheet.absoluteFill}
+            />
+            {/* Layer 2: Theme color tint matching header (85% opacity) */}
+            <LinearGradient
+              colors={heroTheme.colors}
+              style={StyleSheet.absoluteFill}
+              opacity={0.85}
+            />
+          </>
+        ) : (
+          <LinearGradient
+            colors={heroTheme.colors}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={StyleSheet.absoluteFill}
+          />
+        )}
         <CardContent />
-      </LinearGradient>
+      </View>
     );
   }
 
@@ -128,28 +140,29 @@ const TrainCard = ({ train, highlight, passed }) => {
 };
 
 const getStyles = (theme, highlight, passed) => {
-  const cardBg = highlight ? theme.colors.primary : passed ? theme.colors.surfaceVariant : theme.colors.surface;
-  const textColor = highlight ? '#FFFFFF' : passed ? theme.colors.outline : theme.colors.onSurface;
-  const mutedColor = highlight ? 'rgba(255,255,255,0.8)' : theme.colors.onSurfaceVariant;
+  const cardBg = highlight ? theme.colors.primary : passed ? 'rgba(65, 171, 93, 0.08)' : theme.colors.surface;
+  const textColor = highlight ? '#FFFFFF' : passed ? 'rgba(7, 93, 55, 0.8)' : theme.colors.onSurface;
+  const mutedColor = highlight ? 'rgba(255,255,255,0.8)' : passed ? 'rgba(7, 93, 55, 0.6)' : theme.colors.onSurfaceVariant;
 
   return StyleSheet.create({
     card: {
       marginHorizontal: 12,
-      marginVertical: 6,
-      borderRadius: 16,
+      marginVertical: 8,
+      borderRadius: 18,
       backgroundColor: highlight ? 'transparent' : cardBg,
-      elevation: highlight ? 4 : 2,
+      elevation: highlight ? 4 : passed ? 0 : 3,
       shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.1,
-      shadowRadius: 4,
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: highlight ? 0.1 : passed ? 0 : 0.08,
+      shadowRadius: highlight ? 4 : passed ? 0 : 15,
       borderWidth: 1,
-      borderColor: highlight ? 'rgba(255,255,255,0.2)' : theme.colors.outlineVariant,
+      borderColor: highlight ? 'rgba(255,255,255,0.2)' : passed ? 'rgba(65, 171, 93, 0.12)' : 'rgba(0,0,0,0.03)',
       overflow: 'hidden',
     },
     content: {
       flexDirection: 'row',
-      padding: 16,
+      padding: highlight ? 20 : 18,
+      alignItems: 'center',
     },
     leftSection: {
       flex: 1,
@@ -158,10 +171,10 @@ const getStyles = (theme, highlight, passed) => {
     header: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: 8,
+      marginBottom: highlight ? 8 : 4,
     },
     trainNoBox: {
-      backgroundColor: highlight ? 'rgba(255,255,255,0.2)' : theme.colors.primaryContainer,
+      backgroundColor: highlight ? 'rgba(255,255,255,0.2)' : passed ? 'rgba(65, 171, 93, 0.1)' : theme.colors.primaryContainer,
       paddingHorizontal: 8,
       paddingVertical: 4,
       borderRadius: 6,
@@ -169,84 +182,92 @@ const getStyles = (theme, highlight, passed) => {
     },
     trainNoText: {
       fontSize: 11,
-      fontWeight: '900',
+      fontFamily: 'AnekBangla_800ExtraBold',
       color: highlight ? '#FFFFFF' : theme.colors.onPrimaryContainer,
       letterSpacing: 0.5,
     },
     trainName: {
-      fontSize: 18,
-      fontWeight: '800',
+      fontSize: highlight ? 18 : 16,
+      fontFamily: 'AnekBangla_800ExtraBold',
       color: textColor,
       flex: 1,
     },
     routeRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: 6,
+      marginBottom: 8,
     },
     routeText: {
       fontSize: 13,
-      fontWeight: '600',
+      fontFamily: 'AnekBangla_600SemiBold',
       color: mutedColor,
-      marginLeft: 8,
+      marginLeft: 10,
       flex: 1,
+    },
+    smallIconBox: {
+      width: 28,
+      height: 28,
+      borderRadius: 8,
+      backgroundColor: highlight ? 'rgba(255,255,255,0.15)' : 'rgba(65, 171, 93, 0.08)',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     offDayRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginTop: 4,
+      marginTop: highlight ? 4 : 2,
     },
     offDayText: {
       fontSize: 11,
-      fontWeight: '700',
-      color: highlight ? '#FFCDD2' : theme.colors.error,
-      marginLeft: 6,
+      fontFamily: 'AnekBangla_700Bold',
+      color: highlight ? '#FFFFFF' : passed ? 'rgba(7, 93, 55, 0.7)' : theme.colors.outline,
+      marginLeft: 10,
     },
     rightSection: {
-      alignItems: 'flex-end',
-      justifyContent: 'space-between',
-      marginLeft: 16,
+      flexDirection: highlight ? 'column' : 'row',
+      alignItems: highlight ? 'flex-end' : 'center',
+      justifyContent: 'center',
+      marginLeft: highlight ? 16 : 8,
     },
     timeContainer: {
       alignItems: 'flex-end',
+      marginBottom: highlight ? 8 : 0,
+      marginRight: highlight ? 0 : 8,
     },
     dayNight: {
-      fontSize: 10,
-      fontWeight: '900',
-      color: highlight ? 'rgba(255,255,255,0.7)' : theme.colors.secondary,
+      fontSize: highlight ? 10 : 8,
+      fontFamily: 'AnekBangla_800ExtraBold',
+      color: highlight ? 'rgba(255,255,255,0.7)' : theme.colors.outline,
       textTransform: 'uppercase',
-      letterSpacing: 1,
-      marginBottom: 4,
+      letterSpacing: highlight ? 1 : 0.5,
+      marginBottom: highlight ? 2 : 0,
     },
     time: {
-      fontSize: 28,
-      fontWeight: '900',
-      color: highlight ? '#FFFFFF' : theme.colors.primary,
+      fontSize: highlight ? 28 : 22,
+      fontFamily: 'AnekBangla_800ExtraBold',
+      color: highlight ? '#FFFFFF' : passed ? 'rgba(7, 93, 55, 0.85)' : theme.colors.primary,
       letterSpacing: -1,
-      lineHeight: 32,
+      lineHeight: highlight ? 32 : 26,
     },
 
     actions: {
       flexDirection: 'row',
-      marginTop: 8,
+      marginTop: 4,
     },
     btn: {
-      width: 40,
-      height: 40,
-      borderRadius: 20,
+      width: highlight ? 36 : 28,
+      height: highlight ? 36 : 28,
+      borderRadius: highlight ? 18 : 14,
       justifyContent: 'center',
       alignItems: 'center',
-      marginLeft: 8,
+      marginLeft: highlight ? 8 : 4,
     },
     btnInfo: {
-      backgroundColor: highlight ? 'rgba(255, 255, 255, 0.2)' : theme.colors.secondaryContainer,
+      backgroundColor: highlight ? 'rgba(255, 255, 255, 0.2)' : passed ? 'rgba(65, 171, 93, 0.1)' : theme.colors.primaryContainer,
       borderWidth: highlight ? 1 : 0,
-      borderColor: 'rgba(255, 255, 255, 0.3)',
-    },
-    btnTrack: {
-      backgroundColor: highlight ? 'rgba(255, 255, 255, 0.2)' : theme.colors.primaryContainer,
-      borderWidth: highlight ? 1 : 0,
-      borderColor: 'rgba(255, 255, 255, 0.3)',
+      borderColor: highlight ? 'rgba(255, 255, 255, 0.3)' : 'transparent',
+      opacity: highlight ? 1 : 0.8,
+      marginRight: highlight ? 2 : 0, // Slight nudge for alignment
     },
   });
 };

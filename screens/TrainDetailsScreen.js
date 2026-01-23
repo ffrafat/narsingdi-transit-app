@@ -1,14 +1,19 @@
 import React, { useLayoutEffect, useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
-import { Text, Divider, Card, useTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { View, ScrollView, StyleSheet, ImageBackground } from 'react-native';
+import { Text, useTheme, Surface } from 'react-native-paper';
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useAppTheme } from '../ThemeContext';
 import trainDetailsData from '../assets/trainDetails.json';
 
 const TrainDetailsScreen = ({ route, navigation }) => {
   const trainNo = route.params?.trainNo;
   const [details, setDetails] = useState(null);
   const theme = useTheme();
-  const styles = getStyles(theme);
+  const insets = useSafeAreaInsets();
+  const { heroTheme } = useAppTheme();
+  const styles = getStyles(theme, insets);
 
   useEffect(() => {
     if (trainNo && trainDetailsData[trainNo]) {
@@ -24,12 +29,50 @@ const TrainDetailsScreen = ({ route, navigation }) => {
     });
   }, [navigation, details, trainNo]);
 
+  const HeaderContent = () => (
+    <View style={styles.headerTitleWrapper}>
+      {/* Title handled by navigation */}
+    </View>
+  );
+
   if (!details) {
     return (
-      <View style={styles.fallbackContainer}>
-        <Text style={styles.fallbackText}>
-          দুঃখিত! ট্রেনের বিস্তারিত তথ্য পাওয়া যায়নি।
-        </Text>
+      <View style={styles.container}>
+        <View style={styles.headerWrapper}>
+          <View style={styles.headerGradientContainer}>
+            {heroTheme.image ? (
+              <ImageBackground
+                source={heroTheme.image}
+                style={styles.headerBackgroundImage}
+                resizeMode="cover"
+              >
+                <LinearGradient
+                  colors={['rgba(0,0,0,0.5)', 'transparent']}
+                  style={StyleSheet.absoluteFill}
+                />
+                <LinearGradient
+                  colors={heroTheme.colors}
+                  style={[styles.headerGradient, { backgroundColor: 'transparent' }]}
+                  opacity={0.85}
+                >
+                  <HeaderContent />
+                </LinearGradient>
+              </ImageBackground>
+            ) : (
+              <LinearGradient
+                colors={heroTheme.colors}
+                style={styles.headerGradient}
+              >
+                <HeaderContent />
+              </LinearGradient>
+            )}
+          </View>
+        </View>
+        <View style={styles.fallbackContainer}>
+          <Text style={styles.fallbackText}>
+            দুঃখিত! ট্রেনের বিস্তারিত তথ্য পাওয়া যায়নি।
+          </Text>
+        </View>
       </View>
     );
   }
@@ -38,138 +81,383 @@ const TrainDetailsScreen = ({ route, navigation }) => {
     ? details.runsOn.join(', ')
     : 'তথ্য নেই';
 
+  // Extract off days from runsOn array
+  const offDays = Array.isArray(details.runsOn)
+    ? details.runsOn.filter(day => day.includes('(বন্ধ)')).map(day => day.replace(' (বন্ধ)', '')).join(', ')
+    : '';
+
   const routeStops = Array.isArray(details.routes) ? details.routes : [];
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>{details.name} ({trainNo})</Text>
-      <Text style={styles.subtitle}>চলে: {runsOn}</Text>
-      <Divider style={{ marginVertical: 12 }} />
-
-      <View style={styles.sectionHeader}>
-        <Icon name="train-car" size={20} color={theme.colors.primary} style={{ marginRight: 6 }} />
-        <Text style={styles.sectionTitle}>স্টপেজসমূহ</Text>
-      </View>
-
-      {routeStops.length > 0 ? (
-        routeStops.map((stop, index) => (
-          <Card key={index} style={styles.stopCard} mode="outlined">
-            <Card.Content>
-              <Text style={styles.station}>{stop.station}</Text>
-
-              <View style={styles.row}>
-                <Icon name="clock-outline" size={16} color={theme.colors.onSurfaceVariant} style={styles.icon} />
-                <Text style={styles.stopInfo}>
-                  আগমন: {stop.arrival || '—'} | ছাড়ে: {stop.departure || '—'}
-                </Text>
-              </View>
-
-              <View style={styles.row}>
-                <Icon name="timer-sand" size={16} color={theme.colors.onSurfaceVariant} style={styles.icon} />
-                <Text style={styles.stopInfo}>
-                  বিরতি: {stop.halt || '—'} মিনিট | সময়কাল: {stop.duration || '—'}
-                </Text>
-              </View>
-            </Card.Content>
-          </Card>
-        ))
-      ) : (
-        <Text style={styles.fallbackText}>স্টপেজ তথ্য পাওয়া যায়নি।</Text>
-      )}
-
-      <View style={styles.durationCard}>
-        <View style={styles.rowCenter}>
-          <Icon name="clock-check-outline" size={18} color={theme.colors.primary} style={styles.icon} />
-          <Text style={styles.durationText}>
-            মোট সময়কাল: {details.totalDuration || 'তথ্য নেই'}
-          </Text>
+    <View style={styles.container}>
+      <View style={styles.headerWrapper}>
+        <View style={styles.headerGradientContainer}>
+          {heroTheme.image ? (
+            <ImageBackground
+              source={heroTheme.image}
+              style={styles.headerBackgroundImage}
+              resizeMode="cover"
+            >
+              <LinearGradient
+                colors={['rgba(0,0,0,0.5)', 'transparent']}
+                style={StyleSheet.absoluteFill}
+              />
+              <LinearGradient
+                colors={heroTheme.colors}
+                style={[styles.headerGradient, { backgroundColor: 'transparent' }]}
+                opacity={0.85}
+              >
+                <HeaderContent />
+              </LinearGradient>
+            </ImageBackground>
+          ) : (
+            <LinearGradient
+              colors={heroTheme.colors}
+              style={styles.headerGradient}
+            >
+              <HeaderContent />
+            </LinearGradient>
+          )}
         </View>
       </View>
-    </ScrollView>
+
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <Surface style={styles.infoCard} elevation={2}>
+          <View style={styles.infoRow}>
+            <View style={styles.iconBox}>
+              <Icon name="calendar-check" size={20} color={theme.colors.primary} />
+            </View>
+            <View style={styles.infoTextContainer}>
+              <Text style={styles.infoLabel}>চলাচলের দিন</Text>
+              <Text style={styles.infoValue}>{runsOn}</Text>
+            </View>
+          </View>
+        </Surface>
+
+        {offDays && (
+          <View style={styles.offDayCard}>
+            <View style={styles.infoRow}>
+              <View style={styles.offDayIconBox}>
+                <Icon name="calendar-remove" size={20} color={theme.colors.primary} />
+              </View>
+              <View style={styles.infoTextContainer}>
+                <Text style={styles.offDayLabel}>বন্ধের দিন</Text>
+                <Text style={styles.offDayValue}>{offDays}</Text>
+              </View>
+            </View>
+          </View>
+        )}
+
+        <View style={styles.sectionHeader}>
+          <View style={styles.sectionIconBox}>
+            <Icon name="train-car" size={20} color={theme.colors.primary} />
+          </View>
+          <Text style={styles.sectionTitle}>স্টপেজসমূহ</Text>
+        </View>
+
+        {routeStops.length > 0 ? (
+          routeStops.map((stop, index) => (
+            <Surface key={index} style={styles.stopCard} elevation={2}>
+              <View style={styles.stationHeader}>
+                <View style={styles.stationIconBox}>
+                  <Icon name="map-marker" size={18} color={theme.colors.primary} />
+                </View>
+                <Text style={styles.station}>{stop.station}</Text>
+              </View>
+
+              <View style={[styles.stopDetailsRow, { marginBottom: 4 }]}>
+                <View style={styles.stopDetail}>
+                  <View style={styles.smallIconBox}>
+                    <Icon name="clock-outline" size={16} color={theme.colors.primary} />
+                  </View>
+                  <View>
+                    <Text style={styles.detailLabel}>আগমন</Text>
+                    <Text style={styles.detailValue}>{stop.arrival || '—'}</Text>
+                  </View>
+                </View>
+
+                <View style={styles.stopDetail}>
+                  <View style={styles.smallIconBox}>
+                    <Icon name="clock-check-outline" size={16} color={theme.colors.primary} />
+                  </View>
+                  <View>
+                    <Text style={styles.detailLabel}>ছাড়ে</Text>
+                    <Text style={styles.detailValue}>{stop.departure || '—'}</Text>
+                  </View>
+                </View>
+              </View>
+
+              <View style={styles.stopDetailsRow}>
+                <View style={styles.stopDetail}>
+                  <View style={styles.smallIconBox}>
+                    <Icon name="timer-sand" size={16} color={theme.colors.primary} />
+                  </View>
+                  <View>
+                    <Text style={styles.detailLabel}>বিরতি</Text>
+                    <Text style={styles.detailValue}>{stop.halt || '—'}</Text>
+                  </View>
+                </View>
+
+                <View style={styles.stopDetail}>
+                  <View style={styles.smallIconBox}>
+                    <Icon name="clock-time-four-outline" size={16} color={theme.colors.primary} />
+                  </View>
+                  <View>
+                    <Text style={styles.detailLabel}>সময়কাল</Text>
+                    <Text style={styles.detailValue}>{stop.duration || '—'} মিনিট</Text>
+                  </View>
+                </View>
+              </View>
+            </Surface>
+          ))
+        ) : (
+          <Text style={styles.fallbackText}>স্টপেজ তথ্য পাওয়া যায়নি।</Text>
+        )}
+
+        <Surface style={styles.durationCard} elevation={2}>
+          <View style={styles.durationIconBox}>
+            <Icon name="clock-check-outline" size={22} color={theme.colors.primary} />
+          </View>
+          <View>
+            <Text style={styles.durationLabel}>মোট সময়কাল</Text>
+            <Text style={styles.durationValue}>{details.totalDuration || 'তথ্য নেই'}</Text>
+          </View>
+        </Surface>
+      </ScrollView>
+    </View>
   );
 };
 
-const getStyles = (theme) => StyleSheet.create({
+const getStyles = (theme, insets) => StyleSheet.create({
   container: {
-    padding: 16,
-    paddingBottom: 32,
+    flex: 1,
     backgroundColor: theme.colors.background,
+  },
+  headerWrapper: {
+    backgroundColor: theme.colors.background,
+  },
+  headerGradientContainer: {
+    borderBottomLeftRadius: 32,
+    borderBottomRightRadius: 32,
+    overflow: 'hidden',
+    backgroundColor: theme.colors.primary,
+  },
+  headerBackgroundImage: {
+    width: '100%',
+  },
+  headerGradient: {
+    paddingTop: insets.top + 40,
+    paddingBottom: 15,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerTitleWrapper: {
+    height: 30,
+  },
+  content: {
+    padding: 12,
+    paddingTop: 12,
+    paddingBottom: 30,
   },
   fallbackContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 32,
-    backgroundColor: theme.colors.background,
   },
   fallbackText: {
-    fontSize: 18,
-    color: theme.colors.error,
+    fontSize: 15,
+    color: theme.colors.onSurfaceVariant,
     textAlign: 'center',
-    fontWeight: '600',
+    fontFamily: 'AnekBangla_700Bold',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 4,
-    color: theme.colors.primary,
-  },
-  subtitle: {
-    fontSize: 16,
+  infoCard: {
+    borderRadius: 20,
+    backgroundColor: theme.colors.surface,
+    padding: 14,
     marginBottom: 12,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+  },
+  infoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  iconBox: {
+    width: 38,
+    height: 38,
+    borderRadius: 12,
+    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  infoTextContainer: {
+    flex: 1,
+  },
+  infoLabel: {
+    fontSize: 11,
+    fontFamily: 'AnekBangla_800ExtraBold',
+    color: theme.colors.onSurfaceVariant,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: 0,
+  },
+  infoValue: {
+    fontSize: 15,
+    fontFamily: 'AnekBangla_700Bold',
     color: theme.colors.onSurface,
   },
   sectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 12,
+    marginTop: 4,
+    marginBottom: 10,
+    gap: 8,
+  },
+  sectionIconBox: {
+    width: 32,
+    height: 32,
+    borderRadius: 10,
+    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   sectionTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: theme.colors.primary,
+    fontSize: 16,
+    fontFamily: 'AnekBangla_800ExtraBold',
+    color: theme.colors.onSurface,
+    letterSpacing: -0.3,
   },
   stopCard: {
-    marginBottom: 12,
+    borderRadius: 18,
     backgroundColor: theme.colors.surface,
-    borderRadius: 8,
-    borderColor: theme.colors.outlineVariant,
+    padding: 12,
+    marginBottom: 8,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+  },
+  stationHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+    gap: 8,
+  },
+  stationIconBox: {
+    width: 32,
+    height: 32,
+    borderRadius: 10,
+    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   station: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: theme.colors.primary,
-    marginBottom: 6,
+    fontFamily: 'AnekBangla_800ExtraBold',
+    color: theme.colors.onSurface,
+    letterSpacing: -0.3,
   },
-  stopInfo: {
-    fontSize: 14,
+  stopDetailsRow: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 2,
+  },
+  stopDetail: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  smallIconBox: {
+    width: 28,
+    height: 28,
+    borderRadius: 8,
+    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  detailLabel: {
+    fontSize: 10,
+    fontFamily: 'AnekBangla_800ExtraBold',
     color: theme.colors.onSurfaceVariant,
-    marginBottom: 2,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: -2,
+  },
+  detailValue: {
+    fontSize: 13,
+    fontFamily: 'AnekBangla_700Bold',
+    color: theme.colors.onSurface,
   },
   durationCard: {
-    marginTop: 20,
-    padding: 14,
-    backgroundColor: theme.colors.primaryContainer,
-    borderRadius: 8,
-  },
-  durationText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: theme.colors.onPrimaryContainer,
-    textAlign: 'center',
-  },
-  icon: {
-    marginRight: 6,
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    borderRadius: 20,
+    backgroundColor: theme.colors.surface,
+    padding: 16,
     marginTop: 4,
-  },
-  rowCenter: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 12,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+  },
+  durationIconBox: {
+    width: 42,
+    height: 42,
+    borderRadius: 14,
+    backgroundColor: 'rgba(65, 171, 93, 0.08)',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  durationLabel: {
+    fontSize: 11,
+    fontFamily: 'AnekBangla_800ExtraBold',
+    color: theme.colors.onSurfaceVariant,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  durationValue: {
+    fontSize: 17,
+    fontFamily: 'AnekBangla_800ExtraBold',
+    color: theme.colors.onSurface,
+    letterSpacing: -0.4,
+  },
+  offDayCard: {
+    borderRadius: 20,
+    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    padding: 14,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(65, 171, 93, 0.1)',
+  },
+  offDayIconBox: {
+    width: 38,
+    height: 38,
+    borderRadius: 12,
+    backgroundColor: 'rgba(65, 171, 93, 0.12)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  offDayLabel: {
+    fontSize: 11,
+    fontFamily: 'AnekBangla_800ExtraBold',
+    color: theme.colors.onSurfaceVariant,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  offDayValue: {
+    fontSize: 15,
+    fontFamily: 'AnekBangla_700Bold',
+    color: theme.colors.onSurface,
   },
 });
 

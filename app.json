@@ -3,29 +3,29 @@
     "name": "Narsingdi Transit",
     "slug": "narsingdi-transit",
     "scheme": "com.googleusercontent.apps.1033915031162-f43tahd1c9bh6tr1qs65vf8brf6cmcq1",
-    "version": "1.6",
+    "version": "2.0",
     "platforms": [
       "android"
     ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#4caf50"
+      "backgroundColor": "#064e3b"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "package": "cc.rafat.narsingditransit",
-      "versionCode": 15,
+      "versionCode": 16,
       "permissions": [],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#4caf50"
+        "backgroundImage": "./assets/adaptive-bg.png"
       },
       "edgeToEdgeEnabled": true,
       "memoryPageSize": "16KB"

@@ -1,5 +1,5 @@
 // theme.js
-import { MD3LightTheme, MD3DarkTheme } from 'react-native-paper';
+import { MD3LightTheme, MD3DarkTheme, configureFonts } from 'react-native-paper';
 
 const lightBrandColors = {
   primary: '#075d37',
@@ -14,10 +14,10 @@ const lightBrandColors = {
   onTertiary: '#ffffff',
   tertiaryContainer: '#bcebf0',
   onTertiaryContainer: '#002022',
-  error: '#ba1a1a',
+  error: '#8B6100',
   onError: '#ffffff',
-  errorContainer: '#ffdad6',
-  onErrorContainer: '#410002',
+  errorContainer: '#FFDF9E',
+  onErrorContainer: '#2B1B00',
   background: '#f7fbf1',
   onBackground: '#191d17',
   surface: '#f7fbf1',
@@ -57,15 +57,15 @@ const darkBrandColors = {
   onTertiary: '#00363b',
   tertiaryContainer: '#1e4d52',
   onTertiaryContainer: '#bcebf0',
-  error: '#ffb4ab',
-  onError: '#690005',
-  errorContainer: '#93000a',
-  onErrorContainer: '#ffdad6',
-  background: '#11140e',
+  error: '#FFB951',
+  onError: '#453100',
+  errorContainer: '#634700',
+  onErrorContainer: '#FFDF9E',
+  background: '#0a1f0f', // Darkest green instead of pitch black
   onBackground: '#e1e3db',
-  surface: '#11140e',
+  surface: '#0f2817', // Dark green surface for cards
   onSurface: '#e1e3db',
-  surfaceVariant: '#42493f',
+  surfaceVariant: '#1a3322',
   onSurfaceVariant: '#c2c9bc',
   outline: '#8c9388',
   outlineVariant: '#42493f',
@@ -73,18 +73,131 @@ const darkBrandColors = {
   scrim: '#000000',
   inverseSurface: '#e1e3db',
   inverseOnSurface: '#191d17',
-  inversePrimary: '#4caf50',
+  inversePrimary: '#41ab5d',
   elevation: {
     level0: 'transparent',
-    level1: '#191d17',
-    level2: '#1e221b',
-    level3: '#23271f',
-    level4: '#252920',
-    level5: '#282d23',
+    level1: '#0f2817',
+    level2: '#14301f',
+    level3: '#193827',
+    level4: '#1b3a29',
+    level5: '#1e3f2d',
   },
   surfaceDisabled: 'rgba(225, 227, 219, 0.12)',
   onSurfaceDisabled: 'rgba(225, 227, 219, 0.38)',
   backdrop: 'rgba(66, 73, 63, 0.4)',
+};
+
+// Configure fonts for all variants
+const fontConfig = {
+  displayLarge: {
+    fontFamily: 'AnekBangla_700Bold',
+    fontSize: 57,
+    fontWeight: '400',
+    letterSpacing: 0,
+    lineHeight: 64,
+  },
+  displayMedium: {
+    fontFamily: 'AnekBangla_700Bold',
+    fontSize: 45,
+    fontWeight: '400',
+    letterSpacing: 0,
+    lineHeight: 52,
+  },
+  displaySmall: {
+    fontFamily: 'AnekBangla_600SemiBold',
+    fontSize: 36,
+    fontWeight: '400',
+    letterSpacing: 0,
+    lineHeight: 44,
+  },
+  headlineLarge: {
+    fontFamily: 'AnekBangla_700Bold',
+    fontSize: 32,
+    fontWeight: '400',
+    letterSpacing: 0,
+    lineHeight: 40,
+  },
+  headlineMedium: {
+    fontFamily: 'AnekBangla_600SemiBold',
+    fontSize: 28,
+    fontWeight: '400',
+    letterSpacing: 0,
+    lineHeight: 36,
+  },
+  headlineSmall: {
+    fontFamily: 'AnekBangla_600SemiBold',
+    fontSize: 24,
+    fontWeight: '400',
+    letterSpacing: 0,
+    lineHeight: 32,
+  },
+  titleLarge: {
+    fontFamily: 'AnekBangla_600SemiBold',
+    fontSize: 22,
+    fontWeight: '400',
+    letterSpacing: 0,
+    lineHeight: 28,
+  },
+  titleMedium: {
+    fontFamily: 'AnekBangla_500Medium',
+    fontSize: 16,
+    fontWeight: '500',
+    letterSpacing: 0.15,
+    lineHeight: 24,
+  },
+  titleSmall: {
+    fontFamily: 'AnekBangla_500Medium',
+    fontSize: 14,
+    fontWeight: '500',
+    letterSpacing: 0.1,
+    lineHeight: 20,
+  },
+  labelLarge: {
+    fontFamily: 'AnekBangla_500Medium',
+    fontSize: 14,
+    fontWeight: '500',
+    letterSpacing: 0.1,
+    lineHeight: 20,
+  },
+  labelMedium: {
+    fontFamily: 'AnekBangla_500Medium',
+    fontSize: 12,
+    fontWeight: '500',
+    letterSpacing: 0.5,
+    lineHeight: 16,
+  },
+  labelSmall: {
+    fontFamily: 'AnekBangla_500Medium',
+    fontSize: 11,
+    fontWeight: '500',
+    letterSpacing: 0.5,
+    lineHeight: 16,
+  },
+  bodyLarge: {
+    fontFamily: 'AnekBangla_400Regular',
+    fontSize: 16,
+    fontWeight: '400',
+    letterSpacing: 0.5,
+    lineHeight: 24,
+  },
+  bodyMedium: {
+    fontFamily: 'AnekBangla_400Regular',
+    fontSize: 14,
+    fontWeight: '400',
+    letterSpacing: 0.25,
+    lineHeight: 20,
+  },
+  bodySmall: {
+    fontFamily: 'AnekBangla_400Regular',
+    fontSize: 12,
+    fontWeight: '400',
+    letterSpacing: 0.4,
+    lineHeight: 16,
+  },
+  default: {
+    fontFamily: 'AnekBangla_400Regular',
+    fontWeight: '400',
+  },
 };
 
 export const lightTheme = {
@@ -93,25 +206,7 @@ export const lightTheme = {
     ...MD3LightTheme.colors,
     ...lightBrandColors,
   },
-  fonts: {
-    ...MD3LightTheme.fonts,
-    regular: {
-      fontFamily: 'AnekBangla_400Regular',
-      fontWeight: '400',
-    },
-    medium: {
-      fontFamily: 'AnekBangla_500Medium',
-      fontWeight: '500',
-    },
-    bold: {
-      fontFamily: 'AnekBangla_700Bold',
-      fontWeight: '700',
-    },
-    heavy: {
-      fontFamily: 'AnekBangla_800ExtraBold',
-      fontWeight: '800',
-    },
-  },
+  fonts: configureFonts({ config: fontConfig }),
 };
 
 export const darkTheme = {
@@ -120,24 +215,6 @@ export const darkTheme = {
     ...MD3DarkTheme.colors,
     ...darkBrandColors,
   },
-  fonts: {
-    ...MD3DarkTheme.fonts,
-    regular: {
-      fontFamily: 'AnekBangla_400Regular',
-      fontWeight: '400',
-    },
-    medium: {
-      fontFamily: 'AnekBangla_500Medium',
-      fontWeight: '500',
-    },
-    bold: {
-      fontFamily: 'AnekBangla_700Bold',
-      fontWeight: '700',
-    },
-    heavy: {
-      fontFamily: 'AnekBangla_800ExtraBold',
-      fontWeight: '800',
-    },
-  },
+  fonts: configureFonts({ config: fontConfig }),
 };
 

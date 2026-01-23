@@ -1,19 +1,18 @@
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import React from 'react';
-import { useColorScheme, Text } from 'react-native';
+import { useColorScheme, Text, View } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { lightTheme, darkTheme } from './theme';
 import MainNavigator from './navigation/MainNavigator';
 import { ThemeProvider, useAppTheme } from './ThemeContext';
 import { useFonts } from 'expo-font';
 
-// Set default font for all Text components
+// Set default font for all Text components globally
 if (Text.defaultProps == null) {
   Text.defaultProps = {};
 }
-Text.defaultProps.allowFontScaling = false;
-Text.defaultProps.style = [{ fontFamily: 'AnekBangla_400Regular' }];
+Text.defaultProps.style = { fontFamily: 'AnekBangla_400Regular' };
 
 function MainApp() {
   const { isDark } = useAppTheme();
@@ -36,7 +35,11 @@ function MainApp() {
   }, [fontsLoaded, fontError]);
 
   if (!fontsLoaded && !fontError) {
-    return null;
+    return (
+      <View style={{ flex: 1, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}>
+        <Text>লোড হচ্ছে...</Text>
+      </View>
+    );
   }
 
   return (

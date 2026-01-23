@@ -1,11 +1,17 @@
 // ticketscreens/BuyTicketScreen.js
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ActivityIndicator, Alert } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import { WebView } from 'react-native-webview';
 import NetInfo from '@react-native-community/netinfo';
 
+import ThemedHeader from '../components/ThemedHeader';
+
+import TicketBottomNav from '../components/TicketBottomNav';
+
 const BuyTicketScreen = () => {
   const [isConnected, setIsConnected] = useState(true);
+  const theme = useTheme();
 
   useEffect(() => {
     NetInfo.fetch().then(state => {
@@ -17,20 +23,22 @@ const BuyTicketScreen = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+      <ThemedHeader />
       {isConnected ? (
         <WebView
-          source={{ uri: 'https://railapp.railway.gov.bd/auth/login' }}
+          source={{ uri: 'https://eticket.railway.gov.bd' }}
           startInLoadingState
           renderLoading={() => (
-            <ActivityIndicator size="large" color="#4caf50" style={styles.loader} />
+            <ActivityIndicator size="large" color={theme.colors.primary} style={styles.loader} />
           )}
         />
       ) : (
         <View style={styles.centered}>
-          <ActivityIndicator size="large" color="#4caf50" />
+          <ActivityIndicator size="large" color={theme.colors.primary} />
         </View>
       )}
+      <TicketBottomNav />
     </View>
   );
 };
