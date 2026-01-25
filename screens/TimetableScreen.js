@@ -439,6 +439,14 @@ const TimetableScreen = () => {
             if (item.type === 'passed') return <TrainCard train={item.item} passed />;
             return null;
           }}
+          ListFooterComponent={
+            <View style={styles.listFooter}>
+              <Icon name="information-outline" size={14} color={theme.colors.outline} />
+              <RNText style={styles.listFooterText}>
+                এটি একটি বেসরকারি অ্যাপ। তথ্যের অফিশিয়াল উৎসের জন্য railway.gov.bd ভিজিট করুন।
+              </RNText>
+            </View>
+          }
         />
       )}
 
@@ -707,6 +715,20 @@ const getStyles = (theme, insets) => StyleSheet.create({
   },
   centeredList: {
     padding: 12,
+  },
+  listFooter: {
+    padding: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    opacity: 0.6,
+  },
+  listFooterText: {
+    fontSize: 11,
+    fontFamily: 'AnekBangla_500Medium',
+    color: theme.colors.outline,
+    textAlign: 'center',
   },
 });
 

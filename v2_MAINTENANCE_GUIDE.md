@@ -59,5 +59,5 @@ eas build --platform android --profile production
 
 ---
 
-**Version**: 2.0.0
-**Maintained by**: Faisal Faruqui Rafat
+**Version**: 2.0
+**Maintained by**: Faisal Faruque Rafat

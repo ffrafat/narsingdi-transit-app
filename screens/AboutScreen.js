@@ -57,48 +57,7 @@ const AboutScreen = () => {
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        {/* App Info Card */}
-        <Surface style={styles.card} elevation={2}>
-          <View style={styles.appHeader}>
-            <View style={styles.appIconContainer}>
-              <Image source={require('../assets/icon.png')} style={styles.appIcon} />
-            </View>
-            <View style={styles.appNameContainer}>
-              <Text style={styles.appName}>নরসিংদী ট্রানজিট</Text>
-              <View style={styles.versionPill}>
-                <Text style={styles.versionText}>ভার্সন ২.০</Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.divider} />
-
-          <View style={styles.compactInfo}>
-            <Text style={styles.compactText}>
-              <Text style={styles.bold}>নরসিংদী ট্রানজিট</Text> অ্যাপটি নরসিংদী জেলার ট্রেনযাত্রীদের জন্য তৈরি একটি অফলাইন ট্রেন সময়সূচী। এটি বাংলাদেশ রেলওয়ের কোনো অফিশিয়াল অ্যাপ নয়।
-            </Text>
-          </View>
-
-          <View style={styles.divider} />
-
-          <View style={styles.privacySection}>
-            <View style={styles.lockIconContainer}>
-              <Icon name="shield-check" size={20} color={theme.colors.primary} />
-            </View>
-            <Text style={styles.privacyText}>আপনার তথ্য সম্পূর্ণ সুরক্ষিত</Text>
-            <Button
-              mode="contained"
-              onPress={() => openLink('https://transit.rafat.cc/privacy-policy')}
-              style={styles.privacyButton}
-              labelStyle={styles.privacyButtonLabel}
-              compact
-            >
-              গোপনীয়তা নীতি
-            </Button>
-          </View>
-        </Surface>
-
-        {/* Developer Card */}
+        {/* Developer Card - Now First */}
         <Surface style={styles.card} elevation={2}>
           <View style={styles.devHeader}>
             <View style={styles.devPicWrapper}>
@@ -140,6 +99,81 @@ const AboutScreen = () => {
               </View>
               <Text style={styles.contactText}>Facebook</Text>
             </Pressable>
+          </View>
+        </Surface>
+
+        {/* App Info Card */}
+        <Surface style={styles.card} elevation={2}>
+          <View style={styles.appHeader}>
+            <View style={styles.appIconContainer}>
+              <Image source={require('../assets/icon.png')} style={styles.appIcon} />
+            </View>
+            <View style={styles.appNameContainer}>
+              <Text style={styles.appName}>নরসিংদী ট্রানজিট</Text>
+              <View style={styles.versionPill}>
+                <Text style={styles.versionText}>ভার্সন ২.০</Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.divider} />
+
+          <View style={styles.compactInfo}>
+            <Text style={styles.compactText}>
+              নরসিংদী ট্রানজিট অ্যাপটি নরসিংদী জেলার ট্রেন যাত্রীদের যাতায়াতে সহায়তা করার জন্য তৈরি একটি ব্যক্তিগত ও স্বেচ্ছাসেবী উদ্যোগ।
+            </Text>
+          </View>
+
+          <View style={styles.divider} />
+
+          {/* New formal disclaimer for Play Store compliance */}
+          <View style={styles.disclaimerSection}>
+            <View style={styles.disclaimerHeader}>
+              <Icon name="alert-circle-outline" size={20} color={theme.colors.error} />
+              <Text style={styles.disclaimerTitle}>বিশেষ সতর্কবার্তা</Text>
+            </View>
+            <Text style={styles.disclaimerText}>
+              এই অ্যাপটি বাংলাদেশ রেলওয়ে বা কোনো সরকারি প্রতিষ্ঠানের অফিশিয়াল অ্যাপ নয়। আমরা বাংলাদেশ রেলওয়ে বা সরকারের সাথে কোনোভাবে যুক্ত নই এবং এই অ্যাপটি কোনো সরকারি প্রতিষ্ঠানের প্রতিনিধিত্ব করে না।
+            </Text>
+
+            <View style={[styles.divider, { backgroundColor: 'rgba(0,0,0,0.05)', marginVertical: 12 }]} />
+
+            <View style={styles.disclaimerHeader}>
+              <Icon name="database-search-outline" size={20} color={theme.colors.primary} />
+              <Text style={[styles.disclaimerTitle, { color: theme.colors.primary }]}>তথ্যের উৎস</Text>
+            </View>
+            <Text style={styles.disclaimerText}>
+              এই অ্যাপে দেখানো ট্রেনের সময়সূচী এবং টিকেট সংক্রান্ত সকল তথ্য বাংলাদেশ রেলওয়ের অফিশিয়াল ওয়েবসাইট এবং সর্বসাধারণের জন্য উন্মুক্ত বিভিন্ন বিশ্বস্ত মাধ্যম থেকে সংগ্রহ করা হয়েছে। তথ্যের অফিশিয়াল উৎসসমূহ:
+            </Text>
+
+            <View style={styles.sourceList}>
+              <Pressable onPress={() => openLink('https://www.railway.gov.bd')} style={styles.sourceItem}>
+                <Icon name="link-variant" size={14} color={theme.colors.primary} />
+                <Text style={styles.sourceLinkText}>বাংলাদেশ রেলওয়ে ওয়েবসাইট</Text>
+              </Pressable>
+              <Pressable onPress={() => openLink('https://eticket.railway.gov.bd')} style={styles.sourceItem}>
+                <Icon name="link-variant" size={14} color={theme.colors.primary} />
+                <Text style={styles.sourceLinkText}>টিকেট বুকিং পোর্টাল</Text>
+              </Pressable>
+            </View>
+          </View>
+
+          <View style={styles.divider} />
+
+          <View style={styles.privacySection}>
+            <View style={styles.lockIconContainer}>
+              <Icon name="shield-check" size={20} color={theme.colors.primary} />
+            </View>
+            <Text style={styles.privacyText}>আপনার তথ্য সম্পূর্ণ সুরক্ষিত</Text>
+            <Button
+              mode="contained"
+              onPress={() => openLink('https://transit.rafat.cc/privacy-policy')}
+              style={styles.privacyButton}
+              labelStyle={styles.privacyButtonLabel}
+              compact
+            >
+              গোপনীয়তা নীতি
+            </Button>
           </View>
         </Surface>
 
@@ -361,6 +395,57 @@ const getStyles = (theme, insets) => StyleSheet.create({
     color: theme.colors.onSurfaceVariant,
     marginTop: 4,
     opacity: 0.7,
+  },
+  disclaimerSection: {
+    backgroundColor: 'rgba(186, 26, 26, 0.05)',
+    borderRadius: 16,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(186, 26, 26, 0.1)',
+  },
+  disclaimerHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 8,
+  },
+  disclaimerTitle: {
+    fontSize: 15,
+    fontFamily: 'AnekBangla_800ExtraBold',
+    color: theme.colors.error,
+  },
+  disclaimerText: {
+    fontSize: 13,
+    fontFamily: 'AnekBangla_500Medium',
+    color: theme.colors.onSurfaceVariant,
+    lineHeight: 18,
+    marginBottom: 10,
+  },
+  sourceList: {
+    gap: 8,
+    marginBottom: 10,
+  },
+  sourceItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: 'rgba(255,255,255,0.5)',
+    padding: 8,
+    borderRadius: 8,
+  },
+  sourceLinkText: {
+    fontSize: 12,
+    fontFamily: 'AnekBangla_700Bold',
+    color: theme.colors.primary,
+    flex: 1,
+  },
+  disclaimerNotice: {
+    fontSize: 11,
+    fontFamily: 'AnekBangla_700Bold',
+    color: theme.colors.onSurfaceVariant,
+    opacity: 0.8,
+    lineHeight: 16,
+    fontStyle: 'italic',
   },
 });
 
