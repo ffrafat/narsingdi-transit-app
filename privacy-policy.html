@@ -1,76 +1,397 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy - Narsingdi Transit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Anek+Bangla:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #075d37;
+      --primary-gradient: linear-gradient(135deg, #075d37 0%, #41ab5d 100%);
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --accent: #41ab5d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .header {
+      background: var(--primary-gradient);
+      padding: 60px 20px;
+      text-align: center;
+      color: white;
+      border-radius: 0 0 40px 40px;
+      box-shadow: 0 10px 30px rgba(7, 93, 55, 0.15);
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
+    .policy-card {
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      margin-bottom: 40px;
+    }
+
+    .lang-section {
+      margin-bottom: 60px;
+    }
+
+    .lang-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .lang-badge {
+      display: inline-block;
+      background: rgba(7, 93, 55, 0.1);
+      color: var(--primary-color);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    h2 {
+      color: var(--primary-color);
+      margin: 30px 0 15px;
+      font-size: 1.5rem;
+      border-bottom: 2px solid rgba(7, 93, 55, 0.05);
+      padding-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin-bottom: 20px;
+      list-style-type: none;
+    }
+
+    li {
+      margin-bottom: 10px;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    li::before {
+      content: "•";
+      color: var(--accent);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    .no-bullet li::before {
+      content: none;
+    }
+
+    .no-bullet li {
+      padding-left: 0;
+    }
+
+    .disclaimer-box {
+      background: #fff8f1;
+      border-left: 4px solid #f97316;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 30px;
+    }
+
+    .disclaimer-title {
+      font-weight: 700;
+      color: #9a3412;
+      margin-bottom: 8px;
+    }
+
+    .contact-box {
+      background: #f0fdf4;
+      border: 1px solid #dcfce7;
+      padding: 24px;
+      border-radius: 16px;
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .bangla {
+      font-family: 'Anek Bangla', sans-serif;
+    }
+
+    @media (max-width: 640px) {
+      .header {
+        padding: 40px 20px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .policy-card {
+        padding: 25px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Privacy Policy</h1>
 
-  <p>This privacy policy applies to the <strong>Narsingdi Transit</strong> app (hereby referred to as "Application") for mobile devices that was created by <strong>Faisal F Rafat</strong> (hereby referred to as "Service Provider") as a Free service. This service is intended for use "AS IS".</p>
+  <header class="header">
+    <div class="container" style="margin: 0 auto; padding: 0;">
+      <h1>Narsingdi Transit</h1>
+      <p class="subtitle">Privacy Policy • গোপনীয়তা নীতি</p>
+    </div>
+  </header>
 
-  <h2>Information Collection and Use</h2>
-  <p>The Application collects information when you download and use it. This information may include:</p>
-  <ul>
-    <li>Your device's Internet Protocol address (e.g., IP address)</li>
-    <li>The pages of the Application that you visit, the time and date of your visit, the time spent on those pages</li>
-    <li>The time spent on the Application</li>
-    <li>The operating system you use on your mobile device</li>
-  </ul>
+  <main class="container">
+    <div class="policy-card">
 
-  <p>The Application does <strong>not</strong> gather precise information about the location of your mobile device.</p>
+      <!-- English Version -->
+      <section class="lang-section">
+        <span class="lang-badge">English Version</span>
 
-  <p>The Application collects your device's location, which helps the Service Provider determine your approximate geographical location and may be used in the following ways:</p>
-  <ul>
-    <li><strong>Geolocation Services:</strong> To provide features such as personalized content, relevant recommendations, and location-based services.</li>
-    <li><strong>Analytics and Improvements:</strong> Aggregated and anonymized location data helps analyze user behavior, identify trends, and improve overall performance.</li>
-    <li><strong>Third-Party Services:</strong> Anonymized location data may be shared periodically with external services to enhance the Application.</li>
-  </ul>
+        <p>Narsingdi Transit (“Application”) is a free mobile application developed by <strong>Faisal F Rafat</strong>
+          (“Service Provider”). This Privacy Policy explains how information is handled when you use the Application.
+          The Application is provided “AS IS” and is intended for general informational use.</p>
 
-  <p>The Service Provider may use the information you provide to contact you with important information, required notices, or marketing promotions.</p>
+        <h2>Information Collection and Use</h2>
+        <p>The Application is designed to work with minimal data collection.</p>
 
-  <p>For a better experience, the Application may require you to provide personally identifiable information. The information requested will be retained and used as described in this Privacy Policy.</p>
+        <h3>Information Automatically Collected</h3>
+        <p>When you use the Application, limited non-personal information may be collected automatically, such as:</p>
+        <ul>
+          <li>Device type and operating system version</li>
+          <li>App usage information (for example, screens visited and time spent in the app)</li>
+        </ul>
+        <p>This information is used only to improve app stability, performance, and user experience.</p>
 
-  <h2>Third Party Access</h2>
-  <p>Only aggregated, anonymized data is periodically transmitted to external services to help improve the Application. The Service Provider may share your information with third parties as described in this privacy statement.</p>
+        <h3>Information NOT Collected</h3>
+        <p>The Application:</p>
+        <ul class="no-bullet">
+          <li>❌ Does not collect precise or real-time location data</li>
+          <li>❌ Does not collect your name, phone number, or address</li>
+          <li>❌ Does not require account creation</li>
+          <li>❌ Does not collect sensitive personal data</li>
+        </ul>
 
-  <p>The Application utilizes third-party services that have their own privacy policies. You can review their policies here:</p>
-  <ul>
-    <li><a href="https://www.google.com/policies/privacy/" target="_blank">Google Play Services</a></li>
-    <li><a href="https://www.facebook.com/about/privacy/update/printable" target="_blank">Facebook</a></li>
-  </ul>
+        <h2>Location Information</h2>
+        <p>The Application does not collect precise location data (such as GPS coordinates). Any location-related
+          information, if used by third-party services, is approximate, anonymized, and used only for basic analytics
+          and app improvement.</p>
 
-  <p>The Service Provider may disclose User Provided and Automatically Collected Information:</p>
-  <ul>
-    <li>As required by law (e.g., to comply with legal processes)</li>
-    <li>When disclosure is necessary to protect rights or safety</li>
-    <li>To trusted service providers who work on behalf of the Service Provider and have agreed to follow this Privacy Policy</li>
-  </ul>
+        <h2>Third-Party Services</h2>
+        <p>The Application may use trusted third-party services that collect limited information to help improve
+          performance and reliability. These services operate under their own privacy policies. Third-party services
+          used may include:</p>
+        <ul>
+          <li><a href="https://www.google.com/policies/privacy/" target="_blank">Google Play Services</a></li>
+          <li>Facebook (only if enabled by the user)</li>
+        </ul>
+        <p>The Service Provider does not control how these third parties handle data. Users are encouraged to review
+          their privacy policies.</p>
 
-  <h2>Opt-Out Rights</h2>
-  <p>You can stop all collection of information by uninstalling the Application. Use your mobile device's standard uninstall process or the app store's uninstall function.</p>
+        <h2>Data Sharing</h2>
+        <p>The Service Provider:</p>
+        <ul>
+          <li>Does not sell user data</li>
+          <li>Does not share personal information with advertisers</li>
+        </ul>
+        <p>Aggregated, anonymized data may be shared only:</p>
+        <ul>
+          <li>To comply with legal obligations</li>
+          <li>To protect the rights or safety of users</li>
+          <li>With trusted service providers who assist in operating the Application and agree to follow this Privacy
+            Policy</li>
+        </ul>
 
-  <h2>Data Retention Policy</h2>
-  <p>The Service Provider will retain User Provided data for as long as you use the Application and for a reasonable time afterward. If you want your data deleted, contact: <a href="mailto:ff@rafat.cc">ff@rafat.cc</a></p>
+        <h2>Data Retention</h2>
+        <p>The Application does not intentionally store personal user data. If any data is temporarily collected for
+          operational purposes, it is retained only as long as necessary. If you have questions or concerns about data
+          handling, you may contact the Service Provider at: <a href="mailto:ff@rafat.cc">ff@rafat.cc</a></p>
 
-  <h2>Children</h2>
-  <p>The Application is not intended for children under the age of 13. The Service Provider does not knowingly collect personal information from children under 13.</p>
+        <h2>Children’s Privacy</h2>
+        <p>The Application is not intended for children under the age of 13. The Service Provider does not knowingly
+          collect personal information from children. If you believe that a child has provided personal information,
+          please contact: <a href="mailto:ff@rafat.cc">ff@rafat.cc</a>. Appropriate action will be taken promptly.</p>
 
-  <p>If it is discovered that such information has been collected, it will be deleted immediately. If you're a parent or guardian and believe your child has provided personal information, contact the Service Provider at <a href="mailto:ff@rafat.cc">ff@rafat.cc</a>.</p>
+        <h2>Security</h2>
+        <p>The Service Provider uses reasonable technical and organizational measures to protect information against
+          unauthorized access, loss, or misuse.</p>
 
-  <h2>Security</h2>
-  <p>The Service Provider takes appropriate measures to safeguard the confidentiality of your information using physical, electronic, and procedural safeguards.</p>
+        <h2>Changes to This Privacy Policy</h2>
+        <p>This Privacy Policy may be updated from time to time. Any changes will be posted within the Application or on
+          the policy page. Continued use of the Application indicates acceptance of the updated policy.</p>
+        <p><strong>Effective Date:</strong> 2025-06-09</p>
 
-  <h2>Changes</h2>
-  <p>This Privacy Policy may be updated occasionally. Any changes will be posted on this page. Continued use of the Application constitutes your agreement to the updated policy.</p>
+        <div class="disclaimer-box">
+          <div class="disclaimer-title">Disclaimer</div>
+          <p>Narsingdi Transit is an unofficial, community-developed application. It is not affiliated with, endorsed
+            by, or connected to Bangladesh Railway or any government entity.</p>
+        </div>
 
-  <p><strong>Effective Date:</strong> 2025-06-09</p>
+        <div class="contact-box">
+          <p><strong>Contact Us</strong></p>
+          <p>If you have any questions about this Privacy Policy or the Application, please contact:<br>
+            Email: <a href="mailto:ff@rafat.cc">ff@rafat.cc</a></p>
+        </div>
+      </section>
 
-  <h2>Your Consent</h2>
-  <p>By using the Application, you consent to the processing of your information as described in this Privacy Policy, both now and as amended in the future.</p>
+      <!-- Bangla Version -->
+      <section class="lang-section bangla">
+        <span class="lang-badge">বাংলা সংস্করণ</span>
 
-  <h2>Contact Us</h2>
-  <p>If you have any questions about this Privacy Policy or your data, please contact the Service Provider at:</p>
-  <p><strong>Email:</strong> <a href="mailto:ff@rafat.cc">ff@rafat.cc</a></p>
+        <p>নরসিংদী ট্রানজিট (“অ্যাপ্লিকেশন”) একটি ফ্রি মোবাইল অ্যাপ্লিকেশন যা <strong>ফয়সাল এফ রাফাত</strong> (“পরিষেবা
+          প্রদানকারী”) দ্বারা তৈরি। এই গোপনীয়তা নীতি ব্যাখ্যা করে যে আপনি যখন অ্যাপ্লিকেশনটি ব্যবহার করেন তখন তথ্য
+          কীভাবে পরিচালনা করা হয়। অ্যাপ্লিকেশনটি “যেভাবে আছে” (AS IS) সেভাবে প্রদান করা হয়েছে এবং এটি সাধারণ তথ্যগত
+          ব্যবহারের জন্য তৈরি।</p>
+
+        <h2>তথ্য সংগ্রহ এবং ব্যবহার</h2>
+        <p>অ্যাপ্লিকেশনটি ন্যূনতম তথ্য সংগ্রহের সাথে কাজ করার জন্য ডিজাইন করা হয়েছে।</p>
+
+        <h3>স্বয়ংক্রিয়ভাবে সংগৃহীত তথ্য</h3>
+        <p>আপনি যখন অ্যাপ্লিকেশনটি ব্যবহার করেন, তখন সীমিত ব্যক্তিগত নয় এমন তথ্য স্বয়ংক্রিয়ভাবে সংগ্রহ করা হতে পারে,
+          যেমন:</p>
+        <ul>
+          <li>ডিভাইসের ধরণ এবং অপারেটিং সিস্টেম সংস্করণ</li>
+          <li>অ্যাপ ব্যবহারের তথ্য (উদাহরণস্বরূপ, ভিজিট করা স্ক্রিন এবং অ্যাপে কাটানো সময়)</li>
+        </ul>
+        <p>এই তথ্যগুলি কেবল অ্যাপের স্থিতিশীলতা, কার্যকারিতা এবং ব্যবহারকারীর অভিজ্ঞতা উন্নত করতে ব্যবহৃত হয়।</p>
+
+        <h3>যে তথ্য সংগ্রহ করা হয় না</h3>
+        <p>অ্যাপ্লিকেশনটি:</p>
+        <ul class="no-bullet">
+          <li>❌ সুনির্দিষ্ট বা রিয়েল-টাইম অবস্থান (লোকেশন) তথ্য সংগ্রহ করে না</li>
+          <li>❌ আপনার নাম, ফোন নম্বর বা ঠিকানা সংগ্রহ করে না</li>
+          <li>❌ অ্যাকাউন্ট তৈরির প্রয়োজন হয় না</li>
+          <li>❌ সংবেদনশীল ব্যক্তিগত তথ্য সংগ্রহ করে না</li>
+        </ul>
+
+        <h2>অবস্থান তথ্য (Location Information)</h2>
+        <p>অ্যাপ্লিকেশনটি সুনির্দিষ্ট অবস্থান তথ্য (যেমন জিপিএস স্থানাঙ্ক) সংগ্রহ করে না। স্থান সংক্রান্ত যেকোনো তথ্য,
+          যদি তৃতীয় পক্ষের পরিষেবাগুলি ব্যবহার করে, তা আনুমানিক, নামবিহীন (অ্যানোনিমাস) এবং কেবলমাত্র মৌলিক বিশ্লেষণ
+          এবং অ্যাপ উন্নতির জন্য ব্যবহৃত হয়।</p>
+
+        <h2>তৃতীয় পক্ষের পরিষেবা</h2>
+        <p>অ্যাপ্লিকেশনটি বিশ্বস্ত তৃতীয় পক্ষের পরিষেবা ব্যবহার করতে পারে যা কার্যকারিতা এবং নির্ভরযোগ্যতা উন্নত করতে
+          সীমিত তথ্য সংগ্রহ করে। এই পরিষেবাগুলি তাদের নিজস্ব গোপনীয়তা নীতির অধীনে কাজ করে। ব্যবহৃত তৃতীয় পক্ষের
+          পরিষেবা অন্তর্ভুক্ত থাকতে পারে:</p>
+        <ul>
+          <li><a href="https://www.google.com/policies/privacy/" target="_blank">Google Play Services</a></li>
+          <li>ফেসবুক (কেবলমাত্র ব্যবহারকারী দ্বারা সক্ষম করা থাকলে)</li>
+        </ul>
+        <p>পরিষেবা প্রদানকারী এই তৃতীয় পক্ষগুলো কীভাবে ডেটা পরিচালনা করে তা নিয়ন্ত্রণ করে না। ব্যবহারকারীদের তাদের
+          গোপনীয়তা নীতি পর্যালোচনা করার জন্য উৎসাহিত করা হচ্ছে।</p>
+
+        <h2>ডেটা শেয়ারিং (তথ্য আদান-প্রদান)</h2>
+        <p>পরিষেবা প্রদানকারী:</p>
+        <ul>
+          <li>ব্যবহারকারীর ডেটা বিক্রি করে না</li>
+          <li>বিজ্ঞাপনদাতাদের সাথে ব্যক্তিগত তথ্য শেয়ার করে না</li>
+        </ul>
+        <p>একত্রিত, নামবিহীন ডেটা কেবল তখনই শেয়ার করা হতে পারে:</p>
+        <ul>
+          <li>আইনি বাধ্যবাধকতা পালনের জন্য</li>
+          <li>ব্যবহারকারীদের অধিকার বা সুরক্ষা নিশ্চিত করতে</li>
+          <li>বিশ্বস্ত পরিষেবা প্রদানকারীদের সাথে যারা অ্যাপ্লিকেশন পরিচালনায় সহায়তা করে এবং এই গোপনীয়তা নীতি অনুসরণ
+            করতে সম্মত হয়</li>
+        </ul>
+
+        <h2>ডেটা সংরক্ষণ</h2>
+        <p>অ্যাপ্লিকেশনটি উদ্দেশ্যমূলকভাবে ব্যক্তিগত ব্যবহারকারী ডেটা সংরক্ষণ করে না। যদি কোনও ডেটা সাময়িকভাবে
+          অপারেশনাল উদ্দেশ্যে সংগ্রহ করা হয়, তবে এটি কেবল প্রয়োজনীয় সময় পর্যন্ত রাখা হয়। ডেটা হ্যান্ডলিং সম্পর্কে
+          আপনার যদি প্রশ্ন বা উদ্বেগ থাকে তবে আপনি পরিষেবা প্রদানকারীর সাথে যোগাযোগ করতে পারেন: <a
+            href="mailto:ff@rafat.cc">ff@rafat.cc</a></p>
+
+        <h2>শিশুদের গোপনীয়তা</h2>
+        <p>অ্যাপ্লিকেশনটি ১৩ বছরের কম বয়সী শিশুদের জন্য নয়। পরিষেবা প্রদানকারী জেনেশুনে শিশুদের কাছ থেকে ব্যক্তিগত
+          তথ্য সংগ্রহ করে না। আপনি যদি মনে করেন যে কোনও শিশু ব্যক্তিগত তথ্য দিয়েছে, তবে দয়া করে যোগাযোগ করুন: <a
+            href="mailto:ff@rafat.cc">ff@rafat.cc</a>। উপযুক্ত ব্যবস্থা দ্রুত গ্রহণ করা হবে।</p>
+
+        <h2>নিরাপত্তা</h2>
+        <p>পরিষেবা প্রদানকারী অননুমোদিত অ্যাক্সেস, ক্ষতি বা অপব্যবহারের বিরুদ্ধে তথ্য রক্ষা করার জন্য যুক্তিসঙ্গত
+          কারিগরি এবং সাংগঠনিক ব্যবস্থা ব্যবহার করে।</p>
+
+        <h2>এই গোপনীয়তা নীতির পরিবর্তন</h2>
+        <p>এই গোপনীয়তা নীতি সময়ে সময়ে আপডেট করা হতে পারে। যেকোনো পরিবর্তন অ্যাপ্লিকেশনের মধ্যে বা পলিসি পেজে পোস্ট
+          করা হবে। অ্যাপ্লিকেশনের ক্রমাগত ব্যবহার আপডেটেড নীতি গ্রহণের নির্দেশ করে।</p>
+        <p><strong>কার্যকর তারিখ:</strong> ২০২৫-০৬-০৯</p>
+
+        <div class="disclaimer-box">
+          <div class="disclaimer-title" style="color: #9a3412;">দাবিত্যাগ (Disclaimer)</div>
+          <p>নরসিংদী ট্রানজিট একটি অনানুষ্ঠানিক, সম্প্রদায়-উন্নত অ্যাপ্লিকেশন। এটি বাংলাদেশ রেলওয়ে বা কোনো সরকারি
+            প্রতিষ্ঠানের সাথে অনুমোদিত, সমর্থিত বা সংযুক্ত নয়।</p>
+        </div>
+
+        <div class="contact-box">
+          <p><strong>যোগাযোগ করুন</strong></p>
+          <p>এই গোপনীয়তা নীতি বা অ্যাপ্লিকেশন সম্পর্কে আপনার কোনো প্রশ্ন থাকলে, অনুগ্রহ করে যোগাযোগ করুন:<br>
+            ইমেইল: <a href="mailto:ff@rafat.cc">ff@rafat.cc</a></p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    &copy; 2025 Narsingdi Transit. All rights reserved.
+  </footer>
+
 </body>
+
 </html>
