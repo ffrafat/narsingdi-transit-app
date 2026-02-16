@@ -30,7 +30,7 @@ const TrainCard = ({ train, highlight, passed }) => {
 
   const trainNo = train['Train No.'] || '';
   const trainName = train['Train Name'] || '';
-  const dayNight = train['Day Night Time'] || '';
+  const dayNight = train['Day Night Time'] || ''; // Now specifically AM or PM
   const time = getBengaliTimeFromString(train['From Station Time']);
   const offDay = train['Off Day']?.trim();
 

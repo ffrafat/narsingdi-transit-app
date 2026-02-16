@@ -23,9 +23,64 @@ const TrainDetailsScreen = ({ route, navigation }) => {
     }
   }, [trainNo]);
 
+  const BENGALI_DIGITS = {
+    '0': '০',
+    '1': '১',
+    '2': '২',
+    '3': '৩',
+    '4': '৪',
+    '5': '৫',
+    '6': '৬',
+    '7': '৭',
+    '8': '৮',
+    '9': '৯',
+  };
+
+  const toBengaliDigits = (str) => {
+    if (str === undefined || str === null || str === '') return '—';
+    return str.toString().replace(/[0-9]/g, (w) => BENGALI_DIGITS[w]);
+  };
+
+  const formatToBengaliTime = (timeStr) => {
+    if (!timeStr || timeStr === '—' || timeStr.trim() === '') return '—';
+    const parts = timeStr.split(':');
+    if (parts.length !== 2) return toBengaliDigits(timeStr);
+
+    const hours = parseInt(parts[0], 10);
+    const minutes = parseInt(parts[1], 10);
+    const period = hours >= 12 ? 'PM' : 'AM';
+    let displayHours = hours % 12;
+    if (displayHours === 0) displayHours = 12;
+
+    const formattedHours = toBengaliDigits(displayHours.toString().padStart(2, '0'));
+    const formattedMinutes = toBengaliDigits(minutes.toString().padStart(2, '0'));
+
+    return `${formattedHours}:${formattedMinutes} ${period}`;
+  };
+
+  const formatToBengaliDuration = (durationStr) => {
+    if (!durationStr || durationStr === '—' || durationStr === '00:00' || durationStr.trim() === '') return '—';
+    const parts = durationStr.split(':');
+    if (parts.length !== 2) return toBengaliDigits(durationStr);
+
+    const hours = parseInt(parts[0], 10);
+    const minutes = parseInt(parts[1], 10);
+
+    let result = '';
+    if (hours > 0) {
+      result += `${toBengaliDigits(hours)} ঘণ্টা `;
+      if (minutes > 0) {
+        result += `${toBengaliDigits(parts[1])} মিনিট`;
+      }
+    } else {
+      result += `${toBengaliDigits(parts[1])} মিনিট`;
+    }
+    return result.trim();
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: `${details?.name || 'ট্রেন'} (${trainNo || '—'})`,
+      title: `${details?.name || 'ট্রেন'} (${toBengaliDigits(trainNo)})`,
     });
   }, [navigation, details, trainNo]);
 
@@ -172,7 +227,7 @@ const TrainDetailsScreen = ({ route, navigation }) => {
                   </View>
                   <View>
                     <Text style={styles.detailLabel}>আগমন</Text>
-                    <Text style={styles.detailValue}>{stop.arrival || '—'}</Text>
+                    <Text style={styles.detailValue}>{formatToBengaliTime(stop.arrival)}</Text>
                   </View>
                 </View>
 
@@ -182,7 +237,7 @@ const TrainDetailsScreen = ({ route, navigation }) => {
                   </View>
                   <View>
                     <Text style={styles.detailLabel}>ছাড়ে</Text>
-                    <Text style={styles.detailValue}>{stop.departure || '—'}</Text>
+                    <Text style={styles.detailValue}>{formatToBengaliTime(stop.departure)}</Text>
                   </View>
                 </View>
               </View>
@@ -194,7 +249,7 @@ const TrainDetailsScreen = ({ route, navigation }) => {
                   </View>
                   <View>
                     <Text style={styles.detailLabel}>বিরতি</Text>
-                    <Text style={styles.detailValue}>{stop.halt || '—'}</Text>
+                    <Text style={styles.detailValue}>{formatToBengaliDuration(stop.halt)}</Text>
                   </View>
                 </View>
 
@@ -204,7 +259,7 @@ const TrainDetailsScreen = ({ route, navigation }) => {
                   </View>
                   <View>
                     <Text style={styles.detailLabel}>সময়কাল</Text>
-                    <Text style={styles.detailValue}>{stop.duration || '—'} মিনিট</Text>
+                    <Text style={styles.detailValue}>{formatToBengaliDuration(stop.duration)}</Text>
                   </View>
                 </View>
               </View>
@@ -219,8 +274,8 @@ const TrainDetailsScreen = ({ route, navigation }) => {
             <Icon name="clock-check-outline" size={22} color={theme.colors.primary} />
           </View>
           <View>
-            <Text style={styles.durationLabel}>মোট সময়কাল</Text>
-            <Text style={styles.durationValue}>{details.totalDuration || 'তথ্য নেই'}</Text>
+            <Text style={styles.durationLabel}>মোট সময়কাল</Text>
+            <Text style={styles.durationValue}>{formatToBengaliDuration(details.totalDuration)}</Text>
           </View>
         </Surface>
       </ScrollView>

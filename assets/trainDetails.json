@@ -14,82 +14,82 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "০৭:৪৫ am",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "07:45",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "০৮:০৭ am",
-        "departure": "০৮:১২ am",
-        "halt": "০৫ মিনিট",
-        "duration": "০০:২২"
+        "arrival": "08:07",
+        "departure": "08:12",
+        "halt": "00:05",
+        "duration": "00:22"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "০৮:৫১ am",
-        "departure": "০৮:৫৩ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৩৯"
+        "arrival": "08:51",
+        "departure": "08:53",
+        "halt": "00:02",
+        "duration": "00:39"
       },
       {
         "station": "ভৈরব",
-        "arrival": "০৯:১৯ am",
-        "departure": "০৯:২২ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২৬"
+        "arrival": "09:19",
+        "departure": "09:22",
+        "halt": "00:03",
+        "duration": "00:26"
       },
       {
         "station": "বি বাড়িয়া",
-        "arrival": "০৯:৪০ am",
-        "departure": "০৯:৪৪ am",
-        "halt": "০৪ মিনিট",
-        "duration": "০০:১৮"
+        "arrival": "09:40",
+        "departure": "09:44",
+        "halt": "00:04",
+        "duration": "00:18"
       },
       {
         "station": "আখাউড়া",
-        "arrival": "১০:০৫ am",
-        "departure": "১০:০৮ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২১"
+        "arrival": "10:05",
+        "departure": "10:08",
+        "halt": "00:03",
+        "duration": "00:21"
       },
       {
         "station": "কুমিল্লা",
-        "arrival": "১০:৫১ am",
-        "departure": "১০:৫৩ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৪৩"
+        "arrival": "10:51",
+        "departure": "10:53",
+        "halt": "00:02",
+        "duration": "00:43"
       },
       {
         "station": "লাকসাম",
-        "arrival": "১১:১৫ am",
-        "departure": "১১:১৭ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২২"
+        "arrival": "11:15",
+        "departure": "11:17",
+        "halt": "00:02",
+        "duration": "00:22"
       },
       {
         "station": "গুণবতী",
-        "arrival": "১১:৪৩ am",
-        "departure": "১১:৪৫ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২৬"
+        "arrival": "11:43",
+        "departure": "11:45",
+        "halt": "00:02",
+        "duration": "00:26"
       },
       {
         "station": "ফেনী",
-        "arrival": "১২:০০ pm",
-        "departure": "১২:০২ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৫"
+        "arrival": "12:00",
+        "departure": "12:02",
+        "halt": "00:02",
+        "duration": "00:15"
       },
       {
         "station": "চট্টগ্রাম",
-        "arrival": "০১:৩৫ pm",
+        "arrival": "13:35",
         "departure": "",
-        "halt": "০০ মিনিট",
-        "duration": "০১:৩৩"
+        "halt": "",
+        "duration": "01:33"
       }
     ],
-    "totalDuration": "০৫:৫০ ঘণ্টা"
+    "totalDuration": "05:50"
   },
   "৭০৩": {
     "name": "মহানগর গোধূলি",
@@ -106,82 +106,82 @@
       {
         "station": "চট্টগ্রাম",
         "arrival": "",
-        "departure": "০৩:০০ pm",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "15:00",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "ফেনী",
-        "arrival": "০৪:২০ pm",
-        "departure": "০৪:২২ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০১:২০"
+        "arrival": "16:20",
+        "departure": "16:22",
+        "halt": "00:02",
+        "duration": "01:20"
       },
       {
         "station": "গুণবতী",
-        "arrival": "০৪:৩৬ pm",
-        "departure": "০৪:৩৮ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৪"
+        "arrival": "16:36",
+        "departure": "16:38",
+        "halt": "00:02",
+        "duration": "00:14"
       },
       {
         "station": "লাকসাম",
-        "arrival": "০৫:০৪ pm",
-        "departure": "০৫:০৬ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২৬"
+        "arrival": "17:04",
+        "departure": "17:06",
+        "halt": "00:02",
+        "duration": "00:26"
       },
       {
         "station": "কুমিল্লা",
-        "arrival": "০৫:২৭ pm",
-        "departure": "০৫:২৯ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২১"
+        "arrival": "17:27",
+        "departure": "17:29",
+        "halt": "00:02",
+        "duration": "00:21"
       },
       {
         "station": "আখাউড়া",
-        "arrival": "০৬:২০ pm",
-        "departure": "০৬:২৩ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৫১"
+        "arrival": "18:20",
+        "departure": "18:23",
+        "halt": "00:03",
+        "duration": "00:51"
       },
       {
         "station": "বি বাড়িয়া",
-        "arrival": "০৬:৪১ pm",
-        "departure": "০৬:৪৫ pm",
-        "halt": "০৪ মিনিট",
-        "duration": "০০:১৮"
+        "arrival": "18:41",
+        "departure": "18:45",
+        "halt": "00:04",
+        "duration": "00:18"
       },
       {
         "station": "ভৈরব",
-        "arrival": "০৭:০৫ pm",
-        "departure": "০৭:০৮ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২০"
+        "arrival": "19:05",
+        "departure": "19:08",
+        "halt": "00:03",
+        "duration": "00:20"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "০৭:৩৬ pm",
-        "departure": "০৭:৩৮ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২৮"
+        "arrival": "19:36",
+        "departure": "19:38",
+        "halt": "00:02",
+        "duration": "00:28"
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "০৮:১৫ pm",
-        "departure": "০৮:১৮ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৩৯"
+        "arrival": "20:15",
+        "departure": "20:18",
+        "halt": "00:03",
+        "duration": "00:39"
       },
       {
         "station": "ঢাকা",
-        "arrival": "০৮:৪৫ pm",
+        "arrival": "20:45",
         "departure": "",
-        "halt": "০০ মিনিট",
-        "duration": "০০:২৭"
+        "halt": "",
+        "duration": "00:27"
       }
     ],
-    "totalDuration": "০৫:৪৫ ঘণ্টা"
+    "totalDuration": "05:45"
   },
   "৭৮১": {
     "name": "কিশোরগঞ্জ এক্সপ্রেস",
@@ -198,82 +198,82 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "১০:৩০ am",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "10:30",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "১০:৫২ am",
-        "departure": "১০:৫৭ am",
-        "halt": "০৫ মিনিট",
-        "duration": "০০:২২"
+        "arrival": "10:52",
+        "departure": "10:57",
+        "halt": "00:05",
+        "duration": "00:22"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "১১:৩৬ am",
-        "departure": "১১:৩৯ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৩৯"
+        "arrival": "11:36",
+        "departure": "11:39",
+        "halt": "00:03",
+        "duration": "00:39"
       },
       {
         "station": "মেথিকান্দা",
-        "arrival": "১১:৫৭ am",
-        "departure": "১১:৫৯ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৮"
+        "arrival": "11:57",
+        "departure": "11:59",
+        "halt": "00:02",
+        "duration": "00:18"
       },
       {
         "station": "ভৈরব",
-        "arrival": "১২:১৫ pm",
-        "departure": "১২:৩৫ pm",
-        "halt": "২০ মিনিট",
-        "duration": "০০:১৬"
+        "arrival": "12:15",
+        "departure": "12:35",
+        "halt": "00:20",
+        "duration": "00:16"
       },
       {
         "station": "কুলিয়ারচর",
-        "arrival": "১২:৫৪ pm",
-        "departure": "১২:৫৬ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৯"
+        "arrival": "12:54",
+        "departure": "12:56",
+        "halt": "00:02",
+        "duration": "00:19"
       },
       {
         "station": "বাজিতপুর",
-        "arrival": "০১:০৪ pm",
-        "departure": "০১:০৬ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৮"
+        "arrival": "13:04",
+        "departure": "13:06",
+        "halt": "00:02",
+        "duration": "00:08"
       },
       {
         "station": "সরারচর",
-        "arrival": "০১:১৪ pm",
-        "departure": "০১:১৬ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৮"
+        "arrival": "13:14",
+        "departure": "13:16",
+        "halt": "00:02",
+        "duration": "00:08"
       },
       {
         "station": "মানিকখালী",
-        "arrival": "০১:৩১ pm",
-        "departure": "০১:৩৩ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৫"
+        "arrival": "13:31",
+        "departure": "13:33",
+        "halt": "00:02",
+        "duration": "00:15"
       },
       {
         "station": "গচিহাটা",
-        "arrival": "০১:৪০ pm",
-        "departure": "০১:৪২ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৭"
+        "arrival": "13:40",
+        "departure": "13:42",
+        "halt": "00:02",
+        "duration": "00:07"
       },
       {
         "station": "কিশোরগঞ্জ",
-        "arrival": "০২:১০ pm",
+        "arrival": "14:10",
         "departure": "",
-        "halt": "০০ মিনিট",
-        "duration": "০০:২৮"
+        "halt": "",
+        "duration": "00:28"
       }
     ],
-    "totalDuration": "০৩:৪০ ঘণ্টা"
+    "totalDuration": "03:40"
   },
   "৭৮২": {
     "name": "কিশোরগঞ্জ এক্সপ্রেস",
@@ -290,82 +290,82 @@
       {
         "station": "কিশোরগঞ্জ",
         "arrival": "",
-        "departure": "০৪:০০ pm",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "16:00",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "গচিহাটা",
-        "arrival": "০৪:১৫ pm",
-        "departure": "০৪:১৭ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৫"
+        "arrival": "16:15",
+        "departure": "16:17",
+        "halt": "00:02",
+        "duration": "00:15"
       },
       {
         "station": "মানিকখালী",
-        "arrival": "০৪:২৭ pm",
-        "departure": "০৪:২৯ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১০"
+        "arrival": "16:27",
+        "departure": "16:29",
+        "halt": "00:02",
+        "duration": "00:10"
       },
       {
         "station": "সরারচর",
-        "arrival": "০৪:৪৫ pm",
-        "departure": "০৪:৪৭ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৬"
+        "arrival": "16:45",
+        "departure": "16:47",
+        "halt": "00:02",
+        "duration": "00:16"
       },
       {
         "station": "বাজিতপুর",
-        "arrival": "০৪:৫৫ pm",
-        "departure": "০৪:৫৭ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৮"
+        "arrival": "16:55",
+        "departure": "16:57",
+        "halt": "00:02",
+        "duration": "00:08"
       },
       {
         "station": "কুলিয়ারচর",
-        "arrival": "০৫:০৫ pm",
-        "departure": "০৫:০৭ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৮"
+        "arrival": "17:05",
+        "departure": "17:07",
+        "halt": "00:02",
+        "duration": "00:08"
       },
       {
         "station": "ভৈরব",
-        "arrival": "০৫:২৮ pm",
-        "departure": "০৫:৪৮ pm",
-        "halt": "২০ মিনিট",
-        "duration": "০০:২১"
+        "arrival": "17:28",
+        "departure": "17:48",
+        "halt": "00:20",
+        "duration": "00:21"
       },
       {
         "station": "মেথিকান্দা",
-        "arrival": "০৬:০৪ pm",
-        "departure": "০৬:০৬ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৬"
+        "arrival": "18:04",
+        "departure": "18:06",
+        "halt": "00:02",
+        "duration": "00:16"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "০৬:২৭ pm",
-        "departure": "০৬:৩০ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২১"
+        "arrival": "18:27",
+        "departure": "18:30",
+        "halt": "00:03",
+        "duration": "00:21"
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "০৭:২০ pm",
+        "arrival": "19:20",
         "departure": "",
         "halt": "",
-        "duration": "০০:৫০"
+        "duration": "00:50"
       },
       {
         "station": "ঢাকা",
-        "arrival": "০৮:০০ pm",
+        "arrival": "20:00",
         "departure": "",
-        "halt": "০০ মিনিট",
+        "halt": "",
         "duration": ""
       }
     ],
-    "totalDuration": "০৪:০০ ঘণ্টা"
+    "totalDuration": "04:00"
   },
   "৮০১": {
     "name": "চট্টলা এক্সপ্রেস",
@@ -382,117 +382,117 @@
       {
         "station": "চট্টগ্রাম",
         "arrival": "",
-        "departure": "০৬:০০ am",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "06:00",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "কুমিরা",
-        "arrival": "০৬:২৬ am",
-        "departure": "০৬:২৮ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২৬"
+        "arrival": "06:26",
+        "departure": "06:28",
+        "halt": "00:02",
+        "duration": "00:26"
       },
       {
         "station": "ফেনী",
-        "arrival": "০৭:২৮ am",
-        "departure": "০৭:৩১ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০১:০০"
+        "arrival": "07:28",
+        "departure": "07:31",
+        "halt": "00:03",
+        "duration": "01:00"
       },
       {
         "station": "হাসানপুর",
-        "arrival": "০৭:৫২ am",
-        "departure": "০৭:৫৪ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২১"
+        "arrival": "07:52",
+        "departure": "07:54",
+        "halt": "00:02",
+        "duration": "00:21"
       },
       {
         "station": "নাঙ্গলকোট",
-        "arrival": "০৮:০২ am",
-        "departure": "০৮:০৪ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৮"
+        "arrival": "08:02",
+        "departure": "08:04",
+        "halt": "00:02",
+        "duration": "00:08"
       },
       {
         "station": "লাকসাম",
-        "arrival": "০৮:১৭ am",
-        "departure": "০৮:২০ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:১৩"
+        "arrival": "08:17",
+        "departure": "08:20",
+        "halt": "00:03",
+        "duration": "00:13"
       },
       {
         "station": "কুমিল্লা",
-        "arrival": "০৮:৪১ am",
-        "departure": "০৮:৪৪ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২১"
+        "arrival": "08:41",
+        "departure": "08:44",
+        "halt": "00:03",
+        "duration": "00:21"
       },
       {
         "station": "শশীদল",
-        "arrival": "০৯:০৫ am",
-        "departure": "০৯:০৭ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২১"
+        "arrival": "09:05",
+        "departure": "09:07",
+        "halt": "00:02",
+        "duration": "00:21"
       },
       {
         "station": "কসবা",
-        "arrival": "০৯:৩৯ am",
-        "departure": "০৯:৪১ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৩২"
+        "arrival": "09:39",
+        "departure": "09:41",
+        "halt": "00:02",
+        "duration": "00:32"
       },
       {
         "station": "আখাউড়া",
-        "arrival": "১০:০৫ am",
-        "departure": "১০:০৮ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২৪"
+        "arrival": "10:05",
+        "departure": "10:08",
+        "halt": "00:03",
+        "duration": "00:24"
       },
       {
         "station": "বি বাড়িয়া",
-        "arrival": "১০:২৬ am",
-        "departure": "১০:২৯ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:১৮"
+        "arrival": "10:26",
+        "departure": "10:29",
+        "halt": "00:03",
+        "duration": "00:18"
       },
       {
         "station": "ভৈরব",
-        "arrival": "১০:৫০ am",
-        "departure": "১০:৫৩ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২১"
+        "arrival": "10:50",
+        "departure": "10:53",
+        "halt": "00:03",
+        "duration": "00:21"
       },
       {
         "station": "মেথিকান্দা",
-        "arrival": "১১:০৮ am",
-        "departure": "১১:১০ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৫"
+        "arrival": "11:08",
+        "departure": "11:10",
+        "halt": "00:02",
+        "duration": "00:15"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "১১:২৭ am",
-        "departure": "১১:৩০ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:১৭"
+        "arrival": "11:27",
+        "departure": "11:30",
+        "halt": "00:03",
+        "duration": "00:17"
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "১২:১০ pm",
-        "departure": "১২:১৩ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৪০"
+        "arrival": "12:10",
+        "departure": "12:13",
+        "halt": "00:03",
+        "duration": "00:40"
       },
       {
         "station": "ঢাকা",
-        "arrival": "১২:৪০ pm",
+        "arrival": "12:40",
         "departure": "",
-        "halt": "০০ মিনিট",
-        "duration": "০০:২৭"
+        "halt": "",
+        "duration": "00:27"
       }
     ],
-    "totalDuration": "০৬:৪০ ঘণ্টা"
+    "totalDuration": "06:40"
   },
   "৮০২": {
     "name": "চট্টলা এক্সপ্রেস",
@@ -509,117 +509,117 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "০২:১৫ pm",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "14:15",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "০২:৩৮ pm",
-        "departure": "০২:৪৩ pm",
-        "halt": "০৫ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "14:38",
+        "departure": "14:43",
+        "halt": "00:05",
+        "duration": "00:23"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "০৩:২০ pm",
-        "departure": "০৩:২৩ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৩৭"
+        "arrival": "15:20",
+        "departure": "15:23",
+        "halt": "00:03",
+        "duration": "00:37"
       },
       {
         "station": "মেথিকান্দা",
-        "arrival": "০৩:৪১ pm",
-        "departure": "০৩:৪৩ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৮"
+        "arrival": "15:41",
+        "departure": "15:43",
+        "halt": "00:02",
+        "duration": "00:18"
       },
       {
         "station": "ভৈরব",
-        "arrival": "০৩:৫৭ pm",
-        "departure": "০৪:০০ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:১৪"
+        "arrival": "15:57",
+        "departure": "16:00",
+        "halt": "00:03",
+        "duration": "00:14"
       },
       {
         "station": "বি বাড়িয়া",
-        "arrival": "০৪:১৯ pm",
-        "departure": "০৪:২৩ pm",
-        "halt": "০৪ মিনিট",
-        "duration": "০০:১৯"
+        "arrival": "16:19",
+        "departure": "16:23",
+        "halt": "00:04",
+        "duration": "00:19"
       },
       {
         "station": "আখাউড়া",
-        "arrival": "০৪:৪২ pm",
-        "departure": "০৪:৪৫ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:১৯"
+        "arrival": "16:42",
+        "departure": "16:45",
+        "halt": "00:03",
+        "duration": "00:19"
       },
       {
         "station": "কসবা",
-        "arrival": "০৫:০১ pm",
-        "departure": "০৫:০৩ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৬"
+        "arrival": "17:01",
+        "departure": "17:03",
+        "halt": "00:02",
+        "duration": "00:16"
       },
       {
         "station": "শশীদল",
-        "arrival": "০৫:১৬ pm",
-        "departure": "০৫:১৮ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৩"
+        "arrival": "17:16",
+        "departure": "17:18",
+        "halt": "00:02",
+        "duration": "00:13"
       },
       {
         "station": "কুমিল্লা",
-        "arrival": "০৫:৪০ pm",
-        "departure": "০৫:৪২ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২২"
+        "arrival": "17:40",
+        "departure": "17:42",
+        "halt": "00:02",
+        "duration": "00:22"
       },
       {
         "station": "লাকসাম",
-        "arrival": "০৬:০৪ pm",
-        "departure": "০৬:০৭ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২২"
+        "arrival": "18:04",
+        "departure": "18:07",
+        "halt": "00:03",
+        "duration": "00:22"
       },
       {
         "station": "নাঙ্গলকোট",
-        "arrival": "০৬:২১ pm",
-        "departure": "০৬:২৩ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৪"
+        "arrival": "18:21",
+        "departure": "18:23",
+        "halt": "00:02",
+        "duration": "00:14"
       },
       {
         "station": "হাসানপুর",
-        "arrival": "০৬:৩০ pm",
-        "departure": "০৬:৩২ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৭"
+        "arrival": "18:30",
+        "departure": "18:32",
+        "halt": "00:02",
+        "duration": "00:07"
       },
       {
         "station": "ফেনী",
-        "arrival": "০৬:৫৩ pm",
-        "departure": "০৬:৫৫ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২১"
+        "arrival": "18:53",
+        "departure": "18:55",
+        "halt": "00:02",
+        "duration": "00:21"
       },
       {
         "station": "কুমিরা",
-        "arrival": "০৭:৫৬ pm",
-        "departure": "০৭:৫৮ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০১:০১"
+        "arrival": "19:56",
+        "departure": "19:58",
+        "halt": "00:02",
+        "duration": "01:01"
       },
       {
         "station": "চট্টগ্রাম",
-        "arrival": "০৮:৩০ pm",
+        "arrival": "20:30",
         "departure": "",
-        "halt": "০০ মিনিট",
-        "duration": "০০:৩২"
+        "halt": "",
+        "duration": "00:32"
       }
     ],
-    "totalDuration": "০৬:১৫ ঘণ্টা"
+    "totalDuration": "06:15"
   },
   "৭১১": {
     "name": "উপকূল এক্সপ্রেস",
@@ -636,110 +636,110 @@
       {
         "station": "নোয়াখালী",
         "arrival": "",
-        "departure": "০৬:০০ am",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "06:00",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "মাইজদি কোর্ট",
-        "arrival": "০৬:০৭ am",
-        "departure": "০৬:০৯ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৭"
+        "arrival": "06:07",
+        "departure": "06:09",
+        "halt": "00:02",
+        "duration": "00:07"
       },
       {
         "station": "চৌমুহনী",
-        "arrival": "০৬:২৩ am",
-        "departure": "০৬:২৫ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৪"
+        "arrival": "06:23",
+        "departure": "06:25",
+        "halt": "00:02",
+        "duration": "00:14"
       },
       {
         "station": "বজরা",
-        "arrival": "০৬:৩৪ am",
-        "departure": "০৬:৩৬ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৯"
+        "arrival": "06:34",
+        "departure": "06:36",
+        "halt": "00:02",
+        "duration": "00:09"
       },
       {
         "station": "সোনাইমুড়ি",
-        "arrival": "০৬:৪৫ am",
-        "departure": "০৬:৪৭ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৯"
+        "arrival": "06:45",
+        "departure": "06:47",
+        "halt": "00:02",
+        "duration": "00:09"
       },
       {
         "station": "নাথেরপেটুয়া",
-        "arrival": "০৭:০০ am",
-        "departure": "০৭:০২ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৩"
+        "arrival": "07:00",
+        "departure": "07:02",
+        "halt": "00:02",
+        "duration": "00:13"
       },
       {
         "station": "লাকসাম",
-        "arrival": "০৭:২৫ am",
-        "departure": "০৭:৩০ am",
-        "halt": "০৫ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "07:25",
+        "departure": "07:30",
+        "halt": "00:05",
+        "duration": "00:23"
       },
       {
         "station": "কুমিল্লা",
-        "arrival": "০৭:৫২ am",
-        "departure": "০৭:৫৪ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২২"
+        "arrival": "07:52",
+        "departure": "07:54",
+        "halt": "00:02",
+        "duration": "00:22"
       },
       {
         "station": "কসবা",
-        "arrival": "০৮:২৪ am",
-        "departure": "০৮:২৬ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৩০"
+        "arrival": "08:24",
+        "departure": "08:26",
+        "halt": "00:02",
+        "duration": "00:30"
       },
       {
         "station": "আখাউড়া",
-        "arrival": "০৮:৫০ am",
-        "departure": "০৮:৫৩ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২৪"
+        "arrival": "08:50",
+        "departure": "08:53",
+        "halt": "00:03",
+        "duration": "00:24"
       },
       {
         "station": "বি বাড়িয়া",
-        "arrival": "০৯:১১ am",
-        "departure": "০৯:১৫ am",
-        "halt": "০৪ মিনিট",
-        "duration": "০০:১৮"
+        "arrival": "09:11",
+        "departure": "09:15",
+        "halt": "00:04",
+        "duration": "00:18"
       },
       {
         "station": "আশুগঞ্জ",
-        "arrival": "০৯:৩০ am",
-        "departure": "০৯:৩২ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৫"
+        "arrival": "09:30",
+        "departure": "09:32",
+        "halt": "00:02",
+        "duration": "00:15"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "১০:০৫ am",
-        "departure": "১০:০৭ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৩৩"
+        "arrival": "10:05",
+        "departure": "10:07",
+        "halt": "00:02",
+        "duration": "00:33"
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "১০:৪৭ am",
-        "departure": "",
-        "halt": "",
-        "duration": "০০:৪০"
+        "arrival": "10:47",
+        "departure": "10:50",
+        "halt": "00:03",
+        "duration": "00:40"
       },
       {
         "station": "ঢাকা",
-        "arrival": "১১:২০ am",
+        "arrival": "11:20",
         "departure": "",
-        "halt": "০০ মিনিট",
+        "halt": "",
         "duration": ""
       }
     ],
-    "totalDuration": "০৫:২০ ঘণ্টা"
+    "totalDuration": "05:20"
   },
   "৭১২": {
     "name": "উপকূল এক্সপ্রেস",
@@ -756,117 +756,117 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "০৩:১০ pm",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "15:10",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "০৩:৩৩ pm",
-        "departure": "০৩:৩৮ pm",
-        "halt": "০৫ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "15:33",
+        "departure": "15:38",
+        "halt": "00:05",
+        "duration": "00:23"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "০৪:১৭ pm",
-        "departure": "০৪:২০ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৩৯"
+        "arrival": "16:17",
+        "departure": "16:20",
+        "halt": "00:03",
+        "duration": "00:39"
       },
       {
         "station": "ভৈরব",
-        "arrival": "০৪:৫০ pm",
-        "departure": "০৪:৫৩ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৩০"
+        "arrival": "16:50",
+        "departure": "16:53",
+        "halt": "00:03",
+        "duration": "00:30"
       },
       {
         "station": "আশুগঞ্জ",
-        "arrival": "০৫:০০ pm",
-        "departure": "০৫:০৩ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:০৭"
+        "arrival": "17:00",
+        "departure": "17:03",
+        "halt": "00:03",
+        "duration": "00:07"
       },
       {
         "station": "বি বাড়িয়া",
-        "arrival": "০৫:১৭ pm",
-        "departure": "০৫:২১ pm",
-        "halt": "০৪ মিনিট",
-        "duration": "০০:১৪"
+        "arrival": "17:17",
+        "departure": "17:21",
+        "halt": "00:04",
+        "duration": "00:14"
       },
       {
         "station": "আখাউড়া",
-        "arrival": "০৫:৪৭ pm",
-        "departure": "০৫:৫০ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২৬"
+        "arrival": "17:47",
+        "departure": "17:50",
+        "halt": "00:03",
+        "duration": "00:26"
       },
       {
         "station": "কসবা",
-        "arrival": "০৬:০৬ pm",
-        "departure": "০৬:০৮ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৬"
+        "arrival": "18:06",
+        "departure": "18:08",
+        "halt": "00:02",
+        "duration": "00:16"
       },
       {
         "station": "কুমিল্লা",
-        "arrival": "০৬:৩৮ pm",
-        "departure": "০৬:৪০ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৩০"
+        "arrival": "18:38",
+        "departure": "18:40",
+        "halt": "00:02",
+        "duration": "00:30"
       },
       {
         "station": "লাকসাম",
-        "arrival": "০৭:০৩ pm",
-        "departure": "০৭:০৬ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "19:03",
+        "departure": "19:06",
+        "halt": "00:03",
+        "duration": "00:23"
       },
       {
         "station": "নাথেরপেটুয়া",
-        "arrival": "০৭:২৮ pm",
+        "arrival": "19:28",
         "departure": "",
         "halt": "",
-        "duration": "০০:২২"
+        "duration": "00:22"
       },
       {
         "station": "সোনাইমুড়ি",
-        "arrival": "০৭:৪২ pm",
+        "arrival": "19:42",
         "departure": "",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বজরা",
-        "arrival": "০৭:৫৩ pm",
+        "arrival": "19:53",
         "departure": "",
         "halt": "",
         "duration": ""
       },
       {
         "station": "চৌমুহনী",
-        "arrival": "০৮:০৪ pm",
-        "departure": "০৮:০৬ pm",
-        "halt": "০২ মিনিট",
+        "arrival": "20:04",
+        "departure": "20:06",
+        "halt": "00:02",
         "duration": ""
       },
       {
         "station": "মাইজদি কোর্ট",
-        "arrival": "০৮:২০ pm",
+        "arrival": "20:20",
         "departure": "",
         "halt": "",
-        "duration": "০০:১৪"
+        "duration": "00:14"
       },
       {
         "station": "নোয়াখালী",
-        "arrival": "০৮:৪০ pm",
+        "arrival": "20:40",
         "departure": "",
-        "halt": "০০ মিনিট",
+        "halt": "",
         "duration": ""
       }
     ],
-    "totalDuration": "০৫:৩০ ঘণ্টা"
+    "totalDuration": "05:30"
   },
   "৭৩৭": {
     "name": "এগারোসিন্ধুর প্রভাতী",
@@ -883,82 +883,82 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "০৭:১৫ am",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "07:15",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "০৭:৩৮ am",
-        "departure": "০৭:৪৩ am",
-        "halt": "০৫ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "07:38",
+        "departure": "07:43",
+        "halt": "00:05",
+        "duration": "00:23"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "০৮:২২ am",
-        "departure": "০৮:২৪ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৩৯"
+        "arrival": "08:22",
+        "departure": "08:24",
+        "halt": "00:02",
+        "duration": "00:39"
       },
       {
         "station": "মেথিকান্দা",
-        "arrival": "০৮:৩৮ am",
-        "departure": "০৮:৪০ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৪"
+        "arrival": "08:38",
+        "departure": "08:40",
+        "halt": "00:02",
+        "duration": "00:14"
       },
       {
         "station": "ভৈরব",
-        "arrival": "০৮:৫৩ am",
-        "departure": "০৯:১৩ am",
-        "halt": "২০ মিনিট",
-        "duration": "০০:১৩"
+        "arrival": "08:53",
+        "departure": "09:13",
+        "halt": "00:20",
+        "duration": "00:13"
       },
       {
         "station": "কুলিয়ারচর",
-        "arrival": "০৯:৩২ am",
-        "departure": "০৯:৩৪ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৯"
+        "arrival": "09:32",
+        "departure": "09:34",
+        "halt": "00:02",
+        "duration": "00:19"
       },
       {
         "station": "বাজিতপুর",
-        "arrival": "০৯:৪২ am",
-        "departure": "০৯:৪৪ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৮"
+        "arrival": "09:42",
+        "departure": "09:44",
+        "halt": "00:02",
+        "duration": "00:08"
       },
       {
         "station": "সরারচর",
-        "arrival": "০৯:৫২ am",
-        "departure": "০৯:৫৪ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৮"
+        "arrival": "09:52",
+        "departure": "09:54",
+        "halt": "00:02",
+        "duration": "00:08"
       },
       {
         "station": "মানিকখালী",
-        "arrival": "১০:১০ am",
-        "departure": "১০:১২ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৬"
+        "arrival": "10:10",
+        "departure": "10:12",
+        "halt": "00:02",
+        "duration": "00:16"
       },
       {
         "station": "গচিহাটা",
-        "arrival": "১০:২২ am",
-        "departure": "১০:২৪ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১০"
+        "arrival": "10:22",
+        "departure": "10:24",
+        "halt": "00:02",
+        "duration": "00:10"
       },
       {
         "station": "কিশোরগঞ্জ",
-        "arrival": "১১:১০ am",
+        "arrival": "11:10",
         "departure": "",
-        "halt": "০০ মিনিট",
-        "duration": "০০:৪৬"
+        "halt": "",
+        "duration": "00:46"
       }
     ],
-    "totalDuration": "০৩:৫৫ ঘণ্টা"
+    "totalDuration": "03:55"
   },
   "৭৩৮": {
     "name": "এগারোসিন্ধুর প্রভাতী",
@@ -975,82 +975,82 @@
       {
         "station": "কিশোরগঞ্জ",
         "arrival": "",
-        "departure": "০৬:৩০ am",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "06:30",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "গচিহাটা",
-        "arrival": "০৬:৪৫ am",
-        "departure": "০৬:৪৭ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৫"
+        "arrival": "06:45",
+        "departure": "06:47",
+        "halt": "00:02",
+        "duration": "00:15"
       },
       {
         "station": "মানিকখালী",
-        "arrival": "০৬:৫৭ am",
-        "departure": "০৬:৫৯ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১০"
+        "arrival": "06:57",
+        "departure": "06:59",
+        "halt": "00:02",
+        "duration": "00:10"
       },
       {
         "station": "সরারচর",
-        "arrival": "০৭:১৫ am",
-        "departure": "০৭:১৭ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৬"
+        "arrival": "07:15",
+        "departure": "07:17",
+        "halt": "00:02",
+        "duration": "00:16"
       },
       {
         "station": "বাজিতপুর",
-        "arrival": "০৭:২৫ am",
-        "departure": "০৭:২৭ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৮"
+        "arrival": "07:25",
+        "departure": "07:27",
+        "halt": "00:02",
+        "duration": "00:08"
       },
       {
         "station": "কুলিয়ারচর",
-        "arrival": "০৭:৩৫ am",
-        "departure": "০৭:৩৭ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৮"
+        "arrival": "07:35",
+        "departure": "07:37",
+        "halt": "00:02",
+        "duration": "00:08"
       },
       {
         "station": "ভৈরব",
-        "arrival": "০৮:০০ am",
-        "departure": "০৮:২০ am",
-        "halt": "২০ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "08:00",
+        "departure": "08:20",
+        "halt": "00:20",
+        "duration": "00:23"
       },
       {
         "station": "মেথিকান্দা",
-        "arrival": "০৮:৩৮ am",
-        "departure": "০৮:৪০ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৮"
+        "arrival": "08:38",
+        "departure": "08:40",
+        "halt": "00:02",
+        "duration": "00:18"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "০৯:০২ am",
-        "departure": "০৯:০৪ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২২"
+        "arrival": "09:02",
+        "departure": "09:04",
+        "halt": "00:02",
+        "duration": "00:22"
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "০৯:৫৩ am",
+        "arrival": "09:53",
         "departure": "",
         "halt": "",
-        "duration": "০০:৪৯"
+        "duration": "00:49"
       },
       {
         "station": "ঢাকা",
-        "arrival": "১০:৩৫ am",
+        "arrival": "10:35",
         "departure": "",
-        "halt": "০০ মিনিট",
+        "halt": "",
         "duration": ""
       }
     ],
-    "totalDuration": "০৪:০৫ ঘণ্টা"
+    "totalDuration": "04:05"
   },
   "৭৪৯": {
     "name": "এগারোসিন্ধুর গোধূলি",
@@ -1067,82 +1067,82 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "০৬:৪৫ pm",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "18:45",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "০৭:০৮ pm",
-        "departure": "০৭:১৩ pm",
-        "halt": "০৫ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "19:08",
+        "departure": "19:13",
+        "halt": "00:05",
+        "duration": "00:23"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "০৭:৫৩ pm",
-        "departure": "০৭:৫৫ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৪০"
+        "arrival": "19:53",
+        "departure": "19:55",
+        "halt": "00:02",
+        "duration": "00:40"
       },
       {
         "station": "মেথিকান্দা",
-        "arrival": "০৮:১২ pm",
-        "departure": "০৮:১৪ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৭"
+        "arrival": "20:12",
+        "departure": "20:14",
+        "halt": "00:02",
+        "duration": "00:17"
       },
       {
         "station": "ভৈরব",
-        "arrival": "০৮:৩০ pm",
-        "departure": "০৮:৫০ pm",
-        "halt": "২০ মিনিট",
-        "duration": "০০:১৬"
+        "arrival": "20:30",
+        "departure": "20:50",
+        "halt": "00:20",
+        "duration": "00:16"
       },
       {
         "station": "কুলিয়ারচর",
-        "arrival": "০৯:০৯ pm",
-        "departure": "০৯:১১ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৯"
+        "arrival": "21:09",
+        "departure": "21:11",
+        "halt": "00:02",
+        "duration": "00:19"
       },
       {
         "station": "বাজিতপুর",
-        "arrival": "০৯:২০ pm",
-        "departure": "০৯:২২ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৯"
+        "arrival": "21:20",
+        "departure": "21:22",
+        "halt": "00:02",
+        "duration": "00:09"
       },
       {
         "station": "সরারচর",
-        "arrival": "০৯:৩০ pm",
-        "departure": "০৯:৩২ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৮"
+        "arrival": "21:30",
+        "departure": "21:32",
+        "halt": "00:02",
+        "duration": "00:08"
       },
       {
         "station": "মানিকখালী",
-        "arrival": "০৯:৪৮ pm",
-        "departure": "০৯:৫০ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৬"
+        "arrival": "21:48",
+        "departure": "21:50",
+        "halt": "00:02",
+        "duration": "00:16"
       },
       {
         "station": "গচিহাটা",
-        "arrival": "১০:০০ pm",
-        "departure": "১০:০২ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১০"
+        "arrival": "22:00",
+        "departure": "22:02",
+        "halt": "00:02",
+        "duration": "00:10"
       },
       {
         "station": "কিশোরগঞ্জ",
-        "arrival": "১০:৪০ pm",
+        "arrival": "22:40",
         "departure": "",
-        "halt": "০০ মিনিট",
-        "duration": "০০:৩৮"
+        "halt": "",
+        "duration": "00:38"
       }
     ],
-    "totalDuration": "০৩:৫৫ ঘণ্টা"
+    "totalDuration": "03:55"
   },
   "৭৫০": {
     "name": "এগারোসিন্ধুর গোধূলি",
@@ -1159,82 +1159,82 @@
       {
         "station": "কিশোরগঞ্জ",
         "arrival": "",
-        "departure": "১২:৫০ pm",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "12:50",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "গচিহাটা",
-        "arrival": "০১:০৬ pm",
-        "departure": "০১:০৮ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৬"
+        "arrival": "13:06",
+        "departure": "13:08",
+        "halt": "00:02",
+        "duration": "00:16"
       },
       {
         "station": "মানিকখালী",
-        "arrival": "০১:৩১ pm",
-        "departure": "০১:৩৩ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "13:31",
+        "departure": "13:33",
+        "halt": "00:02",
+        "duration": "00:23"
       },
       {
         "station": "সরারচর",
-        "arrival": "০১:৫২ pm",
-        "departure": "০১:৫৪ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৯"
+        "arrival": "13:52",
+        "departure": "13:54",
+        "halt": "00:02",
+        "duration": "00:19"
       },
       {
         "station": "বাজিতপুর",
-        "arrival": "০২:০৩ pm",
-        "departure": "০২:০৫ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৯"
+        "arrival": "14:03",
+        "departure": "14:05",
+        "halt": "00:02",
+        "duration": "00:09"
       },
       {
         "station": "কুলিয়ারচর",
-        "arrival": "০২:১৩ pm",
-        "departure": "০২:১৫ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৮"
+        "arrival": "14:13",
+        "departure": "14:15",
+        "halt": "00:02",
+        "duration": "00:08"
       },
       {
         "station": "ভৈরব",
-        "arrival": "০২:৪০ pm",
-        "departure": "০৩:০০ pm",
-        "halt": "২০ মিনিট",
-        "duration": "০০:২৫"
+        "arrival": "14:40",
+        "departure": "15:00",
+        "halt": "00:20",
+        "duration": "00:25"
       },
       {
         "station": "মেথিকান্দা",
-        "arrival": "০৩:১৩ pm",
-        "departure": "০৩:১৫ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৩"
+        "arrival": "15:13",
+        "departure": "15:15",
+        "halt": "00:02",
+        "duration": "00:13"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "০৩:২৯ pm",
-        "departure": "০৩:৩১ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৪"
+        "arrival": "15:29",
+        "departure": "15:31",
+        "halt": "00:02",
+        "duration": "00:14"
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "০৪:১২ pm",
+        "arrival": "16:12",
         "departure": "",
         "halt": "",
-        "duration": "০০:৪১"
+        "duration": "00:41"
       },
       {
         "station": "ঢাকা",
-        "arrival": "০৪:৪৫ pm",
+        "arrival": "16:45",
         "departure": "",
-        "halt": "০০ মিনিট",
+        "halt": "",
         "duration": ""
       }
     ],
-    "totalDuration": "০৩:৫৫ ঘণ্টা"
+    "totalDuration": "03:55"
   },
   "৭২১": {
     "name": "মহানগর এক্সপ্রেস",
@@ -1251,103 +1251,103 @@
       {
         "station": "চট্টগ্রাম",
         "arrival": "",
-        "departure": "১২:৩০ pm",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "12:30",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "কুমিরা",
-        "arrival": "১২:৫৬ pm",
-        "departure": "১২:৫৮ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২৬"
+        "arrival": "12:56",
+        "departure": "12:58",
+        "halt": "00:02",
+        "duration": "00:26"
       },
       {
         "station": "ফেনী",
-        "arrival": "০১:৫৭ pm",
-        "departure": "০১:৫৯ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৫৯"
+        "arrival": "13:57",
+        "departure": "13:59",
+        "halt": "00:02",
+        "duration": "00:59"
       },
       {
         "station": "নাঙ্গলকোট",
-        "arrival": "০২:২৪ pm",
-        "departure": "০২:২৬ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২৫"
+        "arrival": "14:24",
+        "departure": "14:26",
+        "halt": "00:02",
+        "duration": "00:25"
       },
       {
         "station": "লাকসাম",
-        "arrival": "০২:৪২ pm",
-        "departure": "০২:৪৪ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৬"
+        "arrival": "14:42",
+        "departure": "14:44",
+        "halt": "00:02",
+        "duration": "00:16"
       },
       {
         "station": "কুমিল্লা",
-        "arrival": "০৩:০৬ pm",
-        "departure": "০৩:০৮ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২২"
+        "arrival": "15:06",
+        "departure": "15:08",
+        "halt": "00:02",
+        "duration": "00:22"
       },
       {
         "station": "কসবা",
-        "arrival": "০৩:৩৮ pm",
-        "departure": "০৩:৪০ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৩০"
+        "arrival": "15:38",
+        "departure": "15:40",
+        "halt": "00:02",
+        "duration": "00:30"
       },
       {
         "station": "আখাউড়া",
-        "arrival": "০৪:০৫ pm",
-        "departure": "০৪:০৮ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২৫"
+        "arrival": "16:05",
+        "departure": "16:08",
+        "halt": "00:03",
+        "duration": "00:25"
       },
       {
         "station": "বি বাড়িয়া",
-        "arrival": "০৪:২৬ pm",
-        "departure": "০৪:৩০ pm",
-        "halt": "০৪ মিনিট",
-        "duration": "০০:১৮"
+        "arrival": "16:26",
+        "departure": "16:30",
+        "halt": "00:04",
+        "duration": "00:18"
       },
       {
         "station": "আশুগঞ্জ",
-        "arrival": "০৪:৪৫ pm",
-        "departure": "০৪:৪৭ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৫"
+        "arrival": "16:45",
+        "departure": "16:47",
+        "halt": "00:02",
+        "duration": "00:15"
       },
       {
         "station": "ভৈরব",
-        "arrival": "০৪:৫৫ pm",
-        "departure": "০৪:৫৭ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৮"
+        "arrival": "16:55",
+        "departure": "16:57",
+        "halt": "00:02",
+        "duration": "00:08"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "০৫:২৭ pm",
-        "departure": "০৫:২৯ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৩০"
+        "arrival": "17:27",
+        "departure": "17:29",
+        "halt": "00:02",
+        "duration": "00:30"
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "০৬:০৭ pm",
-        "departure": "০৬:১০ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৪০"
+        "arrival": "18:07",
+        "departure": "18:10",
+        "halt": "00:03",
+        "duration": "00:40"
       },
       {
         "station": "ঢাকা",
-        "arrival": "০৬:৪০ pm",
+        "arrival": "18:40",
         "departure": "",
-        "halt": "০০ মিনিট",
-        "duration": "০০:৩০"
+        "halt": "",
+        "duration": "00:30"
       }
     ],
-    "totalDuration": "০৬:১০ ঘণ্টা"
+    "totalDuration": "06:10"
   },
   "৭২২": {
     "name": "মহানগর এক্সপ্রেস",
@@ -1364,103 +1364,103 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "০৯:২০ pm",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "21:20",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "০৯:৪৩ pm",
-        "departure": "০৯:৪৮ pm",
-        "halt": "০৫ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "21:43",
+        "departure": "21:48",
+        "halt": "00:05",
+        "duration": "00:23"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "১০:২৭ pm",
-        "departure": "১০:৩০ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৩৯"
+        "arrival": "22:27",
+        "departure": "22:30",
+        "halt": "00:03",
+        "duration": "00:39"
       },
       {
         "station": "ভৈরব",
-        "arrival": "১১:০০ pm",
-        "departure": "১১:০৩ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৩০"
+        "arrival": "23:00",
+        "departure": "23:03",
+        "halt": "00:03",
+        "duration": "00:30"
       },
       {
         "station": "আশুগঞ্জ",
-        "arrival": "১১:১১ pm",
-        "departure": "১১:১৩ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৮"
+        "arrival": "23:11",
+        "departure": "23:13",
+        "halt": "00:02",
+        "duration": "00:08"
       },
       {
         "station": "বি বাড়িয়া",
-        "arrival": "১১:২৮ pm",
-        "departure": "১১:৩১ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:১৫"
+        "arrival": "23:28",
+        "departure": "23:31",
+        "halt": "00:03",
+        "duration": "00:15"
       },
       {
         "station": "আখাউড়া",
-        "arrival": "১১:৫৫ pm",
-        "departure": "১১:৫৮ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২৪"
+        "arrival": "23:55",
+        "departure": "23:58",
+        "halt": "00:03",
+        "duration": "00:24"
       },
       {
         "station": "কসবা",
-        "arrival": "১২:১৪ am",
-        "departure": "১২:১৬ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৬"
+        "arrival": "00:14",
+        "departure": "00:16",
+        "halt": "00:02",
+        "duration": "00:16"
       },
       {
         "station": "কুমিল্লা",
-        "arrival": "১২:৪৬ am",
-        "departure": "১২:৪৮ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৩০"
+        "arrival": "00:46",
+        "departure": "00:48",
+        "halt": "00:02",
+        "duration": "00:30"
       },
       {
         "station": "লাকসাম",
-        "arrival": "০১:১০ am",
-        "departure": "০১:১২ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২২"
+        "arrival": "01:10",
+        "departure": "01:12",
+        "halt": "00:02",
+        "duration": "00:22"
       },
       {
         "station": "নাঙ্গলকোট",
-        "arrival": "০১:২৬ am",
-        "departure": "০১:২৮ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৪"
+        "arrival": "01:26",
+        "departure": "01:28",
+        "halt": "00:02",
+        "duration": "00:14"
       },
       {
         "station": "ফেনী",
-        "arrival": "০১:৫৩ am",
-        "departure": "০১:৫৫ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২৫"
+        "arrival": "01:53",
+        "departure": "01:55",
+        "halt": "00:02",
+        "duration": "00:25"
       },
       {
         "station": "কুমিরা",
-        "arrival": "০২:৫৫ am",
+        "arrival": "02:55",
         "departure": "",
         "halt": "",
-        "duration": "০১:০০"
+        "duration": "01:00"
       },
       {
         "station": "চট্টগ্রাম",
-        "arrival": "০৩:৩০ am",
+        "arrival": "03:30",
         "departure": "",
-        "halt": "০০ মিনিট",
+        "halt": "",
         "duration": ""
       }
     ],
-    "totalDuration": "০৬:১০ ঘণ্টা"
+    "totalDuration": "06:10"
   },
   "৭৩৯": {
     "name": "উপবন এক্সপ্রেস",
@@ -1477,89 +1477,89 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "১০:০০ pm",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "22:00",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "১০:২৩ pm",
-        "departure": "১০:২৮ pm",
-        "halt": "০৫ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "22:23",
+        "departure": "22:28",
+        "halt": "00:05",
+        "duration": "00:23"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "১১:০৯ pm",
-        "departure": "১১:১১ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৪১"
+        "arrival": "23:09",
+        "departure": "23:11",
+        "halt": "00:02",
+        "duration": "00:41"
       },
       {
         "station": "ভৈরব",
-        "arrival": "১১:৪০ pm",
-        "departure": "১১:৪৩ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২৯"
+        "arrival": "23:40",
+        "departure": "23:43",
+        "halt": "00:03",
+        "duration": "00:29"
       },
       {
         "station": "শায়েস্তাগঞ্জ",
-        "arrival": "০১:২২ am",
-        "departure": "০১:২৫ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০১:৩৯"
+        "arrival": "01:22",
+        "departure": "01:25",
+        "halt": "00:03",
+        "duration": "01:39"
       },
       {
         "station": "শ্রীমঙ্গল",
-        "arrival": "০২:০৯ am",
-        "departure": "০২:১১ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৪৪"
+        "arrival": "02:09",
+        "departure": "02:11",
+        "halt": "00:02",
+        "duration": "00:44"
       },
       {
         "station": "ভানুগাছ",
-        "arrival": "০২:৩০ am",
-        "departure": "০২:৩২ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৯"
+        "arrival": "02:30",
+        "departure": "02:32",
+        "halt": "00:02",
+        "duration": "00:19"
       },
       {
         "station": "শমসেরনগর",
-        "arrival": "০২:৪১ am",
-        "departure": "০২:৪৩ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৯"
+        "arrival": "02:41",
+        "departure": "02:43",
+        "halt": "00:02",
+        "duration": "00:09"
       },
       {
         "station": "কুলাউড়া",
-        "arrival": "০৩:০৮ am",
-        "departure": "০৩:১১ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২৫"
+        "arrival": "03:08",
+        "departure": "03:11",
+        "halt": "00:03",
+        "duration": "00:25"
       },
       {
         "station": "বরমচাল",
-        "arrival": "০৩:২৫ am",
-        "departure": "০৩:২৭ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৪"
+        "arrival": "03:25",
+        "departure": "03:27",
+        "halt": "00:02",
+        "duration": "00:14"
       },
       {
         "station": "মাইজগাঁও",
-        "arrival": "০৩:৪৩ am",
-        "departure": "০৩:৪৫ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৬"
+        "arrival": "03:43",
+        "departure": "03:45",
+        "halt": "00:02",
+        "duration": "00:16"
       },
       {
         "station": "সিলেট",
-        "arrival": "০৫:০০ am",
+        "arrival": "05:00",
         "departure": "",
-        "halt": "০০ মিনিট",
-        "duration": "০১:১৫"
+        "halt": "",
+        "duration": "01:15"
       }
     ],
-    "totalDuration": "০৭:০০ ঘণ্টা"
+    "totalDuration": "07:00"
   },
   "৭৪০": {
     "name": "উপবন এক্সপ্রেস",
@@ -1576,89 +1576,89 @@
       {
         "station": "সিলেট",
         "arrival": "",
-        "departure": "১১:৩০ pm",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "23:30",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "মাইজগাঁও",
-        "arrival": "১২:০৯ am",
-        "departure": "১২:১১ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৩৯"
+        "arrival": "00:09",
+        "departure": "00:11",
+        "halt": "00:02",
+        "duration": "00:39"
       },
       {
         "station": "বরমচাল",
-        "arrival": "১২:২৮ am",
-        "departure": "১২:৩০ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৭"
+        "arrival": "00:28",
+        "departure": "00:30",
+        "halt": "00:02",
+        "duration": "00:17"
       },
       {
         "station": "কুলাউড়া",
-        "arrival": "১২:৪৩ am",
-        "departure": "১২:৪৬ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:১৩"
+        "arrival": "00:43",
+        "departure": "00:46",
+        "halt": "00:03",
+        "duration": "00:13"
       },
       {
         "station": "শমসেরনগর",
-        "arrival": "০১:০৯ am",
-        "departure": "০১:১১ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "01:09",
+        "departure": "01:11",
+        "halt": "00:02",
+        "duration": "00:23"
       },
       {
         "station": "ভানুগাছ",
-        "arrival": "০১:২০ am",
-        "departure": "০১:২২ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:০৯"
+        "arrival": "01:20",
+        "departure": "01:22",
+        "halt": "00:02",
+        "duration": "00:09"
       },
       {
         "station": "শ্রীমঙ্গল",
-        "arrival": "০১:৪১ am",
-        "departure": "০১:৪৪ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:১৯"
+        "arrival": "01:41",
+        "departure": "01:44",
+        "halt": "00:03",
+        "duration": "00:19"
       },
       {
         "station": "শায়েস্তাগঞ্জ",
-        "arrival": "০২:৩০ am",
-        "departure": "০২:৩৩ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৪৬"
+        "arrival": "02:30",
+        "departure": "02:33",
+        "halt": "00:03",
+        "duration": "00:46"
       },
       {
         "station": "ভৈরব",
-        "arrival": "০৪:০৩ am",
-        "departure": "০৪:০৬ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০১:৩০"
+        "arrival": "04:03",
+        "departure": "04:06",
+        "halt": "00:03",
+        "duration": "01:30"
       },
       {
         "station": "নরসিংদী",
-        "arrival": "০৪:৩৪ am",
-        "departure": "০৪:৩৬ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২৮"
+        "arrival": "04:34",
+        "departure": "04:36",
+        "halt": "00:02",
+        "duration": "00:28"
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "০৫:১২ am",
-        "departure": "০৫:১৫ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৩৬"
+        "arrival": "05:12",
+        "departure": "05:15",
+        "halt": "00:03",
+        "duration": "00:36"
       },
       {
         "station": "ঢাকা",
-        "arrival": "০৫:৪০ am",
+        "arrival": "05:40",
         "departure": "",
-        "halt": "০০ মিনিট",
-        "duration": "০০:২৫"
+        "halt": "",
+        "duration": "00:25"
       }
     ],
-    "totalDuration": "০৬:১০ ঘণ্টা"
+    "totalDuration": "06:10"
   },
   "৭০৯": {
     "name": "পারাবত এক্সপ্রেস",
@@ -1675,89 +1675,89 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "০৬:৩০ am",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "06:30",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "০৬:৫৩ am",
-        "departure": "০৬:৫৮ am",
-        "halt": "০৫ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "06:53",
+        "departure": "06:58",
+        "halt": "00:05",
+        "duration": "00:23"
       },
       {
         "station": "ভৈরব",
-        "arrival": "০৮:০৩ am",
-        "departure": "০৮:০৬ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০১:০৫"
+        "arrival": "08:03",
+        "departure": "08:06",
+        "halt": "00:03",
+        "duration": "01:05"
       },
       {
         "station": "বি বাড়িয়া",
-        "arrival": "০৮:২৬ am",
-        "departure": "০৮:২৯ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২০"
+        "arrival": "08:26",
+        "departure": "08:29",
+        "halt": "00:03",
+        "duration": "00:20"
       },
       {
         "station": "আজমপুর",
-        "arrival": "০৮:৫০ am",
-        "departure": "০৮:৫২ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২১"
+        "arrival": "08:50",
+        "departure": "08:52",
+        "halt": "00:02",
+        "duration": "00:21"
       },
       {
         "station": "নয়াপাড়া",
-        "arrival": "০৯:৩০ am",
-        "departure": "০৯:৩২ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৩৮"
+        "arrival": "09:30",
+        "departure": "09:32",
+        "halt": "00:02",
+        "duration": "00:38"
       },
       {
         "station": "শায়েস্তাগঞ্জ",
-        "arrival": "০৯:৫২ am",
-        "departure": "০৯:৫৫ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২০"
+        "arrival": "09:52",
+        "departure": "09:55",
+        "halt": "00:03",
+        "duration": "00:20"
       },
       {
         "station": "শ্রীমঙ্গল",
-        "arrival": "১০:৩২ am",
-        "departure": "১০:৩৫ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৩৭"
+        "arrival": "10:32",
+        "departure": "10:35",
+        "halt": "00:03",
+        "duration": "00:37"
       },
       {
         "station": "ভানুগাছ",
-        "arrival": "১০:৫৪ am",
-        "departure": "১০:৫৬ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:১৯"
+        "arrival": "10:54",
+        "departure": "10:56",
+        "halt": "00:02",
+        "duration": "00:19"
       },
       {
         "station": "কুলাউড়া",
-        "arrival": "১১:২৫ am",
-        "departure": "১১:২৮ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২৯"
+        "arrival": "11:25",
+        "departure": "11:28",
+        "halt": "00:03",
+        "duration": "00:29"
       },
       {
         "station": "মাইজগাঁও",
-        "arrival": "১১:৫৫ am",
-        "departure": "১১:৫৭ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২৭"
+        "arrival": "11:55",
+        "departure": "11:57",
+        "halt": "00:02",
+        "duration": "00:27"
       },
       {
         "station": "সিলেট",
-        "arrival": "০১:০০ pm",
+        "arrival": "13:00",
         "departure": "",
-        "halt": "০০ মিনিট",
-        "duration": "০১:০৩"
+        "halt": "",
+        "duration": "01:03"
       }
     ],
-    "totalDuration": "০৬:৩০ ঘণ্টা"
+    "totalDuration": "06:30"
   },
   "৭১০": {
     "name": "পারাবত এক্সপ্রেস",
@@ -1774,89 +1774,89 @@
       {
         "station": "সিলেট",
         "arrival": "",
-        "departure": "০৪:০০ pm",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "16:00",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "মাইজগাঁও",
-        "arrival": "০৪:৩৯ pm",
-        "departure": "০৪:৪১ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৩৯"
+        "arrival": "16:39",
+        "departure": "16:41",
+        "halt": "00:02",
+        "duration": "00:39"
       },
       {
         "station": "কুলাউড়া",
-        "arrival": "০৫:০৬ pm",
-        "departure": "০৫:০৯ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২৫"
+        "arrival": "17:06",
+        "departure": "17:09",
+        "halt": "00:03",
+        "duration": "00:25"
       },
       {
         "station": "ভানুগাছ",
-        "arrival": "০৫:৩৯ pm",
-        "departure": "০৫:৪১ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৩০"
+        "arrival": "17:39",
+        "departure": "17:41",
+        "halt": "00:02",
+        "duration": "00:30"
       },
       {
         "station": "শ্রীমঙ্গল",
-        "arrival": "০৫:৫৯ pm",
-        "departure": "০৬:০২ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:১৮"
+        "arrival": "17:59",
+        "departure": "18:02",
+        "halt": "00:03",
+        "duration": "00:18"
       },
       {
         "station": "শায়েস্তাগঞ্জ",
-        "arrival": "০৬:৪৬ pm",
-        "departure": "০৬:৪৯ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৪৪"
+        "arrival": "18:46",
+        "departure": "18:49",
+        "halt": "00:03",
+        "duration": "00:44"
       },
       {
         "station": "নয়াপাড়া",
-        "arrival": "০৭:১০ pm",
-        "departure": "০৭:১২ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২১"
+        "arrival": "19:10",
+        "departure": "19:12",
+        "halt": "00:02",
+        "duration": "00:21"
       },
       {
         "station": "আজমপুর",
-        "arrival": "০৮:০৫ pm",
-        "departure": "০৮:০৭ pm",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৫৩"
+        "arrival": "20:05",
+        "departure": "20:07",
+        "halt": "00:02",
+        "duration": "00:53"
       },
       {
         "station": "বি বাড়িয়া",
-        "arrival": "০৮:৩০ pm",
-        "departure": "০৮:৩৪ pm",
-        "halt": "০৪ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "20:30",
+        "departure": "20:34",
+        "halt": "00:04",
+        "duration": "00:23"
       },
       {
         "station": "ভৈরব",
-        "arrival": "০৮:৫৫ pm",
-        "departure": "০৮:৫৮ pm",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২১"
+        "arrival": "20:55",
+        "departure": "20:58",
+        "halt": "00:03",
+        "duration": "00:21"
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "১০:১২ pm",
+        "arrival": "22:12",
         "departure": "",
         "halt": "",
-        "duration": "০১:১৪"
+        "duration": "01:14"
       },
       {
         "station": "ঢাকা",
-        "arrival": "১০:৪০ pm",
+        "arrival": "22:40",
         "departure": "",
-        "halt": "০০ মিনিট",
+        "halt": "",
         "duration": ""
       }
     ],
-    "totalDuration": "০৬:৪০ ঘণ্টা"
+    "totalDuration": "06:40"
   },
   "৭৪১": {
     "name": "তূর্ণা",
@@ -1873,68 +1873,68 @@
       {
         "station": "চট্টগ্রাম",
         "arrival": "",
-        "departure": "১১:৩০ pm",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "23:30",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "ফেনী",
-        "arrival": "১২:৫০ am",
-        "departure": "১২:৫২ am",
-        "halt": "০২ মিনিট",
-        "duration": "০১:২০"
+        "arrival": "00:50",
+        "departure": "00:52",
+        "halt": "00:02",
+        "duration": "01:20"
       },
       {
         "station": "লাকসাম",
-        "arrival": "০১:৩০ am",
-        "departure": "০১:৩২ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৩৮"
+        "arrival": "01:30",
+        "departure": "01:32",
+        "halt": "00:02",
+        "duration": "00:38"
       },
       {
         "station": "কুমিল্লা",
-        "arrival": "০১:৫৫ am",
-        "departure": "০১:৫৭ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "01:55",
+        "departure": "01:57",
+        "halt": "00:02",
+        "duration": "00:23"
       },
       {
         "station": "আখাউড়া",
-        "arrival": "০২:৪৭ am",
-        "departure": "০২:৫০ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৫০"
+        "arrival": "02:47",
+        "departure": "02:50",
+        "halt": "00:03",
+        "duration": "00:50"
       },
       {
         "station": "বি বাড়িয়া",
-        "arrival": "০৩:০৭ am",
-        "departure": "০৩:১০ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:১৭"
+        "arrival": "03:07",
+        "departure": "03:10",
+        "halt": "00:03",
+        "duration": "00:17"
       },
       {
         "station": "ভৈরব",
-        "arrival": "০৩:৩০ am",
-        "departure": "০৩:৩৩ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:২০"
+        "arrival": "03:30",
+        "departure": "03:33",
+        "halt": "00:03",
+        "duration": "00:20"
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "০৪:৩৫ am",
-        "departure": "০৪:৩৮ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০১:০২"
+        "arrival": "04:35",
+        "departure": "04:38",
+        "halt": "00:03",
+        "duration": "01:02"
       },
       {
         "station": "ঢাকা",
-        "arrival": "০৫:১০ am",
+        "arrival": "05:10",
         "departure": "",
-        "halt": "০০ মিনিট",
-        "duration": "০০:৩২"
+        "halt": "",
+        "duration": "00:32"
       }
     ],
-    "totalDuration": "০৫:৪০ ঘণ্টা"
+    "totalDuration": "05:40"
   },
   "৭৪২": {
     "name": "তূর্ণা",
@@ -1951,68 +1951,68 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "১১:১৫ pm",
-        "halt": "০০ মিনিট",
-        "duration": "০০:০০"
+        "departure": "23:15",
+        "halt": "",
+        "duration": ""
       },
       {
         "station": "বিমানবন্দর",
-        "arrival": "১১:৩৮ pm",
-        "departure": "১১:৪৩ pm",
-        "halt": "০৫ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "23:38",
+        "departure": "23:43",
+        "halt": "00:05",
+        "duration": "00:23"
       },
       {
         "station": "ভৈরব",
-        "arrival": "১২:৪৯ am",
-        "departure": "১২:৫২ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০১:০৬"
+        "arrival": "00:49",
+        "departure": "00:52",
+        "halt": "00:03",
+        "duration": "01:06"
       },
       {
         "station": "বি বাড়িয়া",
-        "arrival": "০১:১২ am",
-        "departure": "০১:১৬ am",
-        "halt": "০৪ মিনিট",
-        "duration": "০০:২০"
+        "arrival": "01:12",
+        "departure": "01:16",
+        "halt": "00:04",
+        "duration": "00:20"
       },
       {
         "station": "আখাউড়া",
-        "arrival": "০১:৪৭ am",
-        "departure": "০১:৫০ am",
-        "halt": "০৩ মিনিট",
-        "duration": "০০:৩১"
+        "arrival": "01:47",
+        "departure": "01:50",
+        "halt": "00:03",
+        "duration": "00:31"
       },
       {
         "station": "কুমিল্লা",
-        "arrival": "০২:৩৩ am",
-        "departure": "০২:৩৫ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৪৩"
+        "arrival": "02:33",
+        "departure": "02:35",
+        "halt": "00:02",
+        "duration": "00:43"
       },
       {
         "station": "লাকসাম",
-        "arrival": "০২:৫৮ am",
-        "departure": "০৩:০০ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:২৩"
+        "arrival": "02:58",
+        "departure": "03:00",
+        "halt": "00:02",
+        "duration": "00:23"
       },
       {
         "station": "ফেনী",
-        "arrival": "০৩:৪০ am",
-        "departure": "০৩:৪২ am",
-        "halt": "০২ মিনিট",
-        "duration": "০০:৪০"
+        "arrival": "03:40",
+        "departure": "03:42",
+        "halt": "00:02",
+        "duration": "00:40"
       },
       {
         "station": "চট্টগ্রাম",
-        "arrival": "০৫:১৫ am",
+        "arrival": "05:15",
         "departure": "",
-        "halt": "০০ মিনিট",
-        "duration": "০১:৩৩"
+        "halt": "",
+        "duration": "01:33"
       }
     ],
-    "totalDuration": "০৬:০০ ঘণ্টা"
+    "totalDuration": "06:00"
   },
   "১১": {
     "name": "ঢাকা এক্সপ্রেস",
@@ -2029,189 +2029,189 @@
       {
         "station": "নোয়াখালী",
         "arrival": "",
-        "departure": "২০:৪৫",
+        "departure": "20:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "হরিনারায়ণপুর",
         "arrival": "",
-        "departure": "২০:৫০",
+        "departure": "20:50",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মাইজদী কোর্ট",
         "arrival": "",
-        "departure": "২০:৫৫",
+        "departure": "20:55",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মাইজদী",
         "arrival": "",
-        "departure": "২১:০৫",
+        "departure": "21:05",
         "halt": "",
         "duration": ""
       },
       {
         "station": "চৌমুহনী",
         "arrival": "",
-        "departure": "২১:১৮",
+        "departure": "21:18",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বজরা",
         "arrival": "",
-        "departure": "২১:৩৩",
+        "departure": "21:33",
         "halt": "",
         "duration": ""
       },
       {
         "station": "সোনাইমুড়ি",
         "arrival": "",
-        "departure": "২১:৪৩",
+        "departure": "21:43",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিপুলাসার",
         "arrival": "",
-        "departure": "২১:৫৬",
+        "departure": "21:56",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নাথেরপেটুয়া",
         "arrival": "",
-        "departure": "২২:০৬",
+        "departure": "22:06",
         "halt": "",
         "duration": ""
       },
       {
         "station": "খিলা",
         "arrival": "",
-        "departure": "২২:১৬",
+        "departure": "22:16",
         "halt": "",
         "duration": ""
       },
       {
         "station": "দৌলতগঞ্জ",
         "arrival": "",
-        "departure": "২২:৩০",
+        "departure": "22:30",
         "halt": "",
         "duration": ""
       },
       {
         "station": "লাকসাম",
         "arrival": "",
-        "departure": "২২:৪৫",
+        "departure": "22:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "কুমিল্লা",
         "arrival": "",
-        "departure": "২৩:১৯",
+        "departure": "23:19",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আখাউড়া",
         "arrival": "",
-        "departure": "০০:২৫",
+        "departure": "00:25",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বি বাড়িয়া",
         "arrival": "",
-        "departure": "০০:৫০",
+        "departure": "00:50",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আশুগঞ্জ",
         "arrival": "",
-        "departure": "০১:১১",
+        "departure": "01:11",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভৈরব",
         "arrival": "",
-        "departure": "০১:২২",
+        "departure": "01:22",
         "halt": "",
         "duration": ""
       },
       {
         "station": "দৌলতকান্দি",
         "arrival": "",
-        "departure": "০১:৩৮",
+        "departure": "01:38",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আমিরগঞ্জ",
         "arrival": "",
-        "departure": "০২:০৩",
+        "departure": "02:03",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নরসিংদী",
         "arrival": "",
-        "departure": "০২:১৩",
+        "departure": "02:13",
         "halt": "",
         "duration": ""
       },
       {
         "station": "জিনারদী",
         "arrival": "",
-        "departure": "০২:২৫",
+        "departure": "02:25",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঘোড়াশাল ফ্ল্যাগ",
         "arrival": "",
-        "departure": "০২:৩৭",
+        "departure": "02:37",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টঙ্গী",
         "arrival": "",
-        "departure": "০৩:০৮",
+        "departure": "03:08",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিমানবন্দর",
         "arrival": "",
-        "departure": "০৩:৩৮",
+        "departure": "03:38",
         "halt": "",
         "duration": ""
       },
       {
-        "station": "ক্যান্টn",
+        "station": "ক্যান্টনমেন্ট",
         "arrival": "",
-        "departure": "০৩:৫০",
+        "departure": "03:50",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তেজগাঁও",
         "arrival": "",
-        "departure": "০৪:০০",
+        "departure": "04:00",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "০৬:১৫",
+        "departure": "06:15",
         "halt": "",
         "duration": ""
       }
@@ -2233,210 +2233,210 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "১৯:১০",
+        "departure": "19:10",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তেজগাঁও",
         "arrival": "",
-        "departure": "১৯:২১",
+        "departure": "19:21",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ক্যান্টনমেন্ট",
         "arrival": "",
-        "departure": "১৯:৩২",
+        "departure": "19:32",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিমানবন্দর",
         "arrival": "",
-        "departure": "১৯:৪২",
+        "departure": "19:42",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টঙ্গী",
         "arrival": "",
-        "departure": "১৯:৫৫",
+        "departure": "19:55",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আড়িখোলা",
         "arrival": "",
-        "departure": "২০:১৮",
+        "departure": "20:18",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঘোড়াশাল ফ্ল্যাগ",
         "arrival": "",
-        "departure": "২০:৩০",
+        "departure": "20:30",
         "halt": "",
         "duration": ""
       },
       {
         "station": "জিনারদী",
         "arrival": "",
-        "departure": "২০:৪২",
+        "departure": "20:42",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নরসিংদী",
         "arrival": "",
-        "departure": "২০:৫২",
+        "departure": "20:52",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আমিরগঞ্জ",
         "arrival": "",
-        "departure": "২১:০৩",
+        "departure": "21:03",
         "halt": "",
         "duration": ""
       },
       {
-        "station": "খানাবাড়ী",
+        "station": "খানাবাড়ি",
         "arrival": "",
-        "departure": "২১:১৩",
+        "departure": "21:13",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মেথিকান্দা",
         "arrival": "",
-        "departure": "২১:২৮",
+        "departure": "21:28",
         "halt": "",
         "duration": ""
       },
       {
         "station": "দৌলতকান্দি",
         "arrival": "",
-        "departure": "২১:৪৩",
+        "departure": "21:43",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভৈরব",
         "arrival": "",
-        "departure": "২১:৫২",
+        "departure": "21:52",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আশুগঞ্জ",
         "arrival": "",
-        "departure": "২২:১০",
+        "departure": "22:10",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তালশহর",
         "arrival": "",
-        "departure": "২২:২০",
+        "departure": "22:20",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বি বাড়িয়া",
         "arrival": "",
-        "departure": "২২:৩৫",
+        "departure": "22:35",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আখাউড়া",
         "arrival": "",
-        "departure": "২৩:১৫",
+        "departure": "23:15",
         "halt": "",
         "duration": ""
       },
       {
         "station": "কুমিল্লা",
         "arrival": "",
-        "departure": "০০:০৮",
+        "departure": "00:08",
         "halt": "",
         "duration": ""
       },
       {
         "station": "লাকসাম",
         "arrival": "",
-        "departure": "০০:৪০",
+        "departure": "00:40",
         "halt": "",
         "duration": ""
       },
       {
         "station": "খিলা",
         "arrival": "",
-        "departure": "০১:০৫",
+        "departure": "01:05",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নাথেরপেটুয়া",
         "arrival": "",
-        "departure": "০১:১৭",
+        "departure": "01:17",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিপুলাসার",
         "arrival": "",
-        "departure": "০১:২৮",
+        "departure": "01:28",
         "halt": "",
         "duration": ""
       },
       {
         "station": "সোনাইমুড়ি",
         "arrival": "",
-        "departure": "০১:৩৭",
+        "departure": "01:37",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বজরা",
         "arrival": "",
-        "departure": "০১:৫১",
+        "departure": "01:51",
         "halt": "",
         "duration": ""
       },
       {
         "station": "চৌমুহনী",
         "arrival": "",
-        "departure": "০২:০২",
+        "departure": "02:02",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মাইজদী",
         "arrival": "",
-        "departure": "০২:১৮",
+        "departure": "02:18",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মাইজদী কোর্ট",
         "arrival": "",
-        "departure": "০২:২৬",
+        "departure": "02:26",
         "halt": "",
         "duration": ""
       },
       {
         "station": "হরিনারায়ণপুর",
         "arrival": "",
-        "departure": "০২:৩৫",
+        "departure": "02:35",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নোয়াখালী",
         "arrival": "",
-        "departure": "০২:৫৫",
+        "departure": "02:55",
         "halt": "",
         "duration": ""
       }
@@ -2458,126 +2458,126 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "২৩:৪৫",
+        "departure": "23:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ক্যান্টনমেন্ট",
         "arrival": "",
-        "departure": "০০:০২",
+        "departure": "00:02",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিমানবন্দর",
         "arrival": "",
-        "departure": "০০:১২",
+        "departure": "00:12",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টঙ্গী",
         "arrival": "",
-        "departure": "০০:২৬",
+        "departure": "00:26",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নরসিংদী",
         "arrival": "",
-        "departure": "০১:০০",
+        "departure": "01:00",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মেথিকান্দা",
         "arrival": "",
-        "departure": "০১:২৩",
+        "departure": "01:23",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভৈরব",
         "arrival": "",
-        "departure": "০১:৪০",
+        "departure": "01:40",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আশুগঞ্জ",
         "arrival": "",
-        "departure": "০১:৫৮",
+        "departure": "01:58",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বি বাড়িয়া",
         "arrival": "",
-        "departure": "০২:১৫",
+        "departure": "02:15",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আখাউড়া",
         "arrival": "",
-        "departure": "০২:৫০",
+        "departure": "02:50",
         "halt": "",
         "duration": ""
       },
       {
         "station": "কুমিল্লা",
         "arrival": "",
-        "departure": "০৩:৪৩",
+        "departure": "03:43",
         "halt": "",
         "duration": ""
       },
       {
         "station": "লাকসাম",
         "arrival": "",
-        "departure": "০৪:১১",
+        "departure": "04:11",
         "halt": "",
         "duration": ""
       },
       {
         "station": "হাসানপুর",
         "arrival": "",
-        "departure": "০৪:৩৫",
+        "departure": "04:35",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ফেনী",
         "arrival": "",
-        "departure": "০৫:০০",
+        "departure": "05:00",
         "halt": "",
         "duration": ""
       },
       {
         "station": "সীতাকুণ্ড",
         "arrival": "",
-        "departure": "০৫:৫৭",
+        "departure": "05:57",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভাটিয়ারী",
         "arrival": "",
-        "departure": "০৬:২৫",
+        "departure": "06:25",
         "halt": "",
         "duration": ""
       },
       {
         "station": "পাহাড়তলী",
         "arrival": "",
-        "departure": "০৬:৪০",
+        "departure": "06:40",
         "halt": "",
         "duration": ""
       },
       {
         "station": "চট্টগ্রাম",
         "arrival": "",
-        "departure": "০৭:১০",
+        "departure": "07:10",
         "halt": "",
         "duration": ""
       }
@@ -2599,119 +2599,119 @@
       {
         "station": "চট্টগ্রাম",
         "arrival": "",
-        "departure": "২৩:৪৫",
+        "departure": "23:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভাটিয়ারী",
         "arrival": "",
-        "departure": "০০:০৩",
+        "departure": "00:03",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ফেনী",
         "arrival": "",
-        "departure": "০১:১৭",
+        "departure": "01:17",
         "halt": "",
         "duration": ""
       },
       {
         "station": "লাকসাম",
         "arrival": "",
-        "departure": "০২:০৩",
+        "departure": "02:03",
         "halt": "",
         "duration": ""
       },
       {
         "station": "কুমিল্লা",
         "arrival": "",
-        "departure": "০২:৩১",
+        "departure": "02:31",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আখাউড়া",
         "arrival": "",
-        "departure": "০৩:৩৫",
+        "departure": "03:35",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বি বাড়িয়া",
         "arrival": "",
-        "departure": "০৩:৫৭",
+        "departure": "03:57",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আশুগঞ্জ",
         "arrival": "",
-        "departure": "০৪:১৬",
+        "departure": "04:16",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভৈরব",
         "arrival": "",
-        "departure": "০৪:২৬",
+        "departure": "04:26",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মেথিকান্দা",
         "arrival": "",
-        "departure": "০৪:৪৫",
+        "departure": "04:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নরসিংদী",
         "arrival": "",
-        "departure": "০৫:০৪",
+        "departure": "05:04",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঘোড়াশাল ফ্ল্যাগ",
         "arrival": "",
-        "departure": "০৫:২৩",
+        "departure": "05:23",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আড়িখোলা",
         "arrival": "",
-        "departure": "০৫:৩৪",
+        "departure": "05:34",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টঙ্গী",
         "arrival": "",
-        "departure": "০৫:৫৬",
+        "departure": "05:56",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিমানবন্দর",
         "arrival": "",
-        "departure": "০৬:১২",
+        "departure": "06:12",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ক্যান্টনমেন্ট",
         "arrival": "",
-        "departure": "০৬:২৩",
+        "departure": "06:23",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "০৭:০০",
+        "departure": "07:00",
         "halt": "",
         "duration": ""
       }
@@ -2733,126 +2733,126 @@
       {
         "station": "আখাউড়া",
         "arrival": "",
-        "departure": "০৫:০০",
+        "departure": "05:00",
         "halt": "",
         "duration": ""
       },
       {
         "station": "পাঘাচং",
         "arrival": "",
-        "departure": "০৫:১২",
+        "departure": "05:12",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বি বাড়িয়া",
         "arrival": "",
-        "departure": "০৫:২৩",
+        "departure": "05:23",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আশুগঞ্জ",
         "arrival": "",
-        "departure": "০৫:৪০",
+        "departure": "05:40",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভৈরব",
         "arrival": "",
-        "departure": "০৫:৫০",
+        "departure": "05:50",
         "halt": "",
         "duration": ""
       },
       {
         "station": "দৌলতকান্দি",
         "arrival": "",
-        "departure": "০৫:৫৮",
+        "departure": "05:58",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শ্রীনিধি",
         "arrival": "",
-        "departure": "০৬:০৭",
+        "departure": "06:07",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মেথিকান্দা",
         "arrival": "",
-        "departure": "০৬:১৫",
+        "departure": "06:15",
         "halt": "",
         "duration": ""
       },
       {
-        "station": "খানাবাড়ী",
+        "station": "খানাবাড়ি",
         "arrival": "",
-        "departure": "০৬:২৮",
+        "departure": "06:28",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আমিরগঞ্জ",
         "arrival": "",
-        "departure": "০৬:৩৬",
+        "departure": "06:36",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নরসিংদী",
         "arrival": "",
-        "departure": "০৬:৪৫",
+        "departure": "06:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঘোড়াশাল ফ্ল্যাগ",
         "arrival": "",
-        "departure": "০৭:০৩",
+        "departure": "07:03",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আড়িখোলা",
         "arrival": "",
-        "departure": "০৭:১৬",
+        "departure": "07:16",
         "halt": "",
         "duration": ""
       },
       {
         "station": "পুবাইল",
         "arrival": "",
-        "departure": "০৭:৩০",
+        "departure": "07:30",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টঙ্গী",
         "arrival": "",
-        "departure": "০৭:৪৫",
+        "departure": "07:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিমানবন্দর",
         "arrival": "",
-        "departure": "০৭:৫৬",
+        "departure": "07:56",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তেজগাঁও",
         "arrival": "",
-        "departure": "০৮:২০",
+        "departure": "08:20",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "০৮:৩৫",
+        "departure": "08:35",
         "halt": "",
         "duration": ""
       }
@@ -2874,126 +2874,126 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "১৭:৪৫",
+        "departure": "17:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তেজগাঁও",
         "arrival": "",
-        "departure": "১৭:৫৬",
+        "departure": "17:56",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিমানবন্দর",
         "arrival": "",
-        "departure": "১৮:১৩",
+        "departure": "18:13",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টঙ্গী",
         "arrival": "",
-        "departure": "১৮:২৫",
+        "departure": "18:25",
         "halt": "",
         "duration": ""
       },
       {
         "station": "পুবাইল",
         "arrival": "",
-        "departure": "১৮:৩৮",
+        "departure": "18:38",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আড়িখোলা",
         "arrival": "",
-        "departure": "১৮:৫০",
+        "departure": "18:50",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঘোড়াশাল ফ্ল্যাগ",
         "arrival": "",
-        "departure": "১৯:০২",
+        "departure": "19:02",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নরসিংদী",
         "arrival": "",
-        "departure": "১৯:১৭",
+        "departure": "19:17",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আমিরগঞ্জ",
         "arrival": "",
-        "departure": "১৯:২৭",
+        "departure": "19:27",
         "halt": "",
         "duration": ""
       },
       {
-        "station": "খানাবাড়ী",
+        "station": "খানাবাড়ি",
         "arrival": "",
-        "departure": "১৯:৩৬",
+        "departure": "19:36",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মেথিকান্দা",
         "arrival": "",
-        "departure": "১৯:৪৯",
+        "departure": "19:49",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শ্রীনিধি",
         "arrival": "",
-        "departure": "১৯:৫৯",
+        "departure": "19:59",
         "halt": "",
         "duration": ""
       },
       {
         "station": "দৌলতকান্দি",
         "arrival": "",
-        "departure": "২০:০৮",
+        "departure": "20:08",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভৈরব",
         "arrival": "",
-        "departure": "২০:১৮",
+        "departure": "20:18",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আশুগঞ্জ",
         "arrival": "",
-        "departure": "২০:২৮",
+        "departure": "20:28",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বি বাড়িয়া",
         "arrival": "",
-        "departure": "২০:৪৬",
+        "departure": "20:46",
         "halt": "",
         "duration": ""
       },
       {
         "station": "পাঘাচং",
         "arrival": "",
-        "departure": "২০:৫৮",
+        "departure": "20:58",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আখাউড়া",
         "arrival": "",
-        "departure": "২১:৩০",
+        "departure": "21:30",
         "halt": "",
         "duration": ""
       }
@@ -3015,63 +3015,63 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "০৯:৪৫",
+        "departure": "09:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিমানবন্দর",
         "arrival": "",
-        "departure": "১০:১০",
+        "departure": "10:10",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টঙ্গী",
         "arrival": "",
-        "departure": "১০:২২",
+        "departure": "10:22",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নরসিংদী",
         "arrival": "",
-        "departure": "১১:০১",
+        "departure": "11:01",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আমিরগঞ্জ",
         "arrival": "",
-        "departure": "১১:১১",
+        "departure": "11:11",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মেথিকান্দা",
         "arrival": "",
-        "departure": "১১:২৮",
+        "departure": "11:28",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভৈরব",
         "arrival": "",
-        "departure": "১১:৫৬",
+        "departure": "11:56",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আশুগঞ্জ",
         "arrival": "",
-        "departure": "১২:০৮",
+        "departure": "12:08",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বি বাড়িয়া",
         "arrival": "",
-        "departure": "১২:৩০",
+        "departure": "12:30",
         "halt": "",
         "duration": ""
       }
@@ -3093,63 +3093,63 @@
       {
         "station": "বি বাড়িয়া",
         "arrival": "",
-        "departure": "১৩:১০",
+        "departure": "13:10",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আশুগঞ্জ",
         "arrival": "",
-        "departure": "১৩:২৫",
+        "departure": "13:25",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভৈরব",
         "arrival": "",
-        "departure": "১৩:৩৪",
+        "departure": "13:34",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মেথিকান্দা",
         "arrival": "",
-        "departure": "১৩:৫১",
+        "departure": "13:51",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আমিরগঞ্জ",
         "arrival": "",
-        "departure": "১৪:০৬",
+        "departure": "14:06",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নরসিংদী",
         "arrival": "",
-        "departure": "১৪:১৫",
+        "departure": "14:15",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টঙ্গী",
         "arrival": "",
-        "departure": "১৪:৫০",
+        "departure": "14:50",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিমানবন্দর",
         "arrival": "",
-        "departure": "১৫:০০",
+        "departure": "15:00",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "১৫:৩০",
+        "departure": "15:30",
         "halt": "",
         "duration": ""
       }
@@ -3171,77 +3171,77 @@
       {
         "station": "ভৈরব",
         "arrival": "",
-        "departure": "০৬:৪৫",
+        "departure": "06:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "দৌলতকান্দি",
         "arrival": "",
-        "departure": "০৬:৫৩",
+        "departure": "06:53",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মেথিকান্দা",
         "arrival": "",
-        "departure": "০৭:০৮",
+        "departure": "07:08",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নরসিংদী",
         "arrival": "",
-        "departure": "০৭:৩৩",
+        "departure": "07:33",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঘোড়াশাল ফ্ল্যাগ",
         "arrival": "",
-        "departure": "০৭:৪৮",
+        "departure": "07:48",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আড়িখোলা",
         "arrival": "",
-        "departure": "০৭:৫৫",
+        "departure": "07:55",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টঙ্গী",
         "arrival": "",
-        "departure": "০৮:১৫",
+        "departure": "08:15",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিমানবন্দর",
         "arrival": "",
-        "departure": "০৮:২৫",
+        "departure": "08:25",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ক্যান্টনমেন্ট",
         "arrival": "",
-        "departure": "০৮:৩৭",
+        "departure": "08:37",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তেজগাঁও",
         "arrival": "",
-        "departure": "০৮:৫০",
+        "departure": "08:50",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "০৯:০৫",
+        "departure": "09:05",
         "halt": "",
         "duration": ""
       }
@@ -3263,70 +3263,70 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "১৮:৩০",
+        "departure": "18:30",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তেজগাঁও",
         "arrival": "",
-        "departure": "১৮:৪১",
+        "departure": "18:41",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিমানবন্দর",
         "arrival": "",
-        "departure": "১৮:৫৭",
+        "departure": "18:57",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টঙ্গী",
         "arrival": "",
-        "departure": "১৯:১০",
+        "departure": "19:10",
         "halt": "",
         "duration": ""
       },
       {
         "station": "পুবাইল",
         "arrival": "",
-        "departure": "১৯:৪৩",
+        "departure": "19:43",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আড়িখোলা",
         "arrival": "",
-        "departure": "১৯:৫৫",
+        "departure": "19:55",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঘোড়াশাল ফ্ল্যাগ",
         "arrival": "",
-        "departure": "২০:০৬",
+        "departure": "20:06",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নরসিংদী",
         "arrival": "",
-        "departure": "২০:২০",
+        "departure": "20:20",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মেথিকান্দা",
         "arrival": "",
-        "departure": "২০:৪০",
+        "departure": "20:40",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভৈরব",
         "arrival": "",
-        "departure": "২১:১০",
+        "departure": "21:10",
         "halt": "",
         "duration": ""
       }
@@ -3348,272 +3348,272 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "২১:০০",
+        "departure": "21:00",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তেজগাঁও",
         "arrival": "",
-        "departure": "২১:১১",
+        "departure": "21:11",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ক্যান্টনমেন্ট",
         "arrival": "",
-        "departure": "২১:২৩",
+        "departure": "21:23",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিমানবন্দর",
         "arrival": "",
-        "departure": "২১:৩২",
+        "departure": "21:32",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টঙ্গী",
         "arrival": "",
-        "departure": "২১:৪৫",
+        "departure": "21:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঘোড়াশাল",
         "arrival": "",
-        "departure": "২২:৩৫",
+        "departure": "22:35",
         "halt": "",
         "duration": ""
       },
       {
         "station": "জিনারদী",
         "arrival": "",
-        "departure": "২২:৪৫",
+        "departure": "22:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নরসিংদী",
         "arrival": "",
-        "departure": "২২:৫৫",
+        "departure": "22:55",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আমিরগঞ্জ",
         "arrival": "",
-        "departure": "২৩:০৮",
+        "departure": "23:08",
         "halt": "",
         "duration": ""
       },
       {
         "station": "খানাবাড়ি",
         "arrival": "",
-        "departure": "২৩:৩০",
+        "departure": "23:30",
         "halt": "",
         "duration": ""
       },
       {
         "station": "হাঁটুভাঙ্গা",
         "arrival": "",
-        "departure": "২৩:৫৮",
+        "departure": "23:58",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মেথিকান্দা",
         "arrival": "",
-        "departure": "০০:০৮",
+        "departure": "00:08",
         "halt": "",
         "duration": ""
       },
       {
         "station": "দৌলতকান্দি",
         "arrival": "",
-        "departure": "০০:৩৫",
+        "departure": "00:35",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভৈরব",
         "arrival": "",
-        "departure": "০১:০০",
+        "departure": "01:00",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আশুগঞ্জ",
         "arrival": "",
-        "departure": "০১:১৯",
+        "departure": "01:19",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ব্রাহ্মণবাড়িয়া",
         "arrival": "",
-        "departure": "০১:৪০",
+        "departure": "01:40",
         "halt": "",
         "duration": ""
       },
       {
-        "station": "আখাউড়া",
+        "station": "আখাউড়া",
         "arrival": "",
-        "departure": "০২:১৫",
+        "departure": "02:15",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মুকুন্দপুর",
         "arrival": "",
-        "departure": "০২:৫৮",
+        "departure": "02:58",
         "halt": "",
         "duration": ""
       },
       {
         "station": "হরষপুর",
         "arrival": "",
-        "departure": "০৩:৩১",
+        "departure": "03:31",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মাথালিয়া",
         "arrival": "",
-        "departure": "০৩:৪৫",
+        "departure": "03:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নয়াপাড়া",
         "arrival": "",
-        "departure": "০৪:০৭",
+        "departure": "04:07",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শাহজীবাজার",
         "arrival": "",
-        "departure": "০৪:২৩",
+        "departure": "04:23",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শায়েস্তাগঞ্জ",
         "arrival": "",
-        "departure": "০৪:৪০",
+        "departure": "04:40",
         "halt": "",
         "duration": ""
       },
       {
         "station": "রশিদপুর",
         "arrival": "",
-        "departure": "০৫:০৮",
+        "departure": "05:08",
         "halt": "",
         "duration": ""
       },
       {
         "station": "সাতগাঁও",
         "arrival": "",
-        "departure": "০৫:২৮",
+        "departure": "05:28",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শ্রীমঙ্গল",
         "arrival": "",
-        "departure": "০৫:৪১",
+        "departure": "05:41",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভানুগাছ",
         "arrival": "",
-        "departure": "০৬:১১",
+        "departure": "06:11",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শমসেরনগর",
         "arrival": "",
-        "departure": "০৬:২৬",
+        "departure": "06:26",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মনু",
         "arrival": "",
-        "departure": "০৬:৩৮",
+        "departure": "06:38",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তিলকচর",
         "arrival": "",
-        "departure": "০৬:৪৫",
+        "departure": "06:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "লংলা",
         "arrival": "",
-        "departure": "০৬:৫৫",
+        "departure": "06:55",
         "halt": "",
         "duration": ""
       },
       {
-        "station": "কুলাউড়া জংশন",
+        "station": "কুলাউড়া",
         "arrival": "",
-        "departure": "০৭:১০",
+        "departure": "07:10",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ছকাপন",
         "arrival": "",
-        "departure": "০৭:৩৩",
+        "departure": "07:33",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বরমচাল",
         "arrival": "",
-        "departure": "০৭:৪৩",
+        "departure": "07:43",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভাটেরাবাজার",
         "arrival": "",
-        "departure": "০৭:৫৩",
+        "departure": "07:53",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মাইজগাঁও",
         "arrival": "",
-        "departure": "০৮:১০",
+        "departure": "08:10",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ফেঞ্চুগঞ্জ",
         "arrival": "",
-        "departure": "০৮:২০",
+        "departure": "08:20",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মোগলাবাজার",
         "arrival": "",
-        "departure": "০৮:৫০",
+        "departure": "08:50",
         "halt": "",
         "duration": ""
       },
       {
         "station": "সিলেট",
-        "arrival": "০৯:৩০",
+        "arrival": "09:30",
         "departure": "",
         "halt": "",
         "duration": ""
@@ -3636,314 +3636,314 @@
       {
         "station": "সিলেট",
         "arrival": "",
-        "departure": "২০:২০",
+        "departure": "20:20",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মোগলাবাজার",
         "arrival": "",
-        "departure": "২০:৪০",
+        "departure": "20:40",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ফেঞ্চুগঞ্জ",
         "arrival": "",
-        "departure": "২১:১৪",
+        "departure": "21:14",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মাইজগাঁও",
         "arrival": "",
-        "departure": "২১:২৫",
+        "departure": "21:25",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভাটেরা বাজার",
         "arrival": "",
-        "departure": "২১:৪২",
+        "departure": "21:42",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বরমচাল",
         "arrival": "",
-        "departure": "২১:৫৭",
+        "departure": "21:57",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ছকাপন",
         "arrival": "",
-        "departure": "২২:১০",
+        "departure": "22:10",
         "halt": "",
         "duration": ""
       },
       {
         "station": "কুলাউড়া",
         "arrival": "",
-        "departure": "২২:২৫",
+        "departure": "22:25",
         "halt": "",
         "duration": ""
       },
       {
         "station": "লংলা",
         "arrival": "",
-        "departure": "২২:৪৭",
+        "departure": "22:47",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টিলালাগাঁও",
         "arrival": "",
-        "departure": "২৩:০০",
+        "departure": "23:00",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মনু",
         "arrival": "",
-        "departure": "২৩:০৫",
+        "departure": "23:05",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শমসেরনগর",
         "arrival": "",
-        "departure": "২৩:১৮",
+        "departure": "23:18",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভানুগাছ",
         "arrival": "",
-        "departure": "২৩:৩৩",
+        "departure": "23:33",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শ্রীমঙ্গল",
         "arrival": "",
-        "departure": "০০:৩০",
+        "departure": "00:30",
         "halt": "",
         "duration": ""
       },
       {
         "station": "সাতগাঁও",
         "arrival": "",
-        "departure": "০০:৫১",
+        "departure": "00:51",
         "halt": "",
         "duration": ""
       },
       {
         "station": "রশিদপুর",
         "arrival": "",
-        "departure": "০১:১৫",
+        "departure": "01:15",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শায়েস্তাগঞ্জ",
         "arrival": "",
-        "departure": "০২:০৫",
+        "departure": "02:05",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শাহজীবাজার",
         "arrival": "",
-        "departure": "০৩:০২",
+        "departure": "03:02",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নয়াপাড়া",
         "arrival": "",
-        "departure": "০৩:১৭",
+        "departure": "03:17",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মন্তলা",
         "arrival": "",
-        "departure": "০৩:৪৭",
+        "departure": "03:47",
         "halt": "",
         "duration": ""
       },
       {
         "station": "হরষপুর",
         "arrival": "",
-        "departure": "০৪:০০",
+        "departure": "04:00",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মুকুন্দপুর",
         "arrival": "",
-        "departure": "০৪:১৪",
+        "departure": "04:14",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আখাউড়া",
         "arrival": "",
-        "departure": "০৫:০০",
+        "departure": "05:00",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভাতশালা",
         "arrival": "",
-        "departure": "০৫:৩৩",
+        "departure": "05:33",
         "halt": "",
         "duration": ""
       },
       {
         "station": "পাঘাচং",
         "arrival": "",
-        "departure": "০৫:৪৩",
+        "departure": "05:43",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বি বাড়িয়া",
         "arrival": "",
-        "departure": "০৫:৫৫",
+        "departure": "05:55",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তালশহর",
         "arrival": "",
-        "departure": "০৬:২০",
+        "departure": "06:20",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আশুগঞ্জ",
         "arrival": "",
-        "departure": "০৬:৩০",
+        "departure": "06:30",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভৈরব",
         "arrival": "",
-        "departure": "০৬:৩৮",
+        "departure": "06:38",
         "halt": "",
         "duration": ""
       },
       {
         "station": "দৌলতকান্দি",
         "arrival": "",
-        "departure": "০৭:০৩",
+        "departure": "07:03",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শ্রীনিধি",
         "arrival": "",
-        "departure": "০৭:১৩",
+        "departure": "07:13",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মেথিকান্দা",
         "arrival": "",
-        "departure": "০৭:২২",
+        "departure": "07:22",
         "halt": "",
         "duration": ""
       },
       {
         "station": "হাঁটুভাঙ্গা",
         "arrival": "",
-        "departure": "০৭:৩২",
+        "departure": "07:32",
         "halt": "",
         "duration": ""
       },
       {
-        "station": "খানাবাড়ী",
+        "station": "খানাবাড়ি",
         "arrival": "",
-        "departure": "০৭:৪২",
+        "departure": "07:42",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আমিরগঞ্জ",
         "arrival": "",
-        "departure": "০৭:৫২",
+        "departure": "07:52",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নরসিংদী",
         "arrival": "",
-        "departure": "০৮:০২",
+        "departure": "08:02",
         "halt": "",
         "duration": ""
       },
       {
         "station": "জিনারদী",
         "arrival": "",
-        "departure": "০৮:১২",
+        "departure": "08:12",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঘোড়াশাল",
         "arrival": "",
-        "departure": "০৮:২১",
+        "departure": "08:21",
         "halt": "",
         "duration": ""
       },
       {
-        "station": "ঘোড়াশাল ফ্লাগ",
+        "station": "ঘোড়াশাল ফ্ল্যাগ",
         "arrival": "",
-        "departure": "০৮:২৮",
+        "departure": "08:28",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আড়িখোলা",
         "arrival": "",
-        "departure": "০৮:৪০",
+        "departure": "08:40",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টঙ্গী",
         "arrival": "",
-        "departure": "০৯:০২",
+        "departure": "09:02",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিমানবন্দর",
         "arrival": "",
-        "departure": "০৯:১৪",
+        "departure": "09:14",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ক্যান্টনমেন্ট",
         "arrival": "",
-        "departure": "০৯:২৪",
+        "departure": "09:24",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তেজগাঁও",
         "arrival": "",
-        "departure": "০৯:৩৮",
+        "departure": "09:38",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঢাকা",
-        "arrival": "০৯:৫৫",
+        "arrival": "09:55",
         "departure": "",
         "halt": "",
         "duration": ""
@@ -3965,293 +3965,293 @@
       {
         "station": "ঢাকা",
         "arrival": "",
-        "departure": "৮:৪৫",
+        "departure": "08:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তেজগাঁও",
         "arrival": "",
-        "departure": "৮:৫৬",
+        "departure": "08:56",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ক্যান্টনমেন্ট",
         "arrival": "",
-        "departure": "৯:০৮",
+        "departure": "09:08",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিমানবন্দর",
         "arrival": "",
-        "departure": "৯:১৮",
+        "departure": "09:18",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টঙ্গী জং",
         "arrival": "",
-        "departure": "৯:৩০",
+        "departure": "09:30",
         "halt": "",
         "duration": ""
       },
       {
         "station": "পুবাইল",
         "arrival": "",
-        "departure": "৯:৪৩",
+        "departure": "09:43",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আড়িখোলা",
         "arrival": "",
-        "departure": "৯:৫৫",
+        "departure": "09:55",
         "halt": "",
         "duration": ""
       },
       {
-        "station": "ঘোড়াশাল ফ্লাগ",
+        "station": "ঘোড়াশাল ফ্ল্যাগ",
         "arrival": "",
-        "departure": "১০:০৭",
+        "departure": "10:07",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঘোড়াশাল",
         "arrival": "",
-        "departure": "১০:১৩",
+        "departure": "10:13",
         "halt": "",
         "duration": ""
       },
       {
         "station": "জিনারদী",
         "arrival": "",
-        "departure": "১০:২২",
+        "departure": "10:22",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নরসিংদী",
         "arrival": "",
-        "departure": "১০:৪২",
+        "departure": "10:42",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আমিরগঞ্জ",
         "arrival": "",
-        "departure": "১০:৫২",
+        "departure": "10:52",
         "halt": "",
         "duration": ""
       },
       {
-        "station": "খানাবাড়ী",
+        "station": "খানাবাড়ি",
         "arrival": "",
-        "departure": "১১:০০",
+        "departure": "11:00",
         "halt": "",
         "duration": ""
       },
       {
         "station": "হাঁটুভাঙ্গা",
         "arrival": "",
-        "departure": "১১:১০",
+        "departure": "11:10",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মেথিকান্দা",
         "arrival": "",
-        "departure": "১১:১৮",
+        "departure": "11:18",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শ্রীনিধি",
         "arrival": "",
-        "departure": "১১:২৭",
+        "departure": "11:27",
         "halt": "",
         "duration": ""
       },
       {
         "station": "দৌলতকান্দি",
         "arrival": "",
-        "departure": "১১:৩৬",
+        "departure": "11:36",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভৈরব জং",
         "arrival": "",
-        "departure": "১১:৪৫",
+        "departure": "11:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আশুগঞ্জ",
         "arrival": "",
-        "departure": "১১:৫৫",
+        "departure": "11:55",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তালশহর",
         "arrival": "",
-        "departure": "১২:০৪",
+        "departure": "12:04",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বি বাড়িয়া",
         "arrival": "",
-        "departure": "১২:১৮",
+        "departure": "12:18",
         "halt": "",
         "duration": ""
       },
       {
         "station": "পাঘাচং",
         "arrival": "",
-        "departure": "১২:৩০",
+        "departure": "12:30",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভাতশালা",
         "arrival": "",
-        "departure": "১২:৩৯",
+        "departure": "12:39",
         "halt": "",
         "duration": ""
       },
       {
-        "station": "আখাউড়া জং",
+        "station": "আখাউড়া",
         "arrival": "",
-        "departure": "১৩:০০",
+        "departure": "13:00",
         "halt": "",
         "duration": ""
       },
       {
         "station": "গঙ্গাসাগর",
         "arrival": "",
-        "departure": "১৩:১২",
+        "departure": "13:12",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ইমামবাড়ি",
         "arrival": "",
-        "departure": "১৩:২২",
+        "departure": "13:22",
         "halt": "",
         "duration": ""
       },
       {
         "station": "কসবা",
         "arrival": "",
-        "departure": "১৩:৩১",
+        "departure": "13:31",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মন্ডলবাগ",
         "arrival": "",
-        "departure": "১৩:৪২",
+        "departure": "13:42",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শালদানদী",
         "arrival": "",
-        "departure": "১৩:৪৮",
+        "departure": "13:48",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শশীদল",
         "arrival": "",
-        "departure": "১৩:৫৪",
+        "departure": "13:54",
         "halt": "",
         "duration": ""
       },
       {
         "station": "রাজাপুর",
         "arrival": "",
-        "departure": "১৪:০৩",
+        "departure": "14:03",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শোডর রসুলপুর",
         "arrival": "",
-        "departure": "১৪:১৫",
+        "departure": "14:15",
         "halt": "",
         "duration": ""
       },
       {
         "station": "কুমিল্লা",
         "arrival": "",
-        "departure": "১৪:২৬",
+        "departure": "14:26",
         "halt": "",
         "duration": ""
       },
       {
         "station": "লাকসাম জং",
         "arrival": "",
-        "departure": "১৪:৫২",
+        "departure": "14:52",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নাঙ্গলকোট",
         "arrival": "",
-        "departure": "১৫:০৯",
+        "departure": "15:09",
         "halt": "",
         "duration": ""
       },
       {
         "station": "হাসানপুর",
         "arrival": "",
-        "departure": "১৫:১৯",
+        "departure": "15:19",
         "halt": "",
         "duration": ""
       },
       {
         "station": "গুণবতী",
         "arrival": "",
-        "departure": "১৫:৩১",
+        "departure": "15:31",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ফেনী",
         "arrival": "",
-        "departure": "১৫:৪৮",
+        "departure": "15:48",
         "halt": "",
         "duration": ""
       },
       {
         "station": "চিনকি আস্তানা",
         "arrival": "",
-        "departure": "১৬:১২",
+        "departure": "16:12",
         "halt": "",
         "duration": ""
       },
       {
         "station": "সীতাকুণ্ড",
         "arrival": "",
-        "departure": "১৬:৪৭",
+        "departure": "16:47",
         "halt": "",
         "duration": ""
       },
       {
         "station": "পাহাড়তলী",
         "arrival": "",
-        "departure": "১৭:২৫",
+        "departure": "17:25",
         "halt": "",
         "duration": ""
       },
       {
         "station": "চট্টগ্রাম",
-        "arrival": "১৭:৫০",
+        "arrival": "17:50",
         "departure": "",
         "halt": "",
         "duration": ""
@@ -4273,286 +4273,286 @@
       {
         "station": "চট্টগ্রাম",
         "arrival": "",
-        "departure": "৯:৪৫",
+        "departure": "09:45",
         "halt": "",
         "duration": ""
       },
       {
         "station": "পাহাড়তলী",
         "arrival": "",
-        "departure": "৯:৫৫",
+        "departure": "09:55",
         "halt": "",
         "duration": ""
       },
       {
         "station": "সীতাকুণ্ড",
         "arrival": "",
-        "departure": "১০:৩০",
+        "departure": "10:30",
         "halt": "",
         "duration": ""
       },
       {
         "station": "চিনকি আস্তানা",
         "arrival": "",
-        "departure": "১১:০৫",
+        "departure": "11:05",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ফেনী",
         "arrival": "",
-        "departure": "১১:২৮",
+        "departure": "11:28",
         "halt": "",
         "duration": ""
       },
       {
         "station": "গুণবতী",
         "arrival": "",
-        "departure": "১১:৪৬",
+        "departure": "11:46",
         "halt": "",
         "duration": ""
       },
       {
         "station": "হাসানপুর",
         "arrival": "",
-        "departure": "১১:৫৮",
+        "departure": "11:58",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নাঙ্গলকোট",
         "arrival": "",
-        "departure": "১২:০৮",
+        "departure": "12:08",
         "halt": "",
         "duration": ""
       },
       {
         "station": "লাকসাম জং",
         "arrival": "",
-        "departure": "১২:২৫",
+        "departure": "12:25",
         "halt": "",
         "duration": ""
       },
       {
         "station": "কুমিল্লা",
         "arrival": "",
-        "departure": "১২:৫২",
+        "departure": "12:52",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শোডর রসুলপুর",
         "arrival": "",
-        "departure": "১৩:০৪",
+        "departure": "13:04",
         "halt": "",
         "duration": ""
       },
       {
         "station": "রাজাপুর",
         "arrival": "",
-        "departure": "১৩:১৬",
+        "departure": "13:16",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শশীদল",
         "arrival": "",
-        "departure": "১৩:২৭",
+        "departure": "13:27",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শালদানদী",
         "arrival": "",
-        "departure": "১৩:৩৫",
+        "departure": "13:35",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মন্ডলবাগ",
         "arrival": "",
-        "departure": "১৩:৪১",
+        "departure": "13:41",
         "halt": "",
         "duration": ""
       },
       {
         "station": "কসবা",
         "arrival": "",
-        "departure": "১৩:৫২",
+        "departure": "13:52",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ইমামবাড়ি",
         "arrival": "",
-        "departure": "১৪:০১",
+        "departure": "14:01",
         "halt": "",
         "duration": ""
       },
       {
         "station": "গঙ্গাসাগর",
         "arrival": "",
-        "departure": "১৪:১১",
+        "departure": "14:11",
         "halt": "",
         "duration": ""
       },
       {
-        "station": "আখাউড়া জং",
+        "station": "আখাউড়া",
         "arrival": "",
-        "departure": "১৪:২৫",
+        "departure": "14:25",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভাতশালা",
         "arrival": "",
-        "departure": "১৪:৩৮",
+        "departure": "14:38",
         "halt": "",
         "duration": ""
       },
       {
         "station": "পাঘাচং",
         "arrival": "",
-        "departure": "১৪:৪৭",
+        "departure": "14:47",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বি বাড়িয়া",
         "arrival": "",
-        "departure": "১৪:৫৯",
+        "departure": "14:59",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তালশহর",
         "arrival": "",
-        "departure": "১৫:১৩",
+        "departure": "15:13",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আশুগঞ্জ",
         "arrival": "",
-        "departure": "১৫:২৩",
+        "departure": "15:23",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ভৈরব জং",
         "arrival": "",
-        "departure": "১৫:৩৩",
+        "departure": "15:33",
         "halt": "",
         "duration": ""
       },
       {
         "station": "দৌলতকান্দি",
         "arrival": "",
-        "departure": "১৫:৪২",
+        "departure": "15:42",
         "halt": "",
         "duration": ""
       },
       {
         "station": "শ্রীনিধি",
         "arrival": "",
-        "departure": "১৫:৫১",
+        "departure": "15:51",
         "halt": "",
         "duration": ""
       },
       {
         "station": "মেথিকান্দা",
         "arrival": "",
-        "departure": "১৬:০০",
+        "departure": "16:00",
         "halt": "",
         "duration": ""
       },
       {
         "station": "হাঁটুভাঙ্গা",
         "arrival": "",
-        "departure": "১৬:০৮",
+        "departure": "16:08",
         "halt": "",
         "duration": ""
       },
       {
-        "station": "খানাবাড়ী",
+        "station": "খানাবাড়ি",
         "arrival": "",
-        "departure": "১৬:১৮",
+        "departure": "16:18",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আমিরগঞ্জ",
         "arrival": "",
-        "departure": "১৬:২৬",
+        "departure": "16:26",
         "halt": "",
         "duration": ""
       },
       {
         "station": "নরসিংদী",
         "arrival": "",
-        "departure": "১৬:৩৬",
+        "departure": "16:36",
         "halt": "",
         "duration": ""
       },
       {
         "station": "জিনারদী",
         "arrival": "",
-        "departure": "১৬:৪৬",
+        "departure": "16:46",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঘোড়াশাল",
         "arrival": "",
-        "departure": "১৬:৫৫",
+        "departure": "16:55",
         "halt": "",
         "duration": ""
       },
       {
-        "station": "ঘোড়াশাল ফ্লাগ",
+        "station": "ঘোড়াশাল ফ্ল্যাগ",
         "arrival": "",
-        "departure": "১৭:০১",
+        "departure": "17:01",
         "halt": "",
         "duration": ""
       },
       {
         "station": "আড়িখোলা",
         "arrival": "",
-        "departure": "১৭:১৩",
+        "departure": "17:13",
         "halt": "",
         "duration": ""
       },
       {
         "station": "পুবাইল",
         "arrival": "",
-        "departure": "১৭:২৬",
+        "departure": "17:26",
         "halt": "",
         "duration": ""
       },
       {
         "station": "টঙ্গী জং",
         "arrival": "",
-        "departure": "১৭:৪০",
+        "departure": "17:40",
         "halt": "",
         "duration": ""
       },
       {
         "station": "বিমানবন্দর",
         "arrival": "",
-        "departure": "১৭:৫০",
+        "departure": "17:50",
         "halt": "",
         "duration": ""
       },
       {
         "station": "তেজগাঁও",
         "arrival": "",
-        "departure": "১৮:০৮",
+        "departure": "18:08",
         "halt": "",
         "duration": ""
       },
       {
         "station": "ঢাকা",
-        "arrival": "১৮:২০",
+        "arrival": "18:20",
         "departure": "",
         "halt": "",
         "duration": ""

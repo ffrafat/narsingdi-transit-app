@@ -1,33 +1,26 @@
-import React, { useEffect, useState, useLayoutEffect, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react';
 import {
   View,
   FlatList,
   StyleSheet,
   Text as RNText,
-  Alert,
-  Pressable,
   TouchableOpacity,
   ScrollView,
   ImageBackground,
 } from 'react-native';
 import {
-  Text,
-  IconButton,
-  useTheme,
-  Surface,
   Button,
+  Surface,
+  useTheme,
 } from 'react-native-paper';
-import NetInfo from '@react-native-community/netinfo';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation, useFocusEffect, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import TrainCard from '../components/TrainCard';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { LinearGradient } from 'expo-linear-gradient';
 import PulsingTimerIcon from '../components/PulsingTimerIcon';
-import DropdownSelector from '../components/DropdownSelector';
+import SearchableModalSelector from '../components/SearchableModalSelector';
 
-import { fetchAndCacheRoute, loadFromCache } from '../utils/dataFetcher';
 import { useAppTheme } from '../ThemeContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -35,7 +28,13 @@ import useUpdatePrompt from '../hooks/useUpdatePrompt';
 
 import trainDetailsData from '../assets/trainDetails.json';
 
-const LOCATIONS = ['ঢাকা', 'তেজগাঁও', 'বিমানবন্দর', 'নরসিংদী', 'মেথিকান্দা', 'দৌলতকান্দি', 'ভৈরব'];
+const LOCATIONS = [
+  ...new Set(
+    Object.values(trainDetailsData).flatMap(train =>
+      train.routes.map(stop => stop.station)
+    )
+  )
+].sort((a, b) => a.localeCompare(b, 'bn'));
 
 const bengaliDays = {
   Sunday: 'রবিবার',
@@ -48,6 +47,7 @@ const bengaliDays = {
 };
 
 const engToBengaliDigit = (input) => {
+  if (input === undefined || input === null) return '';
   const digitMap = {
     '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪',
     '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯',
@@ -95,154 +95,92 @@ const TimetableScreen = () => {
   const styles = getStyles(theme, insets);
   useUpdatePrompt();
   const navigation = useNavigation();
-  const [from, setFrom] = useState('নরসিংদী');
-  const [to, setTo] = useState('ঢাকা');
-  const initialized = useRef(false);
+  const [from, setFrom] = useState(defaultFrom || 'নরসিংদী');
+  const [to, setTo] = useState(defaultTo || 'ঢাকা');
   const [trains, setTrains] = useState([]);
   const [date, setDate] = useState(new Date());
-  const [tempDate, setTempDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [rawData, setRawData] = useState([]);
   const [passedTrains, setPassedTrains] = useState([]);
-  const [expanded, setExpanded] = useState(false);
 
-
-  // ✅ Sync local state whenever global default settings change
+  // Sync local state whenever global default settings change
   useEffect(() => {
-    setFrom(defaultFrom);
-    setTo(defaultTo);
+    if (defaultFrom) setFrom(defaultFrom);
+    if (defaultTo) setTo(defaultTo);
   }, [defaultFrom, defaultTo]);
 
+  // Main data processing logic
+  const processTrains = useCallback(() => {
+    const engToday = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
+    const todayBn = bengaliDays[engToday].substring(0, 2); // Get "শনি", "রবি", etc.
+    const now = new Date();
+    const isToday = date.toDateString() === now.toDateString();
 
+    const filtered = Object.entries(trainDetailsData).reduce((acc, [trainNo, details]) => {
+      const routes = details.routes;
+      const fromIndex = routes.findIndex(r => r.station === from);
+      const toIndex = routes.findIndex(r => r.station === to);
 
+      // 1. Must contain both stations and 'to' must be after 'from'
+      if (fromIndex !== -1 && toIndex !== -1 && toIndex > fromIndex) {
+        const fromStop = routes[fromIndex];
 
-  // Initial data fetch & caching
-  useEffect(() => {
-    const init = async () => {
-      const allRoutes = [
-        { from: 'নরসিংদী', to: 'ঢাকা' },
-        { from: 'নরসিংদী', to: 'বিমানবন্দর' },
-        { from: 'নরসিংদী', to: 'তেজগাঁও' },
+        // 2. Off-Day Logic: Check if train runs on the selected day relative to origin
+        const runsOnDay = details.runsOn.find(d => d.startsWith(todayBn));
+        const isOff = runsOnDay && runsOnDay.includes('(বন্ধ)');
 
-        { from: 'ঢাকা', to: 'নরসিংদী' },
-        { from: 'বিমানবন্দর', to: 'নরসিংদী' },
-        { from: 'তেজগাঁও', to: 'নরসিংদী' },
+        if (!isOff) {
+          const departureTimeStr = fromStop.departure || fromStop.arrival;
+          if (departureTimeStr) {
+            const [h, m] = departureTimeStr.split(':').map(Number);
+            const trainTime = new Date(date);
+            trainTime.setHours(h, m, 0, 0);
 
-
-        { from: 'মেথিকান্দা', to: 'ঢাকা' },
-        { from: 'মেথিকান্দা', to: 'বিমানবন্দর' },
-        { from: 'মেথিকান্দা', to: 'তেজগাঁও' },
-
-        { from: 'ঢাকা', to: 'মেথিকান্দা' },
-        { from: 'বিমানবন্দর', to: 'মেথিকান্দা' },
-        { from: 'তেজগাঁও', to: 'মেথিকান্দা' },
-
-
-        { from: 'ভৈরব', to: 'ঢাকা' },
-        { from: 'ভৈরব', to: 'বিমানবন্দর' },
-        { from: 'ভৈরব', to: 'তেজগাঁও' },
-
-        { from: 'ঢাকা', to: 'ভৈরব' },
-        { from: 'বিমানবন্দর', to: 'ভৈরব' },
-        { from: 'তেজগাঁও', to: 'ভৈরব' },
-
-
-        { from: 'দৌলতকান্দি', to: 'ঢাকা' },
-        { from: 'দৌলতকান্দি', to: 'বিমানবন্দর' },
-        { from: 'দৌলতকান্দি', to: 'তেজগাঁও' },
-
-        { from: 'ঢাকা', to: 'দৌলতকান্দি' },
-        { from: 'বিমানবন্দর', to: 'দৌলতকান্দি' },
-        { from: 'তেজগাঁও', to: 'দৌলতকান্দি' },
-      ];
-
-      const netInfo = await NetInfo.fetch();
-      const isConnected = netInfo.isConnected;
-      const cachedKeys = await AsyncStorage.getAllKeys();
-      const hasAnyCache = cachedKeys.some(k => k.startsWith('route_'));
-
-      if (!hasAnyCache && !isConnected) {
-        Alert.alert(
-          'ইন্টারনেট সংযোগ নেই',
-          'প্রথমবার ডেটাবেজ আপডেট করতে ইন্টারনেট চালু করুন। তবে পরবর্তীতে আর ইন্টারনেট প্রয়োজন নেই। অ্যাপটি সম্পূর্ণ অফলাইনে কাজ করবে।',
-          [{ text: 'ঠিক আছে' }]
-        );
-        return;
-      }
-
-      if (isConnected) {
-        for (const route of allRoutes) {
-          await fetchAndCacheRoute(route.from, route.to);
+            // Map to the structure expected by TrainCard
+            acc.push({
+              'Train No.': trainNo,
+              'Train Name': details.name,
+              'From Station Time': departureTimeStr,
+              'Day Night Time': h >= 12 ? 'PM' : 'AM',
+              'Start Station': routes[0].station,
+              'End Station': routes[routes.length - 1].station,
+              'Off Day': details.runsOn.find(d => d.includes('(বন্ধ)'))?.replace(' (বন্ধ)', '') || '',
+              __trainTime: trainTime,
+            });
+          }
         }
       }
-    };
+      return acc;
+    }, []);
 
-    init();
-  }, []);
+    // Sort by time
+    const sorted = filtered.sort((a, b) => a.__trainTime - b.__trainTime);
 
-  // Filter trains by time and off day
-  const filterAndSetTrains = (data) => {
-    const engToday = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
-    const today = bengaliDays[engToday];
-    const now = new Date();
-
-    const withTimes = data
-      .filter(item => item['Off Day'] !== today && item['From Station Time'])
-      .map(item => {
-        const [h, m] = item['From Station Time'].split(':').map(Number);
-        const trainTime = new Date(date);
-        trainTime.setHours(h, m, 0, 0);
-        return { ...item, __trainTime: trainTime };
-      });
-
-    const upcoming = withTimes
-      .filter(item => item.__trainTime >= now)
-      .sort((a, b) => a.__trainTime - b.__trainTime);
-
-    const passed = withTimes
-      .filter(item => item.__trainTime < now)
-      .sort((a, b) => b.__trainTime - a.__trainTime); // reverse order
-
-    setTrains(upcoming);
-    setPassedTrains(passed);
-  };
-
-  // Fetch data from AsyncStorage cache
-  const fetchData = useCallback(async () => {
-    setTrains([]);
-
-    const cacheKey = `route_${from}_${to}`;
-    try {
-      const cached = await AsyncStorage.getItem(cacheKey);
-      if (cached) {
-        const data = JSON.parse(cached);
-        setRawData(data);
-        filterAndSetTrains(data);
-      } else {
-        setTrains(null);
-      }
-    } catch (e) {
-      console.error('❌ Failed to load from cache', e);
-      setTrains(null);
+    if (isToday) {
+      const upcoming = sorted.filter(t => t.__trainTime >= now);
+      const passed = sorted.filter(t => t.__trainTime < now).reverse();
+      setTrains(upcoming);
+      setPassedTrains(passed);
+    } else {
+      setTrains(sorted);
+      setPassedTrains([]);
     }
-  }, [from, to, date]);
+  }, [from, to, date, from]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    processTrains();
+  }, [processTrains]);
 
-  // Re-filter every minute for accurate next train display
+  // Re-filter every minute if it's "today"
   useEffect(() => {
     const interval = setInterval(() => {
-      if (rawData.length > 0) {
-        filterAndSetTrains(rawData);
+      const now = new Date();
+      if (date.toDateString() === now.toDateString()) {
+        processTrains();
       }
     }, 60000);
-
     return () => clearInterval(interval);
-  }, [rawData, date]);
+  }, [processTrains, date]);
 
-  // Move date pill to navigation header right
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -257,35 +195,26 @@ const TimetableScreen = () => {
       ),
     });
   }, [navigation, date, styles]);
-  // Next departure countdown text
+
   const getNextDepartureIn = () => {
     if (!trains?.length) return '';
     const now = new Date();
-    const [h, m] = trains[0]['From Station Time'].split(':').map(Number);
-    const departure = new Date(date);
-    departure.setHours(h, m, 0, 0);
-    let diff = departure - now;
-    if (diff < 0) diff += 86400000; // add 24h if negative
+    const trainTime = trains[0].__trainTime;
+    let diff = trainTime - now;
+    if (diff < 0) return '';
+
     const hrs = Math.floor(diff / 3600000);
     const mins = Math.floor((diff % 3600000) / 60000);
-    return `${engToBengaliDigit(hrs)} ঘন্টা ${engToBengaliDigit(mins)} মিনিট`;
+
+    let parts = [];
+    if (hrs > 0) parts.push(`${engToBengaliDigit(hrs)} ঘণ্টা`);
+    if (mins >= 0) parts.push(`${engToBengaliDigit(mins)} মিনিট`);
+    return parts.join(' ');
   };
 
-  // Helper to navigate to train details
-  const goToTrainDetails = (trainNo) => {
-    const details = trainDetailsData[trainNo];
-    if (details) {
-      navigation.navigate('TrainDetails', { trainDetails: details, trainNo: trainNo });
-    } else {
-      Alert.alert('তথ্য নেই', 'এই ট্রেনের বিস্তারিত তথ্য পাওয়া যায়নি।');
-    }
-  };
-
-  // Header Content Sub-component
   const HeaderContent = () => (
     <>
-      {/* New Two-Line Countdown - Middle aligned and balanced */}
-      {Array.isArray(trains) && trains.length > 0 && (
+      {Array.isArray(trains) && trains.length > 0 && date.toDateString() === new Date().toDateString() && (
         <View style={styles.headerCountdownWrapper}>
           <RNText style={styles.headerCountdownLabel}>পরবর্তী ট্রেন</RNText>
           <View style={styles.countdownValueRow}>
@@ -302,7 +231,6 @@ const TimetableScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Immersive Header and Floating Selector Container */}
       <View style={styles.headerWrapper}>
         <View style={styles.headerGradientContainer}>
           {heroTheme.image ? (
@@ -333,17 +261,17 @@ const TimetableScreen = () => {
           )}
         </View>
 
-        {/* Floating Journey Selector */}
         <Surface style={styles.floatingSelector} elevation={2}>
           <View style={styles.selectorRow}>
             <View style={styles.stationBlock}>
               <View style={styles.hintRow}>
                 <RNText style={styles.selectorHint}>যাত্রা</RNText>
               </View>
-              <DropdownSelector
+              <SearchableModalSelector
                 options={LOCATIONS}
                 selected={from}
                 onChange={setFrom}
+                label="যাত্রা শুরু"
               />
             </View>
 
@@ -365,24 +293,25 @@ const TimetableScreen = () => {
               <View style={[styles.hintRow, { justifyContent: 'flex-end' }]}>
                 <RNText style={styles.selectorHint}>গন্তব্য</RNText>
               </View>
-              <DropdownSelector
+              <SearchableModalSelector
                 options={LOCATIONS}
                 selected={to}
                 onChange={setTo}
+                label="গন্তব্য স্টেশন"
               />
             </View>
           </View>
         </Surface>
       </View>
 
-      {trains === null && (
+      {trains.length === 0 && passedTrains.length === 0 && (
         <View style={styles.emptyState}>
           <Icon name="calendar-question" size={64} color={theme.colors.outlineVariant} />
-          <RNText style={styles.emptyText}>এই রুটে কোনো তথ্য নেই</RNText>
+          <RNText style={styles.emptyText}>এই রুটে কোনো ট্রেন নেই</RNText>
         </View>
       )}
 
-      {Array.isArray(trains) && trains.length === 0 && passedTrains.length > 0 && (
+      {trains.length === 0 && passedTrains.length > 0 && (
         <ScrollView contentContainerStyle={styles.centeredList}>
           <View style={styles.allPassedContainer}>
             <Icon name="check-circle-outline" size={48} color={theme.colors.primary} />
@@ -409,15 +338,20 @@ const TimetableScreen = () => {
             <View style={styles.headerLine} />
           </View>
 
-          {passedTrains.map(item => <TrainCard key={item['Train No.']} train={item} passed />)}
+          {passedTrains.map(item => (
+            <TrainCard
+              key={item['Train No.']}
+              train={item}
+              passed
+            />
+          ))}
         </ScrollView>
       )}
 
-      {Array.isArray(trains) && trains.length > 0 && (
+      {(trains.length > 0 || (trains.length === 0 && passedTrains.length > 0)) && (
         <FlatList
           data={[
-            { type: 'hero', item: trains[0] },
-            ...trains.slice(1).map(item => ({ type: 'train', item })),
+            ...trains.map((item, index) => ({ type: index === 0 ? 'hero' : 'train', item })),
             ...(passedTrains.length > 0 ? [{ type: 'passedHeader' }] : []),
             ...passedTrains.map(item => ({ type: 'passed', item })),
           ]}
@@ -452,7 +386,7 @@ const TimetableScreen = () => {
 
       {showDatePicker && (
         <DateTimePicker
-          value={tempDate}
+          value={date}
           mode="date"
           display="calendar"
           accentColor={theme.colors.primary}
@@ -464,7 +398,7 @@ const TimetableScreen = () => {
       )}
     </View>
   );
-}
+};
 
 const getStyles = (theme, insets) => StyleSheet.create({
   container: {
