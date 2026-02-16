@@ -20,9 +20,9 @@
 ### 📸 Screenshots | স্ক্রিনশট
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/main/BRANDING/screenshot-1.png" width="250" />
-  <img src="https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/main/BRANDING/screenshot-2.png" width="250" />
-  <img src="https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/main/BRANDING/screenshot-3.png" width="250" />
+  <img src="https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/main/BRANDING/ss-1.png" width="250" />
+  <img src="https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/main/BRANDING/ss-2.png" width="250" />
+  <img src="https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/main/BRANDING/ss-3.png" width="250" />
 </div>
 
 ---
