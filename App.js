@@ -6,7 +6,10 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { lightTheme, darkTheme } from './theme';
 import MainNavigator from './navigation/MainNavigator';
 import { ThemeProvider, useAppTheme } from './ThemeContext';
+import { FavoritesProvider } from './FavoritesContext';
 import { useFonts } from 'expo-font';
+
+import { DataProvider } from './DataContext';
 
 // Set default font for all Text components globally
 if (Text.defaultProps == null) {
@@ -52,7 +55,11 @@ function MainApp() {
 export default function App() {
   return (
     <ThemeProvider>
-      <MainApp />
+      <DataProvider>
+        <FavoritesProvider>
+          <MainApp />
+        </FavoritesProvider>
+      </DataProvider>
     </ThemeProvider>
   );
 }

@@ -5,7 +5,7 @@ import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppTheme } from '../ThemeContext';
-import trainDetailsData from '../assets/trainDetails.json';
+import { useTrainData } from '../DataContext';
 
 const TrainDetailsScreen = ({ route, navigation }) => {
   const trainNo = route.params?.trainNo;
@@ -136,9 +136,10 @@ const TrainDetailsScreen = ({ route, navigation }) => {
     ? details.runsOn.join(', ')
     : 'তথ্য নেই';
 
-  // Extract off days from runsOn array
+  // Calculate off days: days not in runsOn array
+  const allBnDays = ['শনি', 'রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহস্পতি', 'শুক্র'];
   const offDays = Array.isArray(details.runsOn)
-    ? details.runsOn.filter(day => day.includes('(বন্ধ)')).map(day => day.replace(' (বন্ধ)', '')).join(', ')
+    ? allBnDays.filter(d => !details.runsOn.includes(d)).join(', ')
     : '';
 
   const routeStops = Array.isArray(details.routes) ? details.routes : [];
@@ -197,7 +198,7 @@ const TrainDetailsScreen = ({ route, navigation }) => {
               </View>
               <View style={styles.infoTextContainer}>
                 <Text style={styles.offDayLabel}>বন্ধের দিন</Text>
-                <Text style={styles.offDayValue}>{offDays}</Text>
+                <Text style={styles.offDayValue}>{offDays}বার</Text>
               </View>
             </View>
           </View>

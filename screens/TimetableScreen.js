@@ -20,30 +20,24 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { LinearGradient } from 'expo-linear-gradient';
 import PulsingTimerIcon from '../components/PulsingTimerIcon';
 import SearchableModalSelector from '../components/SearchableModalSelector';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useAppTheme } from '../ThemeContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import useUpdatePrompt from '../hooks/useUpdatePrompt';
+import { useFavorites } from '../FavoritesContext';
 
-import trainDetailsData from '../assets/trainDetails.json';
-
-const LOCATIONS = [
-  ...new Set(
-    Object.values(trainDetailsData).flatMap(train =>
-      train.routes.map(stop => stop.station)
-    )
-  )
-].sort((a, b) => a.localeCompare(b, 'bn'));
+import { useTrainData } from '../DataContext';
 
 const bengaliDays = {
-  Sunday: 'রবিবার',
-  Monday: 'সোমবার',
-  Tuesday: 'মঙ্গলবার',
-  Wednesday: 'বুধবার',
-  Thursday: 'বৃহস্পতিবার',
-  Friday: 'শুক্রবার',
-  Saturday: 'শনিবার',
+  Sunday: 'রবি',
+  Monday: 'সোম',
+  Tuesday: 'মঙ্গল',
+  Wednesday: 'বুধ',
+  Thursday: 'বৃহস্পতি',
+  Friday: 'শুক্র',
+  Saturday: 'শনি',
 };
 
 const engToBengaliDigit = (input) => {
@@ -95,38 +89,102 @@ const TimetableScreen = () => {
   const styles = getStyles(theme, insets);
   useUpdatePrompt();
   const navigation = useNavigation();
-  const [from, setFrom] = useState(defaultFrom || 'নরসিংদী');
-  const [to, setTo] = useState(defaultTo || 'ঢাকা');
+  const { favorites } = useFavorites();
+  const { trains: trainData, updateAvailable, checkForUpdates: runUpdate } = useTrainData(); // Get data from context
+
+  const [from, setFrom] = useState(defaultFrom || 'ঢাকা');
+  const [to, setTo] = useState(defaultTo || 'চট্টগ্রাম');
   const [trains, setTrains] = useState([]);
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [passedTrains, setPassedTrains] = useState([]);
 
-  // Sync local state whenever global default settings change
+  // Use favorites for dropdown, sorted alphabetically
+  const LOCATIONS = favorites.length > 0
+    ? [...favorites].sort((a, b) => a.localeCompare(b, 'bn'))
+    : ['ঢাকা', 'বিমানবন্দর', 'নরসিংদী', 'ভৈরব', 'সিলেট', 'চট্টগ্রাম']; // Fallback to defaults
+
+  // Handlers with validation to prevent same station selection
+  const handleFromChange = (newFrom) => {
+    if (newFrom === to) {
+      // If selecting same as destination, swap them
+      setTo(from);
+    }
+    setFrom(newFrom);
+  };
+
+  const handleToChange = (newTo) => {
+    if (newTo === from) {
+      // If selecting same as departure, swap them
+      setFrom(to);
+    }
+    setTo(newTo);
+  };
+
+  // Load persisted selections on mount
   useEffect(() => {
-    if (defaultFrom) setFrom(defaultFrom);
-    if (defaultTo) setTo(defaultTo);
-  }, [defaultFrom, defaultTo]);
+    const loadSelections = async () => {
+      try {
+        const savedFrom = await AsyncStorage.getItem('timetable_from');
+        const savedTo = await AsyncStorage.getItem('timetable_to');
+
+        if (savedFrom && LOCATIONS.includes(savedFrom)) {
+          setFrom(savedFrom);
+        } else if (LOCATIONS.length > 0) {
+          setFrom(LOCATIONS[0]);
+        }
+
+        if (savedTo && LOCATIONS.includes(savedTo) && savedTo !== savedFrom) {
+          setTo(savedTo);
+        } else if (LOCATIONS.includes('চট্টগ্রাম')) {
+          setTo('চট্টগ্রাম');
+        } else if (LOCATIONS.length > 1) {
+          setTo(LOCATIONS[1]);
+        }
+      } catch (error) {
+        console.error('Error loading timetable selections:', error);
+      }
+    };
+
+    if (LOCATIONS.length > 0) {
+      loadSelections();
+    }
+  }, []);
+
+  // Persist selections whenever they change
+  useEffect(() => {
+    if (from) {
+      AsyncStorage.setItem('timetable_from', from);
+    }
+  }, [from]);
+
+  useEffect(() => {
+    if (to) {
+      AsyncStorage.setItem('timetable_to', to);
+    }
+  }, [to]);
 
   // Main data processing logic
   const processTrains = useCallback(() => {
     const engToday = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
-    const todayBn = bengaliDays[engToday].substring(0, 2); // Get "শনি", "রবি", etc.
+    const todayBn = bengaliDays[engToday]; // Get full Bengali day name to match JSON
     const now = new Date();
     const isToday = date.toDateString() === now.toDateString();
 
-    const filtered = Object.entries(trainDetailsData).reduce((acc, [trainNo, details]) => {
+    // All Bengali day abbreviations in order
+    const allBnDays = ['শনি', 'রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহস্পতি', 'শুক্র'];
+
+    const filtered = Object.entries(trainData).filter(([key]) => key !== '_metadata').reduce((acc, [trainNo, details]) => {
       const routes = details.routes;
-      const fromIndex = routes.findIndex(r => r.station === from);
-      const toIndex = routes.findIndex(r => r.station === to);
+      const fromIndex = routes.findIndex(r => r.station.trim().normalize() === from);
+      const toIndex = routes.findIndex(r => r.station.trim().normalize() === to);
 
       // 1. Must contain both stations and 'to' must be after 'from'
       if (fromIndex !== -1 && toIndex !== -1 && toIndex > fromIndex) {
         const fromStop = routes[fromIndex];
 
-        // 2. Off-Day Logic: Check if train runs on the selected day relative to origin
-        const runsOnDay = details.runsOn.find(d => d.startsWith(todayBn));
-        const isOff = runsOnDay && runsOnDay.includes('(বন্ধ)');
+        // 2. Off-Day Logic: Check if current day is in runsOn array
+        const isOff = !details.runsOn.includes(todayBn);
 
         if (!isOff) {
           const departureTimeStr = fromStop.departure || fromStop.arrival;
@@ -134,6 +192,10 @@ const TimetableScreen = () => {
             const [h, m] = departureTimeStr.split(':').map(Number);
             const trainTime = new Date(date);
             trainTime.setHours(h, m, 0, 0);
+
+            // Calculate off-days: days not in runsOn array
+            const offDays = allBnDays.filter(d => !details.runsOn.includes(d));
+            const offDayLabel = offDays.length > 0 ? offDays.join(', ') : '';
 
             // Map to the structure expected by TrainCard
             acc.push({
@@ -143,7 +205,7 @@ const TimetableScreen = () => {
               'Day Night Time': h >= 12 ? 'PM' : 'AM',
               'Start Station': routes[0].station,
               'End Station': routes[routes.length - 1].station,
-              'Off Day': details.runsOn.find(d => d.includes('(বন্ধ)'))?.replace(' (বন্ধ)', '') || '',
+              'Off Day': offDayLabel,
               __trainTime: trainTime,
             });
           }
@@ -164,7 +226,7 @@ const TimetableScreen = () => {
       setTrains(sorted);
       setPassedTrains([]);
     }
-  }, [from, to, date, from]);
+  }, [from, to, date, trainData]);
 
   useEffect(() => {
     processTrains();
@@ -270,8 +332,9 @@ const TimetableScreen = () => {
               <SearchableModalSelector
                 options={LOCATIONS}
                 selected={from}
-                onChange={setFrom}
+                onChange={handleFromChange}
                 label="যাত্রা শুরু"
+                onNavigateToAllStations={() => navigation.navigate('সকল স্টেশন')}
               />
             </View>
 
@@ -296,8 +359,9 @@ const TimetableScreen = () => {
               <SearchableModalSelector
                 options={LOCATIONS}
                 selected={to}
-                onChange={setTo}
+                onChange={handleToChange}
                 label="গন্তব্য স্টেশন"
+                onNavigateToAllStations={() => navigation.navigate('সকল স্টেশন')}
               />
             </View>
           </View>
@@ -311,46 +375,10 @@ const TimetableScreen = () => {
         </View>
       )}
 
-      {trains.length === 0 && passedTrains.length > 0 && (
-        <ScrollView contentContainerStyle={styles.centeredList}>
-          <View style={styles.allPassedContainer}>
-            <Icon name="check-circle-outline" size={48} color={theme.colors.primary} />
-            <RNText style={styles.allPassedText}>আজকের সব ট্রেন ছেড়ে গেছে</RNText>
-
-            <Button
-              mode="contained"
-              onPress={() => {
-                const tomorrow = new Date(date);
-                tomorrow.setDate(date.getDate() + 1);
-                setDate(tomorrow);
-              }}
-              style={styles.tomorrowBtn}
-            >
-              আগামীকালের সূচী দেখুন
-            </Button>
-          </View>
-
-          <View style={styles.sectionHeader}>
-            <View style={styles.sectionTitleContainer}>
-              <Icon name="clock-check-outline" size={20} color={theme.colors.outline} />
-              <RNText style={styles.passedHeaderText}>ছেড়ে যাওয়া ট্রেন</RNText>
-            </View>
-            <View style={styles.headerLine} />
-          </View>
-
-          {passedTrains.map(item => (
-            <TrainCard
-              key={item['Train No.']}
-              train={item}
-              passed
-            />
-          ))}
-        </ScrollView>
-      )}
-
       {(trains.length > 0 || (trains.length === 0 && passedTrains.length > 0)) && (
         <FlatList
           data={[
+            ...(updateAvailable ? [{ type: 'updateBanner' }] : []),
             ...trains.map((item, index) => ({ type: index === 0 ? 'hero' : 'train', item })),
             ...(passedTrains.length > 0 ? [{ type: 'passedHeader' }] : []),
             ...passedTrains.map(item => ({ type: 'passed', item })),
@@ -359,6 +387,23 @@ const TimetableScreen = () => {
           contentContainerStyle={styles.listContainer}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => {
+            if (item.type === 'updateBanner') return (
+              <TouchableOpacity
+                style={styles.updateBanner}
+                onPress={() => runUpdate(true)}
+              >
+                <LinearGradient
+                  colors={['#FF9800', '#F57C00']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={styles.updateBannerGradient}
+                >
+                  <Icon name="cloud-download-outline" size={20} color="white" />
+                  <RNText style={styles.updateBannerText}>নতুন সময়সূচি পাওয়া গেছে! আপডেট করুন</RNText>
+                  <Icon name="chevron-right" size={20} color="white" />
+                </LinearGradient>
+              </TouchableOpacity>
+            );
             if (item.type === 'hero') return <TrainCard train={item.item} highlight />;
             if (item.type === 'train') return <TrainCard train={item.item} />;
             if (item.type === 'passedHeader') return (
@@ -375,10 +420,11 @@ const TimetableScreen = () => {
           }}
           ListFooterComponent={
             <View style={styles.listFooter}>
-              <Icon name="information-outline" size={14} color={theme.colors.outline} />
-              <RNText style={styles.listFooterText}>
-                এটি একটি বেসরকারি অ্যাপ। তথ্যের অফিশিয়াল উৎসের জন্য railway.gov.bd ভিজিট করুন।
-              </RNText>
+              <View style={styles.footerContent}>
+                <RNText style={styles.listFooterText}>
+                  নিজ দায়িত্বে ব্যবহার করবেন। তথ্যে কোন ভুল থাকলে ডেভেলপার দায়ী নয়। অফিশিয়াল তথ্যের জন্য railway.gov.bd ভিজিট করুন।
+                </RNText>
+              </View>
             </View>
           }
         />
@@ -486,6 +532,21 @@ const getStyles = (theme, insets) => StyleSheet.create({
     justifyContent: 'space-between',
   },
   stationBlock: {
+    flex: 1,
+  },
+  dropdownButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: theme.colors.surfaceVariant,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 16,
+  },
+  dropdownText: {
+    fontSize: 16,
+    fontFamily: 'AnekBangla_700Bold',
+    color: theme.colors.onSurface,
     flex: 1,
   },
   selectorHint: {
@@ -652,6 +713,10 @@ const getStyles = (theme, insets) => StyleSheet.create({
   },
   listFooter: {
     padding: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  footerContent: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -663,10 +728,8 @@ const getStyles = (theme, insets) => StyleSheet.create({
     fontFamily: 'AnekBangla_500Medium',
     color: theme.colors.outline,
     textAlign: 'center',
+    flexShrink: 1,
   },
 });
-
-
-
 
 export default TimetableScreen;

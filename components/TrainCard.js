@@ -71,15 +71,15 @@ const TrainCard = ({ train, highlight, passed }) => {
             <View style={styles.smallIconBox}>
               <Icon name="calendar-remove" size={14} color={iconColors.offDay} />
             </View>
-            <Text style={styles.offDayText}>{offDay} বন্ধ</Text>
+            <Text style={styles.offDayText}>{offDay}বার</Text>
           </View>
         )}
       </View>
 
       <View style={styles.rightSection}>
         <View style={styles.timeContainer}>
-          <Text style={styles.dayNight}>{dayNight}</Text>
           <Text style={styles.time}>{time}</Text>
+          <Text style={styles.dayNight}>{dayNight}</Text>
         </View>
 
         <TouchableOpacity
@@ -235,12 +235,12 @@ const getStyles = (theme, highlight, passed) => {
       marginRight: highlight ? 0 : 8,
     },
     dayNight: {
-      fontSize: highlight ? 10 : 8,
+      fontSize: highlight ? 14 : 12,
       fontFamily: 'AnekBangla_800ExtraBold',
       color: highlight ? 'rgba(255,255,255,0.7)' : theme.colors.outline,
       textTransform: 'uppercase',
       letterSpacing: highlight ? 1 : 0.5,
-      marginBottom: highlight ? 2 : 0,
+      marginTop: highlight ? 2 : 1,
     },
     time: {
       fontSize: highlight ? 28 : 22,

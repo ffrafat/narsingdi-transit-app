@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Alert, ScrollView, ImageBackground, Text as RNText } from 'react-native';
-import { Text, Button, Card, useTheme, Surface } from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Text, Button, Card, useTheme, Surface, IconButton } from 'react-native-paper';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import DropdownSelector from '../components/DropdownSelector';
-import NetInfo from '@react-native-community/netinfo';
-import { fetchAndCacheRoute } from '../utils/dataFetcher';
 import { useAppTheme } from '../ThemeContext';
+import { useTrainData } from '../DataContext';
 import { HERO_THEMES } from '../constants/heroThemes';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native';
@@ -14,6 +12,19 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
 const stationList = ['ঢাকা', 'তেজগাঁও', 'বিমানবন্দর', 'নরসিংদী', 'মেথিকান্দা', 'দৌলতকান্দি', 'ভৈরব'];
+
+const formatRelativeTime = (timestamp) => {
+  if (!timestamp) return 'কখনো নয়';
+  const diff = Date.now() - timestamp;
+  const mins = Math.floor(diff / 60000);
+  const hours = Math.floor(mins / 60);
+  const days = Math.floor(hours / 24);
+
+  if (mins < 1) return 'এইমাত্র';
+  if (mins < 60) return `${mins} মিনিট আগে`;
+  if (hours < 24) return `${hours} ঘণ্টা আগে`;
+  return `${days} দিন আগে`;
+};
 
 const SettingsScreen = () => {
   const theme = useTheme();
@@ -23,36 +34,16 @@ const SettingsScreen = () => {
     themeMode,
     setThemeMode,
     heroTheme,
-    setHeroTheme,
-    defaultFrom,
-    setDefaultFrom,
-    defaultTo,
-    setDefaultTo
+    setHeroTheme
   } = useAppTheme();
-
-  const handleManualUpdate = async () => {
-    try {
-      const netState = await NetInfo.fetch();
-      if (!netState.isConnected || netState.isInternetReachable === false) {
-        Alert.alert('ইন্টারনেট সংযোগ নেই', 'অনুগ্রহ করে ইন্টারনেটে সংযুক্ত হয়ে আবার চেষ্টা করুন।');
-        return;
-      }
-
-      const routes = [
-        ['নরসিংদী', 'ঢাকা'], ['নরসিংদী', 'বিমানবন্দর'], ['ঢাকা', 'নরসিংদী'], ['বিমানবন্দর', 'নরসিংদী'],
-        ['মেথিকান্দা', 'ঢাকা'], ['মেথিকান্দা', 'বিমানবন্দর'], ['ঢাকা', 'মেথিকান্দা'], ['বিমানবন্দর', 'মেথিকান্দা'],
-        ['ভৈরব', 'ঢাকা'], ['ভৈরব', 'বিমানবন্দর'], ['ঢাকা', 'ভৈরব'], ['বিমানবন্দর', 'ভৈরব'],
-      ];
-
-      for (const [from, to] of routes) {
-        await fetchAndCacheRoute(from, to);
-      }
-      Alert.alert('আপডেটেড', 'ডেটা আপডেট সম্পন্ন হয়েছে!', [{ text: 'ঠিক আছে' }]);
-    } catch (e) {
-      Alert.alert('ঝামেলা হয়েছে', 'ডেটা আপডেট করা যায় নি। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।', [{ text: 'ঠিক আছে' }]);
-      console.error(e);
-    }
-  };
+  const {
+    checkForUpdates,
+    version,
+    loading,
+    updateAvailable,
+    lastChecked,
+    lastUpdated
+  } = useTrainData();
 
   const HeaderContent = () => (
     <View style={styles.headerTitleWrapper}>
@@ -94,50 +85,60 @@ const SettingsScreen = () => {
       </View>
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        {/* Database update card - NOW FIRST */}
+        {/* Update Card */}
         <Surface style={styles.surface} elevation={1}>
           <View style={styles.headerRow}>
             <View style={[styles.iconBox, { backgroundColor: 'rgba(65, 171, 93, 0.08)' }]}>
               <Icon name="cloud-sync-outline" size={22} color={theme.colors.primary} />
             </View>
-            <Text style={styles.headerText}>তথ্য আপডেট</Text>
+            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Text style={styles.headerText}>তথ্য আপডেট</Text>
+              {updateAvailable && (
+                <View style={styles.newBadge}>
+                  <Text style={styles.newBadgeText}>NEW</Text>
+                </View>
+              )}
+            </View>
           </View>
 
           <Text style={styles.description}>
-            অফলাইনে ব্যবহারের জন্য নতুন সময়সূচি ডাউনলোড বা আপডেট করতে নিচের বাটনে ক্লিক করুন।
+            {updateAvailable
+              ? 'সার্ভারে নতুন তথ্য পাওয়া গেছে। অনুগ্রহ করে আপডেট করে নিন।'
+              : 'অ্যাপের সময়সূচি অনলাইনে আপডেট করতে এই বাটনটি ব্যবহার করুন।'}
           </Text>
 
+          <View style={styles.metadataRow}>
+            <View style={styles.metadataItem}>
+              <Text style={styles.metadataLabel}>সর্বশেষ আপডেট</Text>
+              <Text style={styles.metadataValue}>{formatRelativeTime(lastUpdated)}</Text>
+            </View>
+            <View style={styles.metadataDivider} />
+            <View style={styles.metadataItem}>
+              <Text style={styles.metadataLabel}>ডেটাবেজ ভার্সন</Text>
+              <Text style={styles.metadataValue}>{version}</Text>
+            </View>
+          </View>
+
+          <View style={styles.lastCheckedRow}>
+            <Text style={styles.lastCheckedText}>সর্বশেষ চেক: {formatRelativeTime(lastChecked)}</Text>
+          </View>
+
           <Button
-            icon="download-outline"
-            mode="outlined"
-            style={[styles.actionBtn, { borderColor: theme.colors.outline }]}
-            labelStyle={[styles.btnLabel, { color: theme.colors.primary }]}
-            onPress={handleManualUpdate}
+            mode={updateAvailable ? "contained" : "outlined"}
+            onPress={() => checkForUpdates(true)}
+            loading={loading}
+            disabled={loading}
+            style={[
+              styles.actionBtn,
+              !updateAvailable && { borderColor: theme.colors.primary, borderWidth: 1.5 }
+            ]}
+            labelStyle={[
+              styles.btnLabel,
+              { color: updateAvailable ? 'white' : theme.colors.primary }
+            ]}
           >
-            আপডেট করুন
+            {updateAvailable ? "এখনই আপডেট করুন" : "আপডেট চেক করুন"}
           </Button>
-        </Surface>
-
-        {/* Default station card */}
-        <Surface style={styles.surface} elevation={1}>
-          <View style={styles.headerRow}>
-            <View style={styles.iconBox}>
-              <Icon name="map-marker-path" size={22} color={theme.colors.primary} />
-            </View>
-            <Text style={styles.headerText}>ডিফল্ট স্টেশন</Text>
-          </View>
-
-          <View style={styles.row}>
-            <View style={styles.half}>
-              <Text style={styles.label}>যাত্রা শুরু</Text>
-              <DropdownSelector options={stationList} selected={defaultFrom} onChange={setDefaultFrom} />
-            </View>
-
-            <View style={styles.half}>
-              <Text style={styles.label}>যাত্রা শেষ</Text>
-              <DropdownSelector options={stationList} selected={defaultTo} onChange={setDefaultTo} />
-            </View>
-          </View>
         </Surface>
 
         {/* Theme selection card */}
@@ -348,9 +349,52 @@ const getStyles = (theme, insets) => StyleSheet.create({
   description: {
     fontSize: 13,
     color: theme.colors.onSurfaceVariant,
-    marginBottom: 16,
+    marginBottom: 12,
     lineHeight: 18,
     fontFamily: 'AnekBangla_600SemiBold',
+  },
+  metadataRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.colors.surfaceVariant,
+    borderRadius: 12,
+    padding: 10,
+    marginBottom: 16,
+    opacity: 0.8,
+  },
+  metadataItem: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  metadataDivider: {
+    width: 1,
+    height: 20,
+    backgroundColor: theme.colors.outlineVariant,
+    opacity: 0.5,
+  },
+  metadataLabel: {
+    fontSize: 9,
+    fontFamily: 'AnekBangla_800ExtraBold',
+    color: theme.colors.primary,
+    textTransform: 'uppercase',
+    marginBottom: 2,
+    letterSpacing: 0.5,
+  },
+  metadataValue: {
+    fontSize: 12,
+    fontFamily: 'AnekBangla_700Bold',
+    color: theme.colors.onSurface,
+  },
+  lastCheckedRow: {
+    marginBottom: 16,
+    paddingHorizontal: 4,
+    opacity: 0.6,
+  },
+  lastCheckedText: {
+    fontSize: 10,
+    fontFamily: 'AnekBangla_500Medium',
+    color: theme.colors.onSurfaceVariant,
+    textAlign: 'center',
   },
   themeToggleRow: {
     flexDirection: 'row',
@@ -407,6 +451,18 @@ const getStyles = (theme, insets) => StyleSheet.create({
   heroThemeNameActive: {
     color: theme.colors.primary,
     fontFamily: 'AnekBangla_800ExtraBold',
+  },
+  newBadge: {
+    backgroundColor: '#E91E63',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 12,
+  },
+  newBadgeText: {
+    color: 'white',
+    fontSize: 10,
+    fontWeight: 'bold',
+    fontFamily: 'AnekBangla_700Bold',
   },
 });
 

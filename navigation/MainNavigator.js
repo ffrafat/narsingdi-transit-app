@@ -11,10 +11,10 @@ import { useTheme } from 'react-native-paper';
 import { useAppTheme } from '../ThemeContext';
 
 // Main Screen Imports
-import MapScreen from '../screens/MapScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import TimetableScreen from '../screens/TimetableScreen';
 import AboutScreen from '../screens/AboutScreen';
+import AllStationsScreen from '../screens/AllStationsScreen';
 
 import UsefulLinksScreen from '../screens/UsefulLinksScreen';
 
@@ -107,15 +107,15 @@ function CustomDrawerContent(props) {
           />
 
           <DrawerItem
-            label="স্টেশন ম্যাপ"
+            label="সকল স্টেশন"
             labelStyle={drawerStyles.itemLabel}
             icon={({ focused }) => (
               <View style={[drawerStyles.iconBox, focused && { backgroundColor: 'rgba(255, 255, 255, 0.25)' }]}>
-                <Icon name="map" color="#FFFFFF" size={22} />
+                <Icon name="map-marker-multiple" color="#FFFFFF" size={22} />
               </View>
             )}
-            onPress={() => props.navigation.navigate('স্টেশন ম্যাপ')}
-            focused={props.state.index === props.state.routes.findIndex(r => r.name === 'স্টেশন ম্যাপ')}
+            onPress={() => props.navigation.navigate('সকল স্টেশন')}
+            focused={props.state.index === props.state.routes.findIndex(r => r.name === 'সকল স্টেশন')}
             activeTintColor="#FFFFFF"
             activeBackgroundColor="rgba(255, 255, 255, 0.15)"
           />
@@ -229,15 +229,6 @@ function DrawerContentNavigator() {
         }}
       />
       <Drawer.Screen
-        name="স্টেশন ম্যাপ"
-        component={MapScreen}
-        options={{
-          headerTransparent: true,
-          headerStyle: { backgroundColor: 'transparent' },
-          headerTintColor: '#FFFFFF',
-        }}
-      />
-      <Drawer.Screen
         name="সেটিংস"
         component={SettingsScreen}
         options={{
@@ -258,6 +249,15 @@ function DrawerContentNavigator() {
       <Drawer.Screen
         name="প্রয়োজনীয় লিংকসমূহ"
         component={UsefulLinksScreen}
+        options={{
+          headerTransparent: true,
+          headerStyle: { backgroundColor: 'transparent' },
+          headerTintColor: '#FFFFFF',
+        }}
+      />
+      <Drawer.Screen
+        name="সকল স্টেশন"
+        component={AllStationsScreen}
         options={{
           headerTransparent: true,
           headerStyle: { backgroundColor: 'transparent' },
