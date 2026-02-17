@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import bundledData from './assets/trainDetails.json';
+import localNotice from './assets/notice.json';
 
 const DataContext = createContext();
 
@@ -13,7 +14,7 @@ export const DataProvider = ({ children }) => {
     const [updateAvailable, setUpdateAvailable] = useState(false);
     const [lastChecked, setLastChecked] = useState(null);
     const [lastUpdated, setLastUpdated] = useState(null);
-    const [notice, setNotice] = useState(null);
+    const [notice, setNotice] = useState(localNotice?.enabled ? localNotice : null);
 
     // BASE_URL for GitHub updates
     const BASE_URL = 'https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/dev/assets';
@@ -85,10 +86,7 @@ export const DataProvider = ({ children }) => {
             const remoteNotice = await response.json();
 
             if (remoteNotice.enabled) {
-                const dismissedId = await AsyncStorage.getItem('dismissed_notice_id');
-                if (dismissedId !== remoteNotice.id) {
-                    setNotice(remoteNotice);
-                }
+                setNotice(remoteNotice);
             } else {
                 setNotice(null);
             }
@@ -180,6 +178,7 @@ export const DataProvider = ({ children }) => {
         try {
             await AsyncStorage.removeItem('train_data_v2');
             await AsyncStorage.removeItem('last_update_success');
+            await AsyncStorage.removeItem('dismissed_notice_id');
             setTrainData(bundledData);
             setVersion(bundledData._metadata?.version || '0');
             setLastUpdated(null);

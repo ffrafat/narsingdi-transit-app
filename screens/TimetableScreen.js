@@ -8,6 +8,7 @@ import {
   ScrollView,
   ImageBackground,
   Alert,
+  Linking,
 } from 'react-native';
 import {
   Button,
@@ -98,14 +99,33 @@ const TimetableScreen = () => {
   const [trains, setTrains] = useState([]);
   const [hasShownUpdatePopup, setHasShownUpdatePopup] = useState(false);
 
-  const NoticeBanner = () => {
+  const NoticeCard = () => {
     if (!notice) return null;
     return (
-      <Surface style={[styles.noticeContainer, { backgroundColor: notice.bg || '#FFF9C4' }]} elevation={1}>
-        <Icon name="information-outline" size={18} color={notice.color || '#333333'} />
-        <RNText style={[styles.noticeText, { color: notice.color || '#333333' }]}>{notice.text}</RNText>
-        <TouchableOpacity onPress={() => dismissNotice(notice.id)} style={styles.noticeClose}>
-          <Icon name="close" size={16} color={notice.color || '#333333'} />
+      <Surface style={[styles.noticeCard, { backgroundColor: notice.bg || '#FFF9C4' }]} elevation={2}>
+        <View style={styles.noticeIconBox}>
+          <Icon name="information-variant" size={22} color={notice.color || '#333333'} />
+        </View>
+        <View style={styles.noticeContent}>
+          <RNText style={[styles.noticeText, { color: notice.color || '#333333' }]}>{notice.text}</RNText>
+          {notice.url && notice.btnText && (
+            <TouchableOpacity
+              style={[styles.noticeActionBtn, { borderColor: notice.color || '#333333' }]}
+              onPress={() => Linking.openURL(notice.url)}
+            >
+              <RNText style={[styles.noticeActionText, { color: notice.color || '#333333' }]}>
+                {notice.btnText}
+              </RNText>
+              <Icon name="chevron-right" size={14} color={notice.color || '#333333'} />
+            </TouchableOpacity>
+          )}
+        </View>
+        <TouchableOpacity
+          onPress={() => dismissNotice(notice.id)}
+          style={styles.noticeDismissBtn}
+          activeOpacity={0.7}
+        >
+          <Icon name="close" size={20} color={notice.color || '#333333'} />
         </TouchableOpacity>
       </Surface>
     );
@@ -327,7 +347,6 @@ const TimetableScreen = () => {
 
   return (
     <View style={styles.container}>
-      <NoticeBanner />
       <View style={styles.headerWrapper}>
         <View style={styles.headerGradientContainer}>
           {heroTheme.image ? (
@@ -414,7 +433,12 @@ const TimetableScreen = () => {
         <FlatList
           data={[
             ...(updateAvailable ? [{ type: 'updateBanner' }] : []),
-            ...trains.map((item, index) => ({ type: index === 0 ? 'hero' : 'train', item })),
+            ...(trains.length === 0 && notice ? [{ type: 'notice' }] : []),
+            ...trains.reduce((acc, item, index) => {
+              acc.push({ type: index === 0 ? 'hero' : 'train', item });
+              if (index === 0 && notice) acc.push({ type: 'notice' });
+              return acc;
+            }, []),
             ...(passedTrains.length > 0 ? [{ type: 'passedHeader' }] : []),
             ...passedTrains.map(item => ({ type: 'passed', item })),
           ]}
@@ -439,6 +463,7 @@ const TimetableScreen = () => {
                 </LinearGradient>
               </TouchableOpacity>
             );
+            if (item.type === 'notice') return <NoticeCard />;
             if (item.type === 'hero') return <TrainCard train={item.item} highlight />;
             if (item.type === 'train') return <TrainCard train={item.item} />;
             if (item.type === 'passedHeader') return (
@@ -750,21 +775,57 @@ const getStyles = (theme, insets) => StyleSheet.create({
     padding: 20,
     alignItems: 'center',
   },
-  noticeContainer: {
+  noticeCard: {
+    marginHorizontal: 12,
+    marginVertical: 8,
+    borderRadius: 18,
+    padding: 14,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    gap: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.05)',
+  },
+  noticeIconBox: {
+    width: 38,
+    height: 38,
+    borderRadius: 12,
+    backgroundColor: 'rgba(0,0,0,0.05)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  noticeContent: {
+    flex: 1,
+    gap: 4,
   },
   noticeText: {
-    flex: 1,
-    fontSize: 13,
-    fontFamily: 'AnekBangla_500Medium',
-    lineHeight: 18,
+    fontSize: 14,
+    fontFamily: 'AnekBangla_600SemiBold',
+    lineHeight: 20,
   },
-  noticeClose: {
-    padding: 4,
+  noticeActionBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    marginTop: 4,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    gap: 4,
+  },
+  noticeActionText: {
+    fontSize: 12,
+    fontFamily: 'AnekBangla_700Bold',
+  },
+  noticeDismissBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(0,0,0,0.05)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 10,
   },
   footerContent: {
     flexDirection: 'row',
