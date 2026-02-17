@@ -92,63 +92,68 @@ const TimetableScreen = () => {
   useUpdatePrompt();
   const navigation = useNavigation();
   const { favorites } = useFavorites();
-  const { trains: trainData, updateAvailable, version, checkForUpdates, notice, dismissNotice } = useTrainData(); // Get data from context
+  const { trains: trainData, updateAvailable, version, checkForUpdates, performDirectUpdate, notices, dismissNotice } = useTrainData(); // Get data from context
 
   const [from, setFrom] = useState(defaultFrom || 'ঢাকা');
   const [to, setTo] = useState(defaultTo || 'চট্টগ্রাম');
   const [trains, setTrains] = useState([]);
   const [hasShownUpdatePopup, setHasShownUpdatePopup] = useState(false);
 
-  const NoticeCard = () => {
-    if (!notice) return null;
+  const NoticeCard = ({ noticeItem }) => {
+    if (!noticeItem) return null;
     return (
-      <Surface style={[styles.noticeCard, { backgroundColor: notice.bg || '#FFF9C4' }]} elevation={2}>
+      <Surface style={[styles.noticeCard, { backgroundColor: noticeItem.bg || '#FFF9C4' }]} elevation={2}>
         <View style={styles.noticeIconBox}>
-          <Icon name="information-variant" size={22} color={notice.color || '#333333'} />
+          <Icon name="information-variant" size={22} color={noticeItem.color || '#333333'} />
         </View>
         <View style={styles.noticeContent}>
-          <RNText style={[styles.noticeText, { color: notice.color || '#333333' }]}>{notice.text}</RNText>
-          {notice.url && notice.btnText && (
+          <RNText style={[styles.noticeText, { color: noticeItem.color || '#333333' }]}>{noticeItem.text}</RNText>
+          {noticeItem.url && noticeItem.btnText && (
             <TouchableOpacity
-              style={[styles.noticeActionBtn, { borderColor: notice.color || '#333333' }]}
-              onPress={() => Linking.openURL(notice.url)}
+              style={[styles.noticeActionBtn, { borderColor: noticeItem.color || '#333333' }]}
+              onPress={() => Linking.openURL(noticeItem.url)}
             >
-              <RNText style={[styles.noticeActionText, { color: notice.color || '#333333' }]}>
-                {notice.btnText}
+              <RNText style={[styles.noticeActionText, { color: noticeItem.color || '#333333' }]}>
+                {noticeItem.btnText}
               </RNText>
-              <Icon name="chevron-right" size={14} color={notice.color || '#333333'} />
+              <Icon name="chevron-right" size={14} color={noticeItem.color || '#333333'} />
             </TouchableOpacity>
           )}
         </View>
         <TouchableOpacity
-          onPress={() => dismissNotice(notice.id)}
+          onPress={() => dismissNotice(noticeItem.id)}
           style={styles.noticeDismissBtn}
           activeOpacity={0.7}
         >
-          <Icon name="close" size={20} color={notice.color || '#333333'} />
+          <Icon name="close" size={18} color={noticeItem.color || '#333333'} />
         </TouchableOpacity>
       </Surface>
     );
   };
 
-  // Show update popup on home once per session
   useEffect(() => {
     if (updateAvailable && !hasShownUpdatePopup) {
       Alert.alert(
-        'নতুন আপডেট উপলব্ধ',
-        `ট্রেনের নতুন সময়সূচি (v${version}) পাওয়া গেছে। আপনি কি এখনই আপডেট করবেন?`,
+        'নতুন আপডেট পাওয়া গেছে',
+        `নতুন সময়সূচি (v${updateAvailable}) পাওয়া গেছে। আপনি কি এখনই আপডেট করতে চান?`,
         [
-          { text: 'পরে', style: 'cancel' },
+          { text: 'এখনই না', style: 'cancel' },
           {
             text: 'আপডেট করুন',
-            style: 'default',
-            onPress: () => navigation.navigate('Settings')
+            onPress: async () => {
+              const success = await performDirectUpdate();
+              if (success) {
+                Alert.alert('সফল', 'সময়সূচি সফলভাবে আপডেট করা হয়েছে!');
+              } else {
+                Alert.alert('ত্রুটি', 'আপডেট সেভ করতে সমস্যা হয়েছে।');
+              }
+            }
           },
         ]
       );
       setHasShownUpdatePopup(true);
     }
-  }, [updateAvailable, hasShownUpdatePopup, version, navigation]);
+  }, [updateAvailable, hasShownUpdatePopup]);
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [passedTrains, setPassedTrains] = useState([]);
@@ -433,10 +438,12 @@ const TimetableScreen = () => {
         <FlatList
           data={[
             ...(updateAvailable ? [{ type: 'updateBanner' }] : []),
-            ...(trains.length === 0 && notice ? [{ type: 'notice' }] : []),
+            ...(trains.length === 0 ? (notices || []).map(n => ({ type: 'notice', item: n })) : []),
             ...trains.reduce((acc, item, index) => {
               acc.push({ type: index === 0 ? 'hero' : 'train', item });
-              if (index === 0 && notice) acc.push({ type: 'notice' });
+              if (index === 0) {
+                (notices || []).forEach(n => acc.push({ type: 'notice', item: n }));
+              }
               return acc;
             }, []),
             ...(passedTrains.length > 0 ? [{ type: 'passedHeader' }] : []),
@@ -463,7 +470,7 @@ const TimetableScreen = () => {
                 </LinearGradient>
               </TouchableOpacity>
             );
-            if (item.type === 'notice') return <NoticeCard />;
+            if (item.type === 'notice') return <NoticeCard noticeItem={item.item} />;
             if (item.type === 'hero') return <TrainCard train={item.item} highlight />;
             if (item.type === 'train') return <TrainCard train={item.item} />;
             if (item.type === 'passedHeader') return (
@@ -819,9 +826,9 @@ const getStyles = (theme, insets) => StyleSheet.create({
     fontFamily: 'AnekBangla_700Bold',
   },
   noticeDismissBtn: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     backgroundColor: 'rgba(0,0,0,0.05)',
     justifyContent: 'center',
     alignItems: 'center',

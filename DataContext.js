@@ -14,7 +14,7 @@ export const DataProvider = ({ children }) => {
     const [updateAvailable, setUpdateAvailable] = useState(false);
     const [lastChecked, setLastChecked] = useState(null);
     const [lastUpdated, setLastUpdated] = useState(null);
-    const [notice, setNotice] = useState(localNotice?.enabled ? localNotice : null);
+    const [notices, setNotices] = useState(Array.isArray(localNotice) ? localNotice.filter(n => n.enabled) : (localNotice?.enabled ? [localNotice] : []));
 
     // BASE_URL for GitHub updates
     const BASE_URL = 'https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/dev/assets';
@@ -66,13 +66,16 @@ export const DataProvider = ({ children }) => {
 
             if (!lastCheck || now - parseInt(lastCheck) > ONE_DAY) {
                 console.log('Running scheduled update check...');
-                const updateRes = await checkVersionOnly();
-                if (updateRes) {
-                    setUpdateAvailable(true);
+                // Fetch tiny version.json
+                const response = await fetch(`${BASE_URL}/version.json`, { headers: { 'Cache-Control': 'no-cache' } });
+                if (response.ok) {
+                    const remote = await response.json();
+                    if (remote.version > version) {
+                        setUpdateAvailable(remote.version);
+                    }
+                    await AsyncStorage.setItem('last_update_check', now.toString());
+                    setLastChecked(now);
                 }
-                const checkTime = Date.now();
-                await AsyncStorage.setItem('last_update_check', checkTime.toString());
-                setLastChecked(checkTime);
             }
         } catch (e) {
             console.log('Auto-check skipped:', e.message);
@@ -81,26 +84,49 @@ export const DataProvider = ({ children }) => {
 
     const fetchNotice = async () => {
         try {
-            const response = await fetch(`${BASE_URL}/notice.json`, { headers: { 'Cache-Control': 'no-cache' } });
-            if (!response.ok) return;
-            const remoteNotice = await response.json();
+            const dismissedLogStr = await AsyncStorage.getItem('dismissed_notices_log');
+            const dismissedLog = dismissedLogStr ? JSON.parse(dismissedLogStr) : {};
+            const NOW = Date.now();
+            const ONE_DAY = 24 * 60 * 60 * 1000;
 
-            if (remoteNotice.enabled) {
-                setNotice(remoteNotice);
-            } else {
-                setNotice(null);
+            const OPENSHEET_URL = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/Notice';
+            const response = await fetch(OPENSHEET_URL);
+            if (!response.ok) {
+                setNotices([]);
+                return;
             }
+            const remoteData = await response.json();
+
+            const remoteNotices = Array.isArray(remoteData) ? remoteData : [remoteData];
+            const activeNotices = (remoteNotices || []).filter(n => {
+                // OpenSheet/Google Sheets often sends boolean as string "TRUE"/"FALSE"
+                const isEnabled = String(n?.enabled).toUpperCase() === 'TRUE';
+                if (!isEnabled) return false;
+
+                const dismissedAt = dismissedLog[n.id];
+                if (dismissedAt && (NOW - dismissedAt < ONE_DAY)) {
+                    return false;
+                }
+                return true;
+            });
+
+            console.log('Fetched & Filtered Notices (Sheets):', activeNotices);
+            setNotices(activeNotices);
         } catch (e) {
-            console.log('Notice fetch failed');
+            console.log('Notice fetch failed (Sheets)');
+            setNotices([]);
         }
     };
 
     const dismissNotice = async (id) => {
         try {
-            await AsyncStorage.setItem('dismissed_notice_id', id);
-            setNotice(null);
+            const dismissedLogStr = await AsyncStorage.getItem('dismissed_notices_log');
+            const dismissedLog = dismissedLogStr ? JSON.parse(dismissedLogStr) : {};
+            dismissedLog[id] = Date.now();
+            await AsyncStorage.setItem('dismissed_notices_log', JSON.stringify(dismissedLog));
+            setNotices(prev => prev.filter(n => n.id !== id));
         } catch (e) {
-            console.error(e);
+            console.error('Dismiss failed:', e);
         }
     };
 
@@ -116,6 +142,30 @@ export const DataProvider = ({ children }) => {
         }
     };
 
+    const performDirectUpdate = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${BASE_URL}/trainDetails.json`, { headers: { 'Cache-Control': 'no-cache' } });
+            if (!response.ok) throw new Error('Fetch failed');
+
+            const newData = await response.json();
+            const now = Date.now();
+            await AsyncStorage.setItem('train_data_v2', JSON.stringify(newData));
+            await AsyncStorage.setItem('last_update_success', now.toString());
+
+            setTrainData(newData);
+            setVersion(newData._metadata?.version || '0');
+            setLastUpdated(now);
+            setUpdateAvailable(false);
+            return true;
+        } catch (error) {
+            console.error('Direct update failed:', error);
+            return false;
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const checkForUpdates = async (isManual = false) => {
         setLoading(true);
         try {
@@ -127,43 +177,29 @@ export const DataProvider = ({ children }) => {
             }
 
             console.log('Checking for full updates...');
-            const response = await fetch(`${BASE_URL}/trainDetails.json`, { headers: { 'Cache-Control': 'no-cache' } });
+            // Fetch version.json first
+            const vResponse = await fetch(`${BASE_URL}/version.json`, { headers: { 'Cache-Control': 'no-cache' } });
+            if (!vResponse.ok) throw new Error('Version check failed');
+            const remote = await vResponse.json();
 
-            if (!response.ok) throw new Error('Network request failed');
-
-            const newData = await response.json();
-            const newVersion = newData._metadata?.version || 0;
-
-            if (newVersion > version) {
-                Alert.alert(
-                    'নতুন আপডেট পাওয়া গেছে',
-                    `নতুন সময়সূচি (v${newVersion}) পাওয়া গেছে। আপনি কি আপডেট করতে চান?`,
-                    [
-                        { text: 'না', style: 'cancel' },
-                        {
-                            text: 'হ্যাঁ, আপডেট করুন',
-                            onPress: async () => {
-                                try {
-                                    const now = Date.now();
-                                    await AsyncStorage.setItem('train_data_v2', JSON.stringify(newData));
-                                    await AsyncStorage.setItem('last_update_success', now.toString());
-                                    setTrainData(newData);
-                                    setVersion(newVersion);
-                                    setLastUpdated(now);
-                                    setUpdateAvailable(false);
-                                    Alert.alert('সফল', 'সময়সূচি সফলভাবে আপডেট করা হয়েছে!');
-                                } catch (e) {
-                                    Alert.alert('ত্রুটি', 'আপডেট সেভ করতে সমস্যা হয়েছে।');
-                                }
-                            }
-                        }
-                    ]
-                );
+            if (remote.version > version) {
+                // If manual, show Alert with download option. If auto, setUpdateAvailable(true)
+                if (isManual) {
+                    Alert.alert(
+                        'নতুন আপডেট পাওয়া গেছে',
+                        `নতুন সময়সূচি (v${remote.version}) পাওয়া গেছে। আপনি কি আপডেট করতে চান?`,
+                        [
+                            { text: 'না', style: 'cancel' },
+                            { text: 'হ্যাঁ, আপডেট করুন', onPress: () => performDirectUpdate() }
+                        ]
+                    );
+                } else {
+                    setUpdateAvailable(remote.version); // Store version to display in popup
+                }
             } else if (isManual) {
                 Alert.alert('কোনো আপডেট নেই', 'আপনার অ্যাপে সর্বশেষ সময়সূচি দেওয়া আছে।');
             }
 
-            // Update last checked time on every manual check
             const checkTime = Date.now();
             await AsyncStorage.setItem('last_update_check', checkTime.toString());
             setLastChecked(checkTime);
@@ -197,9 +233,10 @@ export const DataProvider = ({ children }) => {
             updateAvailable,
             lastChecked,
             lastUpdated,
-            notice,
+            notices,
             dismissNotice,
             checkForUpdates,
+            performDirectUpdate,
             resetToFactory
         }}>
             {children}

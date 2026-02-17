@@ -1,9 +1,11 @@
-{
-    "id": "notice_01",
-    "enabled": true,
-    "text": "আপনার যাত্রা শুভ হোক! নরসিংদী এক্সপ্রেস বর্তমানে ১০ মিনিট দেরিতে চলাচল করছে।",
-    "bg": "#FFF9C4",
-    "color": "#333333",
-    "url": "https://railway.gov.bd",
-    "btnText": "বিস্তারিত দেখুন"
-}
+[
+    {
+        "id": "notice_01",
+        "enabled": false,
+        "text": "আপনার যাত্রা শুভ হোক!",
+        "bg": "#FFF9C4",
+        "color": "#333333",
+        "url": "https://railway.gov.bd",
+        "btnText": "বিস্তারিত দেখুন"
+    }
+]
