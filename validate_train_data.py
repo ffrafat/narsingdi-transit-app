@@ -86,7 +86,9 @@ def validate_data(file_path):
     return discrepancies
 
 if __name__ == "__main__":
-    file_path = r"d:\Synched Files\narsingdi-transit-app\assets\trainDetails.json"
+    import os
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(script_dir, "assets", "trainDetails.json")
     results = validate_data(file_path)
     
     if not results:

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Narsingdi Transit",
+    "name": "রেল ট্রানজিট",
     "slug": "narsingdi-transit",
     "scheme": "com.googleusercontent.apps.1033915031162-f43tahd1c9bh6tr1qs65vf8brf6cmcq1",
     "version": "2.1",
@@ -32,8 +32,8 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "Narsingdi Transit is an open-source railway schedule app for commuters in Narsingdi. View train timings, off days, and important route info offline.",
-    "githubUrl": "https://github.com/ffrafat/narsingdi-transit-app",
+    "description": "Rail Transit is an open-source railway schedule app for commuters. View train timings, off days, and important route info offline.",
+    "githubUrl": "https://github.com/ffrafat/rail-transit-app",
     "owner": "ffrafat",
     "extra": {
       "eas": {

@@ -20,7 +20,7 @@ function calculateDiff(t1, t2) {
     return diff;
 }
 
-const filePath = path.join('d:', 'Synched Files', 'narsingdi-transit-app', 'assets', 'trainDetails.json');
+const filePath = path.join(__dirname, 'assets', 'trainDetails.json');
 const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
 const discrepancies = [];
@@ -79,6 +79,6 @@ for (const [trainNo, details] of Object.entries(data)) {
     });
 }
 
-const reportPath = path.join('d:', 'Synched Files', 'narsingdi-transit-app', 'validation_report.json');
+const reportPath = path.join(__dirname, 'validation_report.json');
 fs.writeFileSync(reportPath, JSON.stringify(discrepancies, null, 2));
 console.log('Report written to ' + reportPath);

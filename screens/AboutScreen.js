@@ -109,9 +109,9 @@ const AboutScreen = () => {
               <Image source={require('../assets/icon.png')} style={styles.appIcon} />
             </View>
             <View style={styles.appNameContainer}>
-              <Text style={styles.appName}>নরসিংদী ট্রানজিট</Text>
+              <Text style={styles.appName}>রেল ট্রানজিট</Text>
               <View style={styles.versionPill}>
-                <Text style={styles.versionText}>ভার্সন ২.০</Text>
+                <Text style={styles.versionText}>ভার্সন ২.১</Text>
               </View>
             </View>
           </View>
@@ -120,7 +120,7 @@ const AboutScreen = () => {
 
           <View style={styles.compactInfo}>
             <Text style={styles.compactText}>
-              নরসিংদী ট্রানজিট অ্যাপটি নরসিংদী জেলার ট্রেন যাত্রীদের যাতায়াতে সহায়তা করার জন্য তৈরি একটি ব্যক্তিগত ও স্বেচ্ছাসেবী উদ্যোগ।
+              রেল ট্রানজিট অ্যাপটি ট্রেন যাত্রীদের যাতায়াতে সহায়তা করার জন্য তৈরি একটি ব্যক্তিগত ও স্বেচ্ছাসেবী উদ্যোগ।
             </Text>
           </View>
 
@@ -178,7 +178,7 @@ const AboutScreen = () => {
         </Surface>
 
         <View style={styles.footer}>
-          <Text style={styles.footerText}>ভালোবাসা দিয়ে তৈরি ❤️ নরসিংদীর জন্য</Text>
+          <Text style={styles.footerText}>ভালোবাসা দিয়ে তৈরি ❤️ সারা বাংলাদেশের জন্য</Text>
           <Text style={styles.copyrightText}>© ২০২৬ ফয়সাল ফারুকী রাফাত</Text>
         </View>
       </ScrollView>

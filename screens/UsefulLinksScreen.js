@@ -15,7 +15,7 @@ const links = [
     url: 'https://www.facebook.com/groups/315866319072545',
   },
   {
-    title: 'নরসিংদী ট্রানজিট অ্যাপ চ্যাট গ্রুপ',
+    title: 'রেল ট্রানজিট অ্যাপ চ্যাট গ্রুপ',
     subtitle: 'মেসেঞ্জার কমিউনিটি',
     icon: 'facebook-messenger',
     url: 'https://m.me/ch/AbZHGHvKxV-t7BW1/?send_source=cm%3Acopy_invite_link',

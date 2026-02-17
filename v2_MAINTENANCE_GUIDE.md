@@ -1,10 +1,10 @@
-# Narsingdi Transit v2.0 - Maintenance & Design Guide
+# Rail Transit v2.1 - Maintenance & Design Guide
 
-This document serves as a reference for the design system, architecture, and build processes established in the version 2.0 update.
+This document serves as a reference for the design system, architecture, and build processes established in the version 2.0/2.1 update.
 
 ## 🎨 Design System
 
-The v2.0 update introduced a "Premium Emerald" aesthetic, focusing on clean white surfaces, soft shadows, and dynamic brand visuals.
+The v2.x updates introduced a "Premium Emerald" aesthetic, focusing on clean white surfaces, soft shadows, and dynamic brand visuals.
 
 ### Core Colors
 | Element | Light Mode | Dark Mode |
@@ -59,5 +59,5 @@ eas build --platform android --profile production
 
 ---
 
-**Version**: 2.0
+**Version**: 2.1
 **Maintained by**: Faisal Faruque Rafat

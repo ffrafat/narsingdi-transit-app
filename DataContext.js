@@ -17,7 +17,7 @@ export const DataProvider = ({ children }) => {
     const [notices, setNotices] = useState(Array.isArray(localNotice) ? localNotice.filter(n => n.enabled) : (localNotice?.enabled ? [localNotice] : []));
 
     // BASE_URL for GitHub updates
-    const BASE_URL = 'https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/dev/assets';
+    const BASE_URL = 'https://raw.githubusercontent.com/ffrafat/rail-transit-app/refs/heads/dev/assets';
 
     // Load data and auto-check on startup
     useEffect(() => {
