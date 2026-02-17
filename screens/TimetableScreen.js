@@ -91,12 +91,25 @@ const TimetableScreen = () => {
   useUpdatePrompt();
   const navigation = useNavigation();
   const { favorites } = useFavorites();
-  const { trains: trainData, updateAvailable, version, checkForUpdates } = useTrainData(); // Get data from context
+  const { trains: trainData, updateAvailable, version, checkForUpdates, notice, dismissNotice } = useTrainData(); // Get data from context
 
   const [from, setFrom] = useState(defaultFrom || 'ঢাকা');
   const [to, setTo] = useState(defaultTo || 'চট্টগ্রাম');
   const [trains, setTrains] = useState([]);
   const [hasShownUpdatePopup, setHasShownUpdatePopup] = useState(false);
+
+  const NoticeBanner = () => {
+    if (!notice) return null;
+    return (
+      <Surface style={[styles.noticeContainer, { backgroundColor: notice.bg || '#FFF9C4' }]} elevation={1}>
+        <Icon name="information-outline" size={18} color={notice.color || '#333333'} />
+        <RNText style={[styles.noticeText, { color: notice.color || '#333333' }]}>{notice.text}</RNText>
+        <TouchableOpacity onPress={() => dismissNotice(notice.id)} style={styles.noticeClose}>
+          <Icon name="close" size={16} color={notice.color || '#333333'} />
+        </TouchableOpacity>
+      </Surface>
+    );
+  };
 
   // Show update popup on home once per session
   useEffect(() => {
@@ -314,6 +327,7 @@ const TimetableScreen = () => {
 
   return (
     <View style={styles.container}>
+      <NoticeBanner />
       <View style={styles.headerWrapper}>
         <View style={styles.headerGradientContainer}>
           {heroTheme.image ? (
@@ -733,9 +747,24 @@ const getStyles = (theme, insets) => StyleSheet.create({
     padding: 12,
   },
   listFooter: {
-    padding: 24,
+    padding: 20,
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  noticeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    gap: 10,
+  },
+  noticeText: {
+    flex: 1,
+    fontSize: 13,
+    fontFamily: 'AnekBangla_500Medium',
+    lineHeight: 18,
+  },
+  noticeClose: {
+    padding: 4,
   },
   footerContent: {
     flexDirection: 'row',

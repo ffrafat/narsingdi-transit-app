@@ -13,6 +13,7 @@ export const DataProvider = ({ children }) => {
     const [updateAvailable, setUpdateAvailable] = useState(false);
     const [lastChecked, setLastChecked] = useState(null);
     const [lastUpdated, setLastUpdated] = useState(null);
+    const [notice, setNotice] = useState(null);
 
     // BASE_URL for GitHub updates
     const BASE_URL = 'https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/dev/assets';
@@ -55,6 +56,9 @@ export const DataProvider = ({ children }) => {
 
     const autoCheckUpdates = async () => {
         try {
+            // Always check for notice on launch
+            await fetchNotice();
+
             const lastCheck = await AsyncStorage.getItem('last_update_check');
             const now = Date.now();
             const ONE_DAY = 24 * 60 * 60 * 1000;
@@ -71,6 +75,34 @@ export const DataProvider = ({ children }) => {
             }
         } catch (e) {
             console.log('Auto-check skipped:', e.message);
+        }
+    };
+
+    const fetchNotice = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/notice.json`, { headers: { 'Cache-Control': 'no-cache' } });
+            if (!response.ok) return;
+            const remoteNotice = await response.json();
+
+            if (remoteNotice.enabled) {
+                const dismissedId = await AsyncStorage.getItem('dismissed_notice_id');
+                if (dismissedId !== remoteNotice.id) {
+                    setNotice(remoteNotice);
+                }
+            } else {
+                setNotice(null);
+            }
+        } catch (e) {
+            console.log('Notice fetch failed');
+        }
+    };
+
+    const dismissNotice = async (id) => {
+        try {
+            await AsyncStorage.setItem('dismissed_notice_id', id);
+            setNotice(null);
+        } catch (e) {
+            console.error(e);
         }
     };
 
@@ -166,6 +198,8 @@ export const DataProvider = ({ children }) => {
             updateAvailable,
             lastChecked,
             lastUpdated,
+            notice,
+            dismissNotice,
             checkForUpdates,
             resetToFactory
         }}>

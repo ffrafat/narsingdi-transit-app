@@ -54,7 +54,6 @@ const SearchableModalSelector = ({ options, selected, onChange, label, onNavigat
                         title="অন্য স্টেশন"
                         titleStyle={[styles.menuItemTitle, { color: theme.colors.primary, fontFamily: 'AnekBangla_600SemiBold' }]}
                         leadingIcon="map-marker-plus"
-                        style={styles.otherStationsItem}
                     />
                 )}
             </Menu>
@@ -87,10 +86,6 @@ const styles = StyleSheet.create({
     menuItemTitle: {
         fontFamily: 'AnekBangla_500Medium',
         fontSize: 16,
-    },
-    otherStationsItem: {
-        borderTopWidth: 1,
-        borderTopColor: 'rgba(0,0,0,0.1)',
     },
 });
 

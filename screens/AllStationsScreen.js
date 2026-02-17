@@ -41,6 +41,7 @@ const AllStationsScreen = () => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
     const { heroTheme } = useAppTheme();
+    const { favorites, toggleFavorite, isFavorite } = useFavorites();
     const { trains: trainData } = useTrainData();
     const [searchQuery, setSearchQuery] = useState('');
 

@@ -105,9 +105,8 @@ const ETicketHomeScreen = () => {
           <Text style={styles.brText}>বাংলাদেশ রেলওয়ে</Text>
 
           <View style={styles.miniDisclaimer}>
-            <Icon name="information-variant" size={14} color={theme.colors.onSurfaceVariant} />
             <Text style={styles.miniDisclaimerText}>
-              এই পোর্টালটি সরাসরি বাংলাদেশ রেলওয়ের ওয়েবসাইটের একটি সহজ মাধ্যম। এটি কোনো অফিশিয়াল সরকারি অ্যাপ নয়।
+              এটি বাংলাদেশ রেলওয়েরই টিকেটিং পোর্টাল। তাই এটি সম্পূর্ণ নিরাপদ।
             </Text>
           </View>
         </View>
@@ -220,9 +219,6 @@ const getStyles = (theme, insets) => {
       letterSpacing: 0.5,
     },
     miniDisclaimer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 6,
       marginTop: 16,
       paddingHorizontal: 20,
       opacity: 0.8,
