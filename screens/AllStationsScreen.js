@@ -41,23 +41,24 @@ const AllStationsScreen = () => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
     const { heroTheme } = useAppTheme();
-    const { favorites, toggleFavorite, isFavorite } = useFavorites();
+    const { trains: trainData } = useTrainData();
     const [searchQuery, setSearchQuery] = useState('');
 
     const openMap = (url) => {
         Linking.openURL(url).catch((err) => console.warn('Cannot open map:', err));
     };
 
-    // Extract all unique stations from trainDetails.json
+    // Extract all unique stations from context data
     const allStations = useMemo(() => {
         const stationsSet = new Set();
-        Object.values(trainDetailsData).forEach(train => {
+        Object.entries(trainData).forEach(([key, train]) => {
+            if (key === '_metadata') return;
             train.routes.forEach(stop => {
                 stationsSet.add(stop.station.trim().normalize());
             });
         });
         return Array.from(stationsSet).sort((a, b) => a.localeCompare(b, 'bn'));
-    }, []);
+    }, [trainData]);
 
     // Filter stations based on search query
     const filteredStations = useMemo(() => {

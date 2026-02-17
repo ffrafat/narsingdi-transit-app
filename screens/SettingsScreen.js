@@ -13,6 +13,26 @@ import { useNavigation } from '@react-navigation/native';
 
 const stationList = ['ঢাকা', 'তেজগাঁও', 'বিমানবন্দর', 'নরসিংদী', 'মেথিকান্দা', 'দৌলতকান্দি', 'ভৈরব'];
 
+const engToBengaliDigit = (input) => {
+  if (input === undefined || input === null) return '';
+  const digitMap = {
+    '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪',
+    '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯',
+  };
+  return input.toString().split('').map(char => digitMap[char] || char).join('');
+};
+
+const formatBengaliDate = (timestamp) => {
+  if (!timestamp) return 'কখনো নয়';
+  const date = new Date(timestamp);
+  const dd = String(date.getDate()).padStart(2, '0');
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const yy = String(date.getFullYear()).slice(-2);
+
+  const formatted = `${dd}/${mm}/${yy}`;
+  return engToBengaliDigit(formatted);
+};
+
 const formatRelativeTime = (timestamp) => {
   if (!timestamp) return 'কখনো নয়';
   const diff = Date.now() - timestamp;
@@ -88,8 +108,11 @@ const SettingsScreen = () => {
         {/* Update Card */}
         <Surface style={styles.surface} elevation={1}>
           <View style={styles.headerRow}>
-            <View style={[styles.iconBox, { backgroundColor: 'rgba(65, 171, 93, 0.08)' }]}>
-              <Icon name="cloud-sync-outline" size={22} color={theme.colors.primary} />
+            <View style={styles.iconBoxWrapper}>
+              <View style={[styles.iconBox, { backgroundColor: 'rgba(65, 171, 93, 0.08)' }]}>
+                <Icon name="cloud-sync-outline" size={22} color={theme.colors.primary} />
+              </View>
+              {updateAvailable && <View style={styles.redDot} />}
             </View>
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
               <Text style={styles.headerText}>তথ্য আপডেট</Text>
@@ -110,17 +133,13 @@ const SettingsScreen = () => {
           <View style={styles.metadataRow}>
             <View style={styles.metadataItem}>
               <Text style={styles.metadataLabel}>সর্বশেষ আপডেট</Text>
-              <Text style={styles.metadataValue}>{formatRelativeTime(lastUpdated)}</Text>
+              <Text style={styles.metadataValue}>{formatBengaliDate(lastUpdated)}</Text>
             </View>
             <View style={styles.metadataDivider} />
             <View style={styles.metadataItem}>
               <Text style={styles.metadataLabel}>ডেটাবেজ ভার্সন</Text>
               <Text style={styles.metadataValue}>{version}</Text>
             </View>
-          </View>
-
-          <View style={styles.lastCheckedRow}>
-            <Text style={styles.lastCheckedText}>সর্বশেষ চেক: {formatRelativeTime(lastChecked)}</Text>
           </View>
 
           <Button
@@ -310,7 +329,22 @@ const getStyles = (theme, insets) => StyleSheet.create({
     backgroundColor: 'rgba(65, 171, 93, 0.08)',
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight: 0,
+  },
+  iconBoxWrapper: {
     marginRight: 12,
+    position: 'relative',
+  },
+  redDot: {
+    position: 'absolute',
+    top: -2,
+    right: -2,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#E91E63',
+    borderWidth: 1.5,
+    borderColor: theme.colors.surface,
   },
   headerText: {
     fontSize: 17,
@@ -384,17 +418,6 @@ const getStyles = (theme, insets) => StyleSheet.create({
     fontSize: 12,
     fontFamily: 'AnekBangla_700Bold',
     color: theme.colors.onSurface,
-  },
-  lastCheckedRow: {
-    marginBottom: 16,
-    paddingHorizontal: 4,
-    opacity: 0.6,
-  },
-  lastCheckedText: {
-    fontSize: 10,
-    fontFamily: 'AnekBangla_500Medium',
-    color: theme.colors.onSurfaceVariant,
-    textAlign: 'center',
   },
   themeToggleRow: {
     flexDirection: 'row',

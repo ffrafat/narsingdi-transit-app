@@ -15,7 +15,7 @@ export const DataProvider = ({ children }) => {
     const [lastUpdated, setLastUpdated] = useState(null);
 
     // BASE_URL for GitHub updates
-    const BASE_URL = 'https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/dev/assets';
+    const BASE_URL = 'https://raw.githubusercontent.com/ffrafat/narsingdi-transit-app/refs/heads/dev/assets';
 
     // Load data and auto-check on startup
     useEffect(() => {
@@ -106,7 +106,7 @@ export const DataProvider = ({ children }) => {
 
             if (newVersion > version) {
                 Alert.alert(
-                    'নতুন আপডেট উপলব্ধ',
+                    'নতুন আপডেট পাওয়া গেছে',
                     `নতুন সময়সূচি (v${newVersion}) পাওয়া গেছে। আপনি কি আপডেট করতে চান?`,
                     [
                         { text: 'না', style: 'cancel' },

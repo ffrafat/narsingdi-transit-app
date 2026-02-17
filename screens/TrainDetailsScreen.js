@@ -13,15 +13,16 @@ const TrainDetailsScreen = ({ route, navigation }) => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const { heroTheme } = useAppTheme();
+  const { trains } = useTrainData();
   const styles = getStyles(theme, insets);
 
   useEffect(() => {
-    if (trainNo && trainDetailsData[trainNo]) {
-      setDetails(trainDetailsData[trainNo]);
+    if (trainNo && trains[trainNo]) {
+      setDetails(trains[trainNo]);
     } else {
       setDetails(null);
     }
-  }, [trainNo]);
+  }, [trainNo, trains]);
 
   const BENGALI_DIGITS = {
     '0': '০',

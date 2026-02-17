@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   ImageBackground,
+  Alert,
 } from 'react-native';
 import {
   Button,
@@ -90,11 +91,31 @@ const TimetableScreen = () => {
   useUpdatePrompt();
   const navigation = useNavigation();
   const { favorites } = useFavorites();
-  const { trains: trainData, updateAvailable, checkForUpdates: runUpdate } = useTrainData(); // Get data from context
+  const { trains: trainData, updateAvailable, version, checkForUpdates } = useTrainData(); // Get data from context
 
   const [from, setFrom] = useState(defaultFrom || 'ঢাকা');
   const [to, setTo] = useState(defaultTo || 'চট্টগ্রাম');
   const [trains, setTrains] = useState([]);
+  const [hasShownUpdatePopup, setHasShownUpdatePopup] = useState(false);
+
+  // Show update popup on home once per session
+  useEffect(() => {
+    if (updateAvailable && !hasShownUpdatePopup) {
+      Alert.alert(
+        'নতুন আপডেট উপলব্ধ',
+        `ট্রেনের নতুন সময়সূচি (v${version}) পাওয়া গেছে। আপনি কি এখনই আপডেট করবেন?`,
+        [
+          { text: 'পরে', style: 'cancel' },
+          {
+            text: 'আপডেট করুন',
+            style: 'default',
+            onPress: () => navigation.navigate('Settings')
+          },
+        ]
+      );
+      setHasShownUpdatePopup(true);
+    }
+  }, [updateAvailable, hasShownUpdatePopup, version, navigation]);
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [passedTrains, setPassedTrains] = useState([]);
