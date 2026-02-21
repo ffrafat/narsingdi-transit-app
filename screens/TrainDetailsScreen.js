@@ -18,7 +18,12 @@ const TrainDetailsScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     if (trainNo && trains[trainNo]) {
-      setDetails(trains[trainNo]);
+      const trainDetails = trains[trainNo];
+      if (trainDetails.disabled === true) {
+        setDetails(null);
+      } else {
+        setDetails(trainDetails);
+      }
     } else {
       setDetails(null);
     }

@@ -221,6 +221,9 @@ const TimetableScreen = () => {
     const allBnDays = ['শনি', 'রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহস্পতি', 'শুক্র'];
 
     const filtered = Object.entries(trainData).filter(([key]) => key !== '_metadata').reduce((acc, [trainNo, details]) => {
+      // Skip disabled trains
+      if (details.disabled === true) return acc;
+
       const routes = details.routes;
       const fromIndex = routes.findIndex(r => r.station.trim().normalize() === from);
       const toIndex = routes.findIndex(r => r.station.trim().normalize() === to);
