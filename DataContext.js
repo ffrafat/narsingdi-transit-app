@@ -40,7 +40,7 @@ export const DataProvider = ({ children }) => {
         }));
     });
 
-    const BASE_URL = 'https://raw.githubusercontent.com/ffrafat/rail-transit-app/refs/heads/dev/assets';
+    const BASE_URL = 'https://raw.githubusercontent.com/ffrafat/rail-transit-app/refs/heads/main/assets';
 
     useEffect(() => {
         const init = async () => {
