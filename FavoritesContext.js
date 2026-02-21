@@ -1,14 +1,16 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAlert } from './AlertContext';
 
 const FavoritesContext = createContext();
 
-const DEFAULT_FAVORITES = ['ঢাকা', 'বিমানবন্দর', 'নরসিংদী', 'ভৈরব', 'সিলেট', 'চট্টগ্রাম'];
+const DEFAULT_FAVORITES = ['ঢাকা', 'বিমানবন্দর', 'নরসিংদী', 'মেথিকান্দা', 'ভৈরব', 'সিলেট', 'চট্টগ্রাম'];
 const STORAGE_KEY = '@favorite_stations';
 
 export const FavoritesProvider = ({ children }) => {
     const [favorites, setFavorites] = useState(DEFAULT_FAVORITES);
     const [isLoading, setIsLoading] = useState(true);
+    const { showAlert } = useAlert();
 
     // Load favorites from AsyncStorage on mount
     useEffect(() => {
@@ -44,7 +46,12 @@ export const FavoritesProvider = ({ children }) => {
         if (favorites.includes(station)) {
             // Prevent removing if it would leave less than 2 favorites
             if (favorites.length <= 2) {
-                console.warn('Cannot remove favorite: At least 2 stations must remain in favorites');
+                showAlert(
+                    'অ্যাকশন সম্ভব নয়',
+                    'কমপক্ষে ২ টি স্টেশন ফেভারিট লিস্টে থাকতে হবে।',
+                    [],
+                    'alert-circle-outline'
+                );
                 return;
             }
             const newFavorites = favorites.filter(s => s !== station);

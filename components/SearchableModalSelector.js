@@ -1,62 +1,113 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Text, useTheme, Menu } from 'react-native-paper';
+import { View, StyleSheet, TouchableOpacity, Modal, Dimensions, ScrollView } from 'react-native';
+import { Text, useTheme, Surface, Divider } from 'react-native-paper';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const SearchableModalSelector = ({ options, selected, onChange, label, onNavigateToAllStations }) => {
     const [visible, setVisible] = useState(false);
     const theme = useTheme();
+    const insets = useSafeAreaInsets();
+
+    const handleSelect = (item) => {
+        onChange(item);
+        setVisible(false);
+    };
 
     return (
         <View style={styles.container}>
-            <Menu
-                visible={visible}
-                onDismiss={() => setVisible(false)}
-                anchor={
-                    <TouchableOpacity
-                        style={[
-                            styles.trigger,
-                            { backgroundColor: theme.colors.surfaceVariant }
-                        ]}
-                        onPress={() => setVisible(!visible)}
-                        activeOpacity={0.7}
-                    >
-                        <Text style={[styles.triggerText, { color: theme.colors.onSurface }]} numberOfLines={1}>
-                            {selected}
-                        </Text>
-                        <Icon name="chevron-down" size={20} color={theme.colors.onSurface} />
-                    </TouchableOpacity>
-                }
-                contentStyle={styles.menuContent}
+            <TouchableOpacity
+                style={[
+                    styles.trigger,
+                    { backgroundColor: theme.colors.surfaceVariant }
+                ]}
+                onPress={() => setVisible(true)}
+                activeOpacity={0.7}
             >
-                {options.map((item) => (
-                    <Menu.Item
-                        key={item}
-                        onPress={() => {
-                            onChange(item);
-                            setVisible(false);
-                        }}
-                        title={item}
-                        titleStyle={[
-                            styles.menuItemTitle,
-                            item === selected && { color: theme.colors.primary, fontFamily: 'AnekBangla_700Bold' }
-                        ]}
-                        trailingIcon={item === selected ? "check" : undefined}
-                    />
-                ))}
+                <Text style={[styles.triggerText, { color: theme.colors.onSurface }]} numberOfLines={1}>
+                    {selected}
+                </Text>
+                <Icon name="chevron-down" size={20} color={theme.colors.onSurface} />
+            </TouchableOpacity>
 
-                {onNavigateToAllStations && (
-                    <Menu.Item
-                        onPress={() => {
-                            setVisible(false);
-                            onNavigateToAllStations();
-                        }}
-                        title="অন্য স্টেশন"
-                        titleStyle={[styles.menuItemTitle, { color: theme.colors.primary, fontFamily: 'AnekBangla_600SemiBold' }]}
-                        leadingIcon="map-marker-plus"
-                    />
-                )}
-            </Menu>
+            <Modal
+                visible={visible}
+                animationType="fade"
+                transparent={true}
+                onRequestClose={() => setVisible(false)}
+            >
+                <TouchableOpacity
+                    style={styles.modalOverlay}
+                    activeOpacity={1}
+                    onPress={() => setVisible(false)}
+                >
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={(e) => e.stopPropagation()}
+                        style={styles.modalContentWrapper}
+                    >
+                        <Surface style={[
+                            styles.modalContent,
+                            {
+                                backgroundColor: theme.dark ? theme.colors.elevation.level3 : theme.colors.surface,
+                            }
+                        ]} elevation={4}>
+                            <View style={styles.modalHeader}>
+                                <Text style={[styles.modalTitle, { color: theme.colors.primary }]}>{label}</Text>
+                            </View>
+                            <Divider style={styles.divider} />
+
+                            <ScrollView
+                                showsVerticalScrollIndicator={true}
+                                persistentScrollbar={true}
+                                style={styles.scrollView}
+                            >
+                                {options.map((item) => (
+                                    <TouchableOpacity
+                                        key={item}
+                                        style={[
+                                            styles.item,
+                                            item === selected && { backgroundColor: theme.colors.primaryContainer + '40' }
+                                        ]}
+                                        onPress={() => handleSelect(item)}
+                                    >
+                                        <Text style={[
+                                            styles.itemText,
+                                            { color: theme.colors.onSurface },
+                                            item === selected && { color: theme.colors.primary, fontFamily: 'AnekBangla_700Bold' }
+                                        ]}>
+                                            {item}
+                                        </Text>
+                                        {item === selected && (
+                                            <Icon name="check" size={18} color={theme.colors.primary} />
+                                        )}
+                                    </TouchableOpacity>
+                                ))}
+                            </ScrollView>
+
+                            {onNavigateToAllStations && (
+                                <View style={styles.stickyFooter}>
+                                    <Divider style={styles.divider} />
+                                    <TouchableOpacity
+                                        style={styles.item}
+                                        onPress={() => {
+                                            setVisible(false);
+                                            onNavigateToAllStations();
+                                        }}
+                                    >
+                                        <Icon name="map-marker-plus" size={18} color={theme.colors.primary} style={{ marginRight: 10 }} />
+                                        <Text style={[styles.itemText, { color: theme.colors.primary, fontFamily: 'AnekBangla_600SemiBold' }]}>
+                                            অন্য স্টেশন
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )}
+                        </Surface>
+                    </TouchableOpacity>
+                </TouchableOpacity>
+            </Modal>
         </View>
     );
 };
@@ -78,14 +129,53 @@ const styles = StyleSheet.create({
         fontFamily: 'AnekBangla_700Bold',
         fontSize: 16,
     },
-    menuContent: {
-        backgroundColor: '#FFFFFF',
-        borderRadius: 12,
-        maxHeight: 400,
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 40,
     },
-    menuItemTitle: {
-        fontFamily: 'AnekBangla_500Medium',
+    modalContentWrapper: {
+        width: '100%',
+        maxWidth: 280,
+    },
+    modalContent: {
+        width: '100%',
+        maxHeight: SCREEN_HEIGHT * 0.5,
+        borderRadius: 16,
+        overflow: 'hidden',
+    },
+    modalHeader: {
+        paddingVertical: 14,
+        paddingHorizontal: 20,
+        alignItems: 'center',
+    },
+    modalTitle: {
         fontSize: 16,
+        fontFamily: 'AnekBangla_800ExtraBold',
+    },
+    scrollView: {
+        flexGrow: 0,
+    },
+    stickyFooter: {
+        backgroundColor: 'transparent',
+    },
+    item: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+    },
+    itemText: {
+        fontSize: 15,
+        fontFamily: 'AnekBangla_500Medium',
+        flex: 1,
+    },
+    divider: {
+        height: 1,
+        backgroundColor: 'rgba(0,0,0,0.05)',
     },
 });
 

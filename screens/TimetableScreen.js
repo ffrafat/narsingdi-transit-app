@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   ScrollView,
   ImageBackground,
-  Alert,
   Linking,
 } from 'react-native';
 import {
@@ -15,6 +14,7 @@ import {
   Surface,
   useTheme,
 } from 'react-native-paper';
+import { useAlert } from '../AlertContext';
 import { useNavigation } from '@react-navigation/native';
 import TrainCard from '../components/TrainCard';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
@@ -85,47 +85,72 @@ const getBengaliDate = (date) => {
 };
 
 const TimetableScreen = () => {
-  const { themeMode, heroTheme, defaultFrom, defaultTo } = useAppTheme();
+  const {
+    themeMode,
+    heroTheme,
+    defaultFrom,
+    defaultTo,
+    setDefaultFrom,
+    setDefaultTo
+  } = useAppTheme();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const styles = getStyles(theme, insets);
   useUpdatePrompt();
   const navigation = useNavigation();
   const { favorites } = useFavorites();
-  const { trains: trainData, updateAvailable, version, checkForUpdates, performDirectUpdate, notices, dismissNotice } = useTrainData(); // Get data from context
+  const { trains: trainData, updateAvailable, version, checkForUpdates, performDirectUpdate, notices, dismissNotice } = useTrainData();
+  const { showAlert } = useAlert();
 
   const [from, setFrom] = useState(defaultFrom || 'ঢাকা');
   const [to, setTo] = useState(defaultTo || 'চট্টগ্রাম');
   const [trains, setTrains] = useState([]);
   const [hasShownUpdatePopup, setHasShownUpdatePopup] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [passedTrains, setPassedTrains] = useState([]);
+
+  // Sync with global defaults when they load from storage
+  useEffect(() => {
+    if (defaultFrom && defaultTo) {
+      setFrom(defaultFrom);
+      setTo(defaultTo);
+    }
+  }, [defaultFrom, defaultTo]);
 
   const NoticeCard = ({ noticeItem }) => {
     if (!noticeItem) return null;
+    const bgColor = theme.colors.primaryContainer + '25'; // Light primary background
+    const accentColor = theme.colors.primary;
+
     return (
-      <Surface style={[styles.noticeCard, { backgroundColor: noticeItem.bg || '#FFF9C4' }]} elevation={2}>
-        <View style={styles.noticeIconBox}>
-          <Icon name="information-variant" size={22} color={noticeItem.color || '#333333'} />
+      <Surface style={[styles.noticeCard, { backgroundColor: bgColor, borderColor: theme.colors.primaryContainer, borderWidth: 1 }]} elevation={0}>
+        <View style={[styles.noticeIconBox, { backgroundColor: theme.colors.primaryContainer + '40' }]}>
+          <Icon name="information-variant" size={22} color={accentColor} />
         </View>
         <View style={styles.noticeContent}>
-          <RNText style={[styles.noticeText, { color: noticeItem.color || '#333333' }]}>{noticeItem.text}</RNText>
-          {noticeItem.url && noticeItem.btnText && (
+          {noticeItem.title ? (
+            <RNText style={[styles.noticeTitle, { color: accentColor }]}>{noticeItem.title}</RNText>
+          ) : null}
+          <RNText style={[styles.noticeText, { color: theme.colors.onSurfaceVariant }]}>{noticeItem.message}</RNText>
+          {noticeItem.link && noticeItem.action && (
             <TouchableOpacity
-              style={[styles.noticeActionBtn, { borderColor: noticeItem.color || '#333333' }]}
-              onPress={() => Linking.openURL(noticeItem.url)}
+              style={[styles.noticeActionBtn, { borderColor: accentColor }]}
+              onPress={() => Linking.openURL(noticeItem.link)}
             >
-              <RNText style={[styles.noticeActionText, { color: noticeItem.color || '#333333' }]}>
-                {noticeItem.btnText}
+              <RNText style={[styles.noticeActionText, { color: accentColor }]}>
+                {noticeItem.action}
               </RNText>
-              <Icon name="chevron-right" size={14} color={noticeItem.color || '#333333'} />
+              <Icon name="chevron-right" size={14} color={accentColor} />
             </TouchableOpacity>
           )}
         </View>
         <TouchableOpacity
           onPress={() => dismissNotice(noticeItem.id)}
-          style={styles.noticeDismissBtn}
+          style={[styles.noticeDismissBtn, { backgroundColor: theme.colors.primaryContainer + '30' }]}
           activeOpacity={0.7}
         >
-          <Icon name="close" size={18} color={noticeItem.color || '#333333'} />
+          <Icon name="close" size={18} color={accentColor} />
         </TouchableOpacity>
       </Surface>
     );
@@ -133,7 +158,7 @@ const TimetableScreen = () => {
 
   useEffect(() => {
     if (updateAvailable && !hasShownUpdatePopup) {
-      Alert.alert(
+      showAlert(
         'নতুন আপডেট পাওয়া গেছে',
         `নতুন সময়সূচি (v${updateAvailable}) পাওয়া গেছে। আপনি কি এখনই আপডেট করতে চান?`,
         [
@@ -141,91 +166,53 @@ const TimetableScreen = () => {
           {
             text: 'আপডেট করুন',
             onPress: async () => {
-              const success = await performDirectUpdate();
-              if (success) {
-                Alert.alert('সফল', 'সময়সূচি সফলভাবে আপডেট করা হয়েছে!');
-              } else {
-                Alert.alert('ত্রুটি', 'আপডেট সেভ করতে সমস্যা হয়েছে।');
-              }
+              await performDirectUpdate();
             }
           },
-        ]
+        ],
+        'cloud-download-outline'
       );
       setHasShownUpdatePopup(true);
     }
   }, [updateAvailable, hasShownUpdatePopup]);
-  const [date, setDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [passedTrains, setPassedTrains] = useState([]);
 
   // Use favorites for dropdown, sorted alphabetically
   const LOCATIONS = favorites.length > 0
     ? [...favorites].sort((a, b) => a.localeCompare(b, 'bn'))
-    : ['ঢাকা', 'বিমানবন্দর', 'নরসিংদী', 'ভৈরব', 'সিলেট', 'চট্টগ্রাম']; // Fallback to defaults
+    : ['ঢাকা', 'বিমানবন্দর', 'নরসিংদী', 'মেথিকান্দা', 'ভৈরব', 'সিলেট', 'চট্টগ্রাম'];
 
-  // Handlers with validation to prevent same station selection
+  // Handlers with validation and global persistence
   const handleFromChange = (newFrom) => {
     if (newFrom === to) {
-      // If selecting same as destination, swap them
       setTo(from);
+      setDefaultTo(from);
     }
     setFrom(newFrom);
+    setDefaultFrom(newFrom);
   };
 
   const handleToChange = (newTo) => {
     if (newTo === from) {
-      // If selecting same as departure, swap them
       setFrom(to);
+      setDefaultFrom(to);
     }
     setTo(newTo);
+    setDefaultTo(newTo);
   };
 
-  // Load persisted selections on mount
-  useEffect(() => {
-    const loadSelections = async () => {
-      try {
-        const savedFrom = await AsyncStorage.getItem('timetable_from');
-        const savedTo = await AsyncStorage.getItem('timetable_to');
-
-        if (savedFrom && LOCATIONS.includes(savedFrom)) {
-          setFrom(savedFrom);
-        } else if (LOCATIONS.length > 0) {
-          setFrom(LOCATIONS[0]);
-        }
-
-        if (savedTo && LOCATIONS.includes(savedTo) && savedTo !== savedFrom) {
-          setTo(savedTo);
-        } else if (LOCATIONS.includes('চট্টগ্রাম')) {
-          setTo('চট্টগ্রাম');
-        } else if (LOCATIONS.length > 1) {
-          setTo(LOCATIONS[1]);
-        }
-      } catch (error) {
-        console.error('Error loading timetable selections:', error);
-      }
-    };
-
-    if (LOCATIONS.length > 0) {
-      loadSelections();
-    }
-  }, []);
-
-  // Persist selections whenever they change
-  useEffect(() => {
-    if (from) {
-      AsyncStorage.setItem('timetable_from', from);
-    }
-  }, [from]);
-
-  useEffect(() => {
-    if (to) {
-      AsyncStorage.setItem('timetable_to', to);
-    }
-  }, [to]);
+  const handleSwap = () => {
+    const tempFrom = from;
+    const tempTo = to;
+    setFrom(tempTo);
+    setTo(tempFrom);
+    setDefaultFrom(tempTo);
+    setDefaultTo(tempFrom);
+  };
 
   // Main data processing logic
   const processTrains = useCallback(() => {
-    const engToday = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const engToday = days[date.getDay()];
     const todayBn = bengaliDays[engToday]; // Get full Bengali day name to match JSON
     const now = new Date();
     const isToday = date.toDateString() === now.toDateString();
@@ -401,11 +388,7 @@ const TimetableScreen = () => {
               <TouchableOpacity
                 style={styles.swapBtn}
                 activeOpacity={0.8}
-                onPress={() => {
-                  const temp = from;
-                  setFrom(to);
-                  setTo(temp);
-                }}
+                onPress={handleSwap}
               >
                 <Icon name="swap-horizontal" size={22} color="#FFFFFF" />
               </TouchableOpacity>
@@ -456,7 +439,7 @@ const TimetableScreen = () => {
             if (item.type === 'updateBanner') return (
               <TouchableOpacity
                 style={styles.updateBanner}
-                onPress={() => runUpdate(true)}
+                onPress={() => performDirectUpdate()}
               >
                 <LinearGradient
                   colors={['#FF9800', '#F57C00']}
@@ -653,6 +636,31 @@ const getStyles = (theme, insets) => StyleSheet.create({
     paddingTop: 4, // Further reduced to move cards significantly higher up
     paddingBottom: 30,
   },
+  updateBanner: {
+    marginHorizontal: 12,
+    marginTop: 8,
+    marginBottom: 8,
+    borderRadius: 16,
+    overflow: 'hidden',
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+  },
+  updateBannerGradient: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    gap: 10,
+  },
+  updateBannerText: {
+    flex: 1,
+    fontSize: 14,
+    fontFamily: 'AnekBangla_700Bold',
+    color: 'white',
+  },
   nextTrainBanner: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -804,6 +812,11 @@ const getStyles = (theme, insets) => StyleSheet.create({
   noticeContent: {
     flex: 1,
     gap: 4,
+  },
+  noticeTitle: {
+    fontSize: 15,
+    fontFamily: 'AnekBangla_800ExtraBold',
+    marginBottom: -2,
   },
   noticeText: {
     fontSize: 14,

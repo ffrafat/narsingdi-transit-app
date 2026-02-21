@@ -1,25 +1,29 @@
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
-import React from 'react';
-import { useColorScheme, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Text, View, ActivityIndicator, StatusBar, Image } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { lightTheme, darkTheme } from './theme';
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
+import { lightTheme as customLightTheme, darkTheme as customDarkTheme } from './theme';
 import MainNavigator from './navigation/MainNavigator';
 import { ThemeProvider, useAppTheme } from './ThemeContext';
 import { FavoritesProvider } from './FavoritesContext';
 import { useFonts } from 'expo-font';
 
 import { DataProvider } from './DataContext';
+import { AlertProvider } from './AlertContext';
 
-// Set default font for all Text components globally
-if (Text.defaultProps == null) {
-  Text.defaultProps = {};
-}
-Text.defaultProps.style = { fontFamily: 'AnekBangla_400Regular' };
+// Safe default font setting
+const setGlobalFont = () => {
+  if (Text.defaultProps == null) {
+    Text.defaultProps = {};
+  }
+  Text.defaultProps.style = { fontFamily: 'AnekBangla_400Regular' };
+};
 
 function MainApp() {
   const { isDark } = useAppTheme();
-  const finalTheme = isDark ? darkTheme : lightTheme;
+  const finalTheme = isDark ? customDarkTheme : customLightTheme;
 
   let [fontsLoaded, fontError] = useFonts({
     'AnekBangla_400Regular': require('./assets/fonts/AnekBangla-Regular.ttf'),
@@ -29,25 +33,69 @@ function MainApp() {
     'AnekBangla_800ExtraBold': require('./assets/fonts/AnekBangla-ExtraBold.ttf'),
   });
 
-  // Debug logging
-  React.useEffect(() => {
-    console.log('Fonts loaded:', fontsLoaded);
-    if (fontError) {
-      console.error('Font loading error:', fontError);
+  useEffect(() => {
+    if (fontsLoaded) {
+      setGlobalFont();
     }
-  }, [fontsLoaded, fontError]);
+  }, [fontsLoaded]);
 
   if (!fontsLoaded && !fontError) {
+    const bgColor = isDark ? '#0a1f0f' : '#f7fbf1';
+    const accentColor = isDark ? '#41ab5d' : '#075d37';
+
     return (
-      <View style={{ flex: 1, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}>
-        <Text>লোড হচ্ছে...</Text>
+      <View style={{
+        flex: 1,
+        backgroundColor: bgColor,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 40
+      }}>
+        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={bgColor} />
+        <View style={{ marginBottom: 40, alignItems: 'center' }}>
+          <Image
+            source={require('./assets/icon.png')}
+            style={{
+              width: 160,
+              height: 160,
+              borderRadius: 40,
+              marginBottom: 20
+            }}
+            resizeMode="contain"
+          />
+          <Text style={{
+            fontSize: 26,
+            fontWeight: 'bold',
+            color: accentColor,
+            marginBottom: 10
+          }}>
+            রেল ট্রানজিট
+          </Text>
+          <Text style={{
+            fontSize: 16,
+            color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.6)',
+            textAlign: 'center',
+            letterSpacing: 0.5
+          }}>
+            আপনার যাত্রা আরও সহজ করতে...
+          </Text>
+        </View>
+        <View style={{ marginTop: 20 }}>
+          <ActivityIndicator color={accentColor} size="large" />
+        </View>
       </View>
     );
   }
 
   return (
     <PaperProvider theme={finalTheme}>
-      <MainNavigator />
+      <AlertProvider>
+        <DataProvider>
+          <FavoritesProvider>
+            <MainNavigator />
+          </FavoritesProvider>
+        </DataProvider>
+      </AlertProvider>
     </PaperProvider>
   );
 }
@@ -55,11 +103,7 @@ function MainApp() {
 export default function App() {
   return (
     <ThemeProvider>
-      <DataProvider>
-        <FavoritesProvider>
-          <MainApp />
-        </FavoritesProvider>
-      </DataProvider>
+      <MainApp />
     </ThemeProvider>
   );
 }

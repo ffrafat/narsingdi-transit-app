@@ -53,7 +53,7 @@ const AllStationsScreen = () => {
     const allStations = useMemo(() => {
         const stationsSet = new Set();
         Object.entries(trainData).forEach(([key, train]) => {
-            if (key === '_metadata') return;
+            if (key === '_metadata' || train.disabled === true) return;
             train.routes.forEach(stop => {
                 stationsSet.add(stop.station.trim().normalize());
             });
@@ -97,9 +97,9 @@ const AllStationsScreen = () => {
                         activeOpacity={0.7}
                     >
                         <Icon
-                            name={favorite ? 'heart' : 'heart-outline'}
-                            size={24}
-                            color={favorite ? '#E53935' : theme.colors.outline}
+                            name={favorite ? 'minus-circle-outline' : 'plus-circle-outline'}
+                            size={26}
+                            color={favorite ? '#E53935' : theme.colors.primary}
                         />
                     </TouchableOpacity>
                 </View>
@@ -156,7 +156,7 @@ const AllStationsScreen = () => {
 
             {/* Search Bar */}
             <View style={styles.searchContainer}>
-                <Icon name="magnify" size={20} color={theme.colors.outline} style={styles.searchIcon} />
+                <Icon name="magnify" size={18} color={theme.colors.outline} style={styles.searchIcon} />
                 <TextInput
                     style={styles.searchInput}
                     placeholder="স্টেশন খুঁজুন..."
@@ -166,7 +166,7 @@ const AllStationsScreen = () => {
                 />
                 {searchQuery.length > 0 && (
                     <TouchableOpacity onPress={() => setSearchQuery('')} style={styles.clearButton}>
-                        <Icon name="close-circle" size={20} color={theme.colors.outline} />
+                        <Icon name="close-circle" size={18} color={theme.colors.outline} />
                     </TouchableOpacity>
                 )}
             </View>
@@ -174,10 +174,10 @@ const AllStationsScreen = () => {
             {/* Stations List */}
             <FlatList
                 data={[
-                    ...(favoriteStations.length > 0 ? [{ type: 'header', title: '★ প্রিয় স্টেশন' }] : []),
+                    ...(favoriteStations.length > 0 ? [{ type: 'header', title: 'নির্বাচিত স্টেশনসমূহ' }] : []),
                     ...favoriteStations.map(s => ({ type: 'station', station: s })),
                     ...(favoriteStations.length > 0 && otherStations.length > 0 ? [{ type: 'divider' }] : []),
-                    ...(otherStations.length > 0 ? [{ type: 'header', title: 'সকল স্টেশন' }] : []),
+                    ...(otherStations.length > 0 ? [{ type: 'header', title: 'অন্যান্য সকল স্টেশন' }] : []),
                     ...otherStations.map(s => ({ type: 'station', station: s })),
                 ]}
                 keyExtractor={(item, index) => item.type + (item.station || index)}
@@ -234,19 +234,21 @@ const getStyles = (theme, insets) => StyleSheet.create({
         marginHorizontal: 16,
         marginTop: 16,
         marginBottom: 8,
-        paddingHorizontal: 16,
-        paddingVertical: 8,
+        paddingHorizontal: 12,
         borderRadius: 12,
         elevation: 2,
+        height: 44,
     },
     searchIcon: {
         marginRight: 8,
     },
     searchInput: {
         flex: 1,
-        fontSize: 16,
+        fontSize: 15,
         fontFamily: 'AnekBangla_500Medium',
         color: theme.colors.onSurface,
+        paddingVertical: 0,
+        height: '100%',
     },
     clearButton: {
         padding: 4,
@@ -256,7 +258,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
         paddingBottom: insets.bottom + 16,
     },
     sectionHeader: {
-        paddingVertical: 12,
+        paddingVertical: 6,
         paddingHorizontal: 4,
     },
     sectionTitle: {
@@ -274,12 +276,12 @@ const getStyles = (theme, insets) => StyleSheet.create({
     stationContent: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 16,
+        padding: 10,
     },
     stationIconBox: {
-        width: 36,
-        height: 36,
-        borderRadius: 10,
+        width: 32,
+        height: 32,
+        borderRadius: 8,
         backgroundColor: theme.colors.primaryContainer,
         justifyContent: 'center',
         alignItems: 'center',
@@ -287,26 +289,26 @@ const getStyles = (theme, insets) => StyleSheet.create({
     },
     stationName: {
         flex: 1,
-        fontSize: 16,
+        fontSize: 15,
         fontFamily: 'AnekBangla_600SemiBold',
         color: theme.colors.onSurface,
     },
     locationButton: {
-        width: 32,
-        height: 32,
-        borderRadius: 16,
+        width: 28,
+        height: 28,
+        borderRadius: 14,
         backgroundColor: theme.colors.primary,
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 8,
     },
     favoriteButton: {
-        padding: 8,
+        padding: 6,
     },
     divider: {
         height: 1,
         backgroundColor: theme.colors.outlineVariant,
-        marginVertical: 16,
+        marginVertical: 8,
         opacity: 0.5,
     },
     emptyContainer: {

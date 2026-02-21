@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Alert, Linking } from 'react-native';
+import { Linking } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import VersionCheck from 'react-native-version-check';
+import { useAlert } from '../AlertContext';
 
 const useUpdatePrompt = () => {
   const [skippedThisSession, setSkippedThisSession] = useState(false);
+  const { showAlert } = useAlert();
 
   useEffect(() => {
     const checkAndPromptUpdate = async () => {
@@ -21,7 +23,7 @@ const useUpdatePrompt = () => {
         });
 
         if (updateNeeded?.isNeeded && !skippedThisSession) {
-          Alert.alert(
+          showAlert(
             'নতুন আপডেট এসেছে!',
             'অ্যাপের একটি নতুন আপডেট এসেছে। এই আপডেটে অ্যাপটি ব্যবহারে আরও ভালো এক্সপেরিয়েন্স পাবেন।',
             [
@@ -37,7 +39,7 @@ const useUpdatePrompt = () => {
                 },
               },
             ],
-            { cancelable: false }
+            'rocket-launch-outline'
           );
         }
       } catch (error) {
@@ -46,7 +48,7 @@ const useUpdatePrompt = () => {
     };
 
     checkAndPromptUpdate();
-  }, [skippedThisSession]);
+  }, [skippedThisSession, showAlert]);
 };
 
 export default useUpdatePrompt;

@@ -1,11 +1,10 @@
 [
     {
-        "id": "notice_01",
+        "id": "notice_00",
         "enabled": false,
-        "text": "আপনার যাত্রা শুভ হোক!",
-        "bg": "#FFF9C4",
-        "color": "#333333",
-        "url": "https://railway.gov.bd",
-        "btnText": "বিস্তারিত দেখুন"
+        "title": "আপনার যাত্রা শুভ হোক!",
+        "message": "রেলওয়ের সর্বশেষ আপডেটের জন্য আমাদের সাথেই থাকুন।",
+        "action": "বিস্তারিত দেখুন",
+        "link": "https://railway.gov.bd"
     }
 ]

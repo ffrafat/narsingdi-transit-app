@@ -1,11 +1,25 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Alert } from 'react-native';
+import { useAlert } from './AlertContext';
 import NetInfo from '@react-native-community/netinfo';
 import bundledData from './assets/trainDetails.json';
 import localNotice from './assets/notice.json';
 
 const DataContext = createContext();
+
+// 10 second timeout helper for fetch
+const fetchWithTimeout = async (url, options = {}, timeout = 10000) => {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    try {
+        const response = await fetch(url, { ...options, signal: controller.signal });
+        clearTimeout(id);
+        return response;
+    } catch (e) {
+        clearTimeout(id);
+        throw e;
+    }
+};
 
 export const DataProvider = ({ children }) => {
     const [trainData, setTrainData] = useState(bundledData);
@@ -14,12 +28,20 @@ export const DataProvider = ({ children }) => {
     const [updateAvailable, setUpdateAvailable] = useState(false);
     const [lastChecked, setLastChecked] = useState(null);
     const [lastUpdated, setLastUpdated] = useState(null);
-    const [notices, setNotices] = useState(Array.isArray(localNotice) ? localNotice.filter(n => n.enabled) : (localNotice?.enabled ? [localNotice] : []));
+    const { showAlert } = useAlert();
+    const [notices, setNotices] = useState(() => {
+        const base = Array.isArray(localNotice) ? localNotice.filter(n => n.enabled) : (localNotice?.enabled ? [localNotice] : []);
+        return base.map(n => ({
+            id: n.id,
+            title: n.title || '',
+            message: n.message || n.text || '',
+            action: n.action || n.btnText || '',
+            link: n.link || n.url || ''
+        }));
+    });
 
-    // BASE_URL for GitHub updates
     const BASE_URL = 'https://raw.githubusercontent.com/ffrafat/rail-transit-app/refs/heads/dev/assets';
 
-    // Load data and auto-check on startup
     useEffect(() => {
         const init = async () => {
             await loadData();
@@ -42,7 +64,6 @@ export const DataProvider = ({ children }) => {
                 const bundledVersion = bundledData._metadata?.version || '0';
                 const storedVersion = parsedData._metadata?.version || '0';
 
-                // String comparison for version (YYMM.DD.XXX)
                 if (storedVersion > bundledVersion) {
                     setTrainData(parsedData);
                     setVersion(storedVersion);
@@ -51,23 +72,19 @@ export const DataProvider = ({ children }) => {
                 }
             }
         } catch (error) {
-            console.error('Error loading data:', error);
+            console.error('Error loading local data:', error);
         }
     };
 
     const autoCheckUpdates = async () => {
         try {
-            // Always check for notice on launch
             await fetchNotice();
-
             const lastCheck = await AsyncStorage.getItem('last_update_check');
             const now = Date.now();
             const ONE_DAY = 24 * 60 * 60 * 1000;
 
             if (!lastCheck || now - parseInt(lastCheck) > ONE_DAY) {
-                console.log('Running scheduled update check...');
-                // Fetch tiny version.json
-                const response = await fetch(`${BASE_URL}/version.json`, { headers: { 'Cache-Control': 'no-cache' } });
+                const response = await fetchWithTimeout(`${BASE_URL}/version.json`, { headers: { 'Cache-Control': 'no-cache' } }, 5000);
                 if (response.ok) {
                     const remote = await response.json();
                     if (remote.version > version) {
@@ -78,7 +95,7 @@ export const DataProvider = ({ children }) => {
                 }
             }
         } catch (e) {
-            console.log('Auto-check skipped:', e.message);
+            console.log('Background update check failed:', e.message);
         }
     };
 
@@ -90,31 +107,29 @@ export const DataProvider = ({ children }) => {
             const ONE_DAY = 24 * 60 * 60 * 1000;
 
             const OPENSHEET_URL = 'https://opensheet.elk.sh/1lTyZqxeUvkAEkqZ-W_wciuboS2K5np7Ximr_DdsSCpI/Notice';
-            const response = await fetch(OPENSHEET_URL);
-            if (!response.ok) {
-                setNotices([]);
-                return;
-            }
+            // Use short timeout for notices as they are secondary
+            const response = await fetchWithTimeout(OPENSHEET_URL, {}, 5000);
+            if (!response.ok) return;
+
             const remoteData = await response.json();
-
             const remoteNotices = Array.isArray(remoteData) ? remoteData : [remoteData];
-            const activeNotices = (remoteNotices || []).filter(n => {
-                // OpenSheet/Google Sheets often sends boolean as string "TRUE"/"FALSE"
-                const isEnabled = String(n?.enabled).toUpperCase() === 'TRUE';
-                if (!isEnabled) return false;
 
-                const dismissedAt = dismissedLog[n.id];
-                if (dismissedAt && (NOW - dismissedAt < ONE_DAY)) {
-                    return false;
-                }
+            const activeNotices = remoteNotices.filter(item => {
+                if (!item.id || item.enabled !== 'TRUE') return false;
+                const dismissedAt = dismissedLog[item.id];
+                if (dismissedAt && (NOW - dismissedAt < ONE_DAY)) return false;
                 return true;
-            });
+            }).map(item => ({
+                id: item.id,
+                title: item.title || '',
+                message: item.message || item.text || '',
+                action: item.action || item.btnText || '',
+                link: item.link || item.url || ''
+            }));
 
-            console.log('Fetched & Filtered Notices (Sheets):', activeNotices);
             setNotices(activeNotices);
         } catch (e) {
-            console.log('Notice fetch failed (Sheets)');
-            setNotices([]);
+            console.log('Notice fetch failed or timed out:', e.message);
         }
     };
 
@@ -126,100 +141,84 @@ export const DataProvider = ({ children }) => {
             await AsyncStorage.setItem('dismissed_notices_log', JSON.stringify(dismissedLog));
             setNotices(prev => prev.filter(n => n.id !== id));
         } catch (e) {
-            console.error('Dismiss failed:', e);
-        }
-    };
-
-    const checkVersionOnly = async () => {
-        try {
-            // Fetch tiny version.json instead of full file
-            const response = await fetch(`${BASE_URL}/version.json`, { headers: { 'Cache-Control': 'no-cache' } });
-            if (!response.ok) return false;
-            const remote = await response.json();
-            return remote.version > version;
-        } catch (e) {
-            return false;
+            console.error(e);
         }
     };
 
     const performDirectUpdate = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`${BASE_URL}/trainDetails.json`, { headers: { 'Cache-Control': 'no-cache' } });
-            if (!response.ok) throw new Error('Fetch failed');
-
+            const response = await fetchWithTimeout(`${BASE_URL}/trainDetails.json`, { headers: { 'Cache-Control': 'no-cache' } }, 20000);
+            if (!response.ok) throw new Error('Download failed');
             const newData = await response.json();
             const now = Date.now();
             await AsyncStorage.setItem('train_data_v2', JSON.stringify(newData));
             await AsyncStorage.setItem('last_update_success', now.toString());
-
             setTrainData(newData);
             setVersion(newData._metadata?.version || '0');
             setLastUpdated(now);
             setUpdateAvailable(false);
+            showAlert('সফল', 'সময়সূচি সফলভাবে আপডেট করা হয়েছে।', [], 'check-circle-outline');
             return true;
         } catch (error) {
-            console.error('Direct update failed:', error);
+            console.error('Update download failed:', error);
+            showAlert('আপডেট ব্যর্থ', 'সার্ভার থেকে সঠিক তথ্য নামানো যায়নি।', [], 'alert-circle-outline');
             return false;
         } finally {
             setLoading(false);
         }
     };
 
-    const checkForUpdates = async (isManual = false) => {
+    const checkForUpdates = useCallback(async (isManual = false) => {
+        if (loading) return;
         setLoading(true);
         try {
             const netState = await NetInfo.fetch();
             if (!netState.isConnected) {
-                if (isManual) Alert.alert('ইন্টারনেট সংযোগ নেই', 'অনুগ্রহ করে ইন্টারনেটে সংযুক্ত হয়ে আবার চেষ্টা করুন।');
+                if (isManual) {
+                    showAlert('ইন্টারনেট সংযোগ নেই', 'অনুগ্রহ করে ইন্টারনেটে সংযুক্ত হয়ে আবার চেষ্টা করুন।', [], 'wifi-off');
+                }
                 setLoading(false);
                 return;
             }
 
-            console.log('Checking for full updates...');
-            // Fetch version.json first
-            const vResponse = await fetch(`${BASE_URL}/version.json`, { headers: { 'Cache-Control': 'no-cache' } });
-            if (!vResponse.ok) throw new Error('Version check failed');
+            const vResponse = await fetchWithTimeout(`${BASE_URL}/version.json`, { headers: { 'Cache-Control': 'no-cache' } }, 10000);
+            if (!vResponse.ok) throw new Error('Version check response not OK');
             const remote = await vResponse.json();
 
             if (remote.version > version) {
-                // If manual, show Alert with download option. If auto, setUpdateAvailable(true)
                 if (isManual) {
-                    Alert.alert(
-                        'নতুন আপডেট পাওয়া গেছে',
-                        `নতুন সময়সূচি (v${remote.version}) পাওয়া গেছে। আপনি কি আপডেট করতে চান?`,
-                        [
-                            { text: 'না', style: 'cancel' },
-                            { text: 'হ্যাঁ, আপডেট করুন', onPress: () => performDirectUpdate() }
-                        ]
-                    );
+                    showAlert('নতুন আপডেট পাওয়া গেছে', `নতুন সময়সূচি (v${remote.version}) পাওয়া গেছে। আপনি কি আপডেট করতে চান?`, [
+                        { text: 'না', style: 'cancel' },
+                        { text: 'হ্যাঁ, আপডেট করুন', onPress: () => performDirectUpdate() }
+                    ], 'cloud-download-outline');
                 } else {
-                    setUpdateAvailable(remote.version); // Store version to display in popup
+                    setUpdateAvailable(remote.version);
                 }
             } else if (isManual) {
-                Alert.alert('কোনো আপডেট নেই', 'আপনার অ্যাপে সর্বশেষ সময়সূচি দেওয়া আছে।');
+                showAlert('কোনো আপডেট নেই', 'আপনার অ্যাপে সর্বশেষ সময়সূচি দেওয়া আছে।', [], 'check-circle-outline');
             }
-
             const checkTime = Date.now();
             await AsyncStorage.setItem('last_update_check', checkTime.toString());
             setLastChecked(checkTime);
         } catch (error) {
-            if (isManual) Alert.alert('আপডেট চেক ব্যর্থ', 'সার্ভারের সাথে সংযোগ করা যাচ্ছে না।');
+            console.error('Manual check failed:', error);
+            if (isManual) showAlert('আপডেট চেক ব্যর্থ', 'সার্ভারের সাথে সংযোগ করা যাচ্ছে না। কিছুক্ষণ পর আবার চেষ্টা করুন।', [], 'alert-outline');
         } finally {
             setLoading(false);
         }
-    };
+    }, [version, loading]);
 
     const resetToFactory = async () => {
         try {
             await AsyncStorage.removeItem('train_data_v2');
             await AsyncStorage.removeItem('last_update_success');
-            await AsyncStorage.removeItem('dismissed_notice_id');
+            await AsyncStorage.removeItem('dismissed_notices_log');
             setTrainData(bundledData);
             setVersion(bundledData._metadata?.version || '0');
             setLastUpdated(null);
             setUpdateAvailable(false);
-            Alert.alert('রিসেট সফল', 'অ্যাপটি অরিজিনাল অবস্থায় ফিরে এসেছে।');
+            showAlert('রিসেট সফল', 'অ্যাপটি অরিজিনাল অবস্থায় ফিরে এসেছে।', [], 'restart');
         } catch (e) {
             console.error(e);
         }
@@ -227,17 +226,7 @@ export const DataProvider = ({ children }) => {
 
     return (
         <DataContext.Provider value={{
-            trains: trainData,
-            version,
-            loading,
-            updateAvailable,
-            lastChecked,
-            lastUpdated,
-            notices,
-            dismissNotice,
-            checkForUpdates,
-            performDirectUpdate,
-            resetToFactory
+            trains: trainData, version, loading, updateAvailable, lastChecked, lastUpdated, notices, dismissNotice, checkForUpdates, performDirectUpdate, resetToFactory
         }}>
             {children}
         </DataContext.Provider>
